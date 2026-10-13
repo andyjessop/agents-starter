@@ -1,0 +1,38 @@
+{
+  "name": "@agent-starter/client",
+  "version": "0.1.0",
+  "description": "Agent Starter Redux-first client scaffold",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite",
+    "format": "biome format --write --no-errors-on-unmatched .",
+    "lint": "biome check --error-on-warnings --no-errors-on-unmatched . && node ./scripts/check-no-inline-theme-style.mjs && node ./scripts/check-modular-effects.mjs && node ./scripts/check-module-layout.mjs && node ./scripts/check-navigation-admission.mjs",
+    "preview": "vite preview",
+    "test": "npm run typecheck && npm run test:unit",
+    "test:unit": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@agent-starter/design-system": "*",
+    "@agent-starter/live": "*",
+    "@reduxjs/toolkit": "2.12.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-redux": "9.3.0",
+    "redux": "5.0.1",
+    "typed-redux-router": "*",
+    "zod": "4.6.5"
+  },
+  "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@types/ws": "^8.18.2",
+    "@vitejs/plugin-react": "5.2.0",
+    "typescript": "5.9.3",
+    "vite": "8.2.2",
+    "vitest": "4.1.11",
+    "ws": "8.19.0"
+  }
+}

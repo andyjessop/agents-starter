@@ -1,0 +1,130 @@
+/*
+ * Browse tile surfaces. Defaults derive from design-system tokens; theme packs
+ * tune the --app-tile-* properties.
+ */
+@layer app {
+  .app-shell {
+    --app-tile-min: 8rem;
+    --app-tile-gap: var(--ui-space-3);
+    --app-tile-min-block: 7rem;
+    --app-tile-padding: var(--ui-space-3) var(--ui-space-2) var(--ui-space-2);
+    --app-tile-radius: var(--ui-radius-md);
+    --app-tile-glyph-size: 2.6rem;
+    --app-tile-glyph-colour: var(--ui-accent-solid);
+    --app-tile-name-size: var(--ui-font-size-sm);
+    --app-tile-meta-size: var(--ui-font-size-xs);
+    --app-tile-hover: var(--ui-hover);
+    --app-tile-hover-line: var(--ui-line);
+    --app-tile-dot-size: 0.45rem;
+    --app-tile-dot-ring: var(--ui-canvas);
+  }
+
+  .app-tile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--app-tile-min), 1fr));
+    gap: var(--app-tile-gap);
+    align-content: start;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .app-tile {
+    position: relative;
+    min-inline-size: 0;
+  }
+
+  .app-tile-open {
+    position: relative;
+    display: grid;
+    grid-template-rows: auto auto auto;
+    justify-items: center;
+    align-content: center;
+    gap: var(--ui-space-1);
+    inline-size: 100%;
+    min-block-size: var(--app-tile-min-block);
+    padding: var(--app-tile-padding);
+    border: var(--ui-border-width) solid transparent;
+    border-radius: var(--app-tile-radius);
+    background: transparent;
+    color: var(--ui-text);
+    font: inherit;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .app-shell-main a.app-tile-open {
+    color: var(--ui-text);
+  }
+
+  .app-tile-open:hover:not(:disabled) {
+    border-color: var(--app-tile-hover-line);
+    background: var(--app-tile-hover);
+  }
+
+  .app-tile-open:focus-visible {
+    outline: var(--ui-focus-width) solid var(--ui-focus-colour);
+    outline-offset: var(--ui-focus-offset);
+  }
+
+  .app-tile-open:disabled {
+    cursor: progress;
+    opacity: var(--ui-disabled-opacity);
+  }
+
+  .app-tile-glyph {
+    display: grid;
+    place-items: center;
+    inline-size: var(--app-tile-glyph-size);
+    block-size: var(--app-tile-glyph-size);
+    color: var(--app-tile-glyph-colour);
+  }
+
+  .app-tile-glyph .ui-icon {
+    inline-size: 100%;
+    block-size: 100%;
+  }
+
+  .app-tile-name,
+  .app-tile-meta {
+    max-inline-size: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .app-tile-name {
+    font-size: var(--app-tile-name-size);
+    font-weight: var(--ui-font-weight-strong);
+  }
+
+  .app-tile-meta {
+    color: var(--ui-text-muted);
+    font-size: var(--app-tile-meta-size);
+  }
+
+  .app-tile-dot {
+    position: absolute;
+    inset-block-start: var(--ui-space-2);
+    inset-inline-start: var(--ui-space-2);
+    inline-size: var(--app-tile-dot-size);
+    block-size: var(--app-tile-dot-size);
+    border-radius: var(--ui-radius-pill);
+    background: var(--ui-text-muted);
+    box-shadow: 0 0 0 var(--ui-border-width-strong) var(--app-tile-dot-ring);
+  }
+
+  .app-tile-dot[data-tone="ok"] {
+    background: var(--ui-success-solid);
+  }
+
+  .app-tile-dot[data-tone="warn"] {
+    background: var(--ui-warning-solid);
+  }
+
+  .app-tile-dot[data-tone="off"] {
+    background: var(--ui-danger-solid);
+  }
+
+}

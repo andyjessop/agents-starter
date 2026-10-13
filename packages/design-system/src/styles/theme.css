@@ -1,0 +1,636 @@
+/*
+ * theme.css — CSS-first design contract, version 1
+ *
+ * This file defines a complete default theme, not component implementations.
+ * Scope: Material UI core, Lab and optional MUI X-style extensions.
+ * No Tailwind, preprocessor, runtime styling or mandatory font download.
+ *
+ * CONTRACT
+ *   --ui-*                  inherited public design tokens
+ *   --ui-<component>-*      optional public component overrides (unset here)
+ *   --_ui-*                 reserved private component mechanics
+ *
+ * Import this file before component styles. Component declarations belong to
+ * ui.components; product overrides belong to app. Normal unlayered author
+ * declarations outrank all these layers. Do not use !important for theming.
+ *
+ * CUSTOMISATION
+ *   :root { --ui-accent-light: #6256d3; --ui-accent-dark: #b4a9ff; }
+ *   .billing { --ui-control-radius: 0; }
+ *   .danger { --ui-button-background: var(--ui-danger-solid); }
+ *
+ * SCOPES AND ALIASES
+ *   <section data-ui-theme="dark">          explicit dark scheme
+ *   <section data-ui-theme="light">         explicit light scheme
+ *   <section data-ui-theme="auto">          operating-system scheme
+ *   <section data-ui-density="compact">     local density
+ *   <section data-ui-scope class="brand">   local primitive overrides
+ *
+ * var() aliases resolve where declared, not where eventually consumed.
+ * Recompute derived tokens only at the explicit boundaries below. Put local
+ * palette / spacing-unit overrides on a boundary. Direct semantic overrides
+ * inherit normally until the next boundary, which re-establishes defaults.
+ * At nested boundaries, repeat any semantic exceptions that should persist.
+ *
+ * Component hooks are intentionally UNDECLARED. A component reads, for example:
+ *   background: var(--ui-button-background, var(--ui-accent-solid));
+ *   min-block-size: var(--ui-button-min-size, var(--ui-control-min-size));
+ * Never initialise those hooks to aliases at :root: that freezes fallbacks.
+ * Hooks inherit through descendants, including nested components of that kind;
+ * set a hook to initial to restore the consumer's var() fallback.
+ *
+ * BASELINE
+ * Layers, custom properties, logical properties, colour-scheme, light-dark(),
+ * colour-mix() and OKLCH are deliberate baseline requirements. This is not an
+ * old-browser fallback stylesheet. Capability-specific component enhancements
+ * (anchor positioning, field-sizing, intrinsic-size transitions) need @supports.
+ *
+ * ACCESSIBILITY
+ * Values are configurable, not automatically accessible. Validate text, control
+ * boundaries and focus contrast after branding. Do not use colour alone for
+ * status. Components consume preference tokens and retain native semantics.
+ * Behaviour must not depend on transitionend or on a non-zero animation time.
+ *
+ * PORTALS
+ * Top-layer promotion preserves DOM ancestry and CSS inheritance. A React
+ * portal into document.body does not preserve a local CSS theme. Keep its host
+ * inside the scope, or apply the SAME theme classes/attributes to a scoped host.
+ *
+ * NOT THEME TOKENS
+ * State, ARIA, focus order, keyboard shortcuts, native display/positioning rules,
+ * item indices, measured coordinates, progress values and breakpoint conditions
+ * are behaviour, data or structural contracts. Keep them out of the design API.
+ */
+
+@layer ui.reset, ui.tokens, ui.base, ui.components, ui.utilities, app, themes, ui.preferences;
+
+/* 1. Independent inputs. Override these to change the system's foundations. */
+@layer ui.tokens {
+    :where(:root) {
+        color-scheme: dark;
+
+        --ui-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --ui-font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+        --ui-font-size-xs: 0.75rem;
+        --ui-font-size-sm: 0.8125rem;
+        --ui-font-size-md: 0.875rem;
+        --ui-font-size-lg: 0.9375rem;
+        --ui-font-size-xl: 1rem;
+        --ui-font-size-2xl: 1.25rem;
+        --ui-font-size-3xl: 1.5rem;
+        --ui-font-size-4xl: 1.75rem;
+        --ui-font-weight-regular: 400;
+        --ui-font-weight-medium: 500;
+        --ui-font-weight-strong: 600;
+        --ui-leading-tight: 1.25;
+        --ui-leading-control: 1.4;
+        --ui-leading-body: 1.5;
+        --ui-tracking-tight: -0.02em;
+        --ui-tracking-normal: 0em;
+        --ui-tracking-label: 0em;
+
+        --ui-space-unit: 0.25rem;
+        --ui-density: 1;
+        --ui-radius-unit: 0.25rem;
+        --ui-radius-pill: 999rem;
+        --ui-border-width: 1px;
+        --ui-border-width-strong: 2px;
+        --ui-border-style: solid;
+        --ui-target-min: 2.75rem;
+        --ui-icon-size-sm: 1rem;
+        --ui-icon-size-md: 1.3rem;
+        --ui-icon-size-lg: 1.5rem;
+        --ui-icon-stroke-width: 1.75;
+
+        /* Independently chosen colour pairs; never infer contrast from hue alone. */
+        --ui-canvas-light: #ffffff;
+        --ui-canvas-dark: #0c0c0d;
+        --ui-surface-light: #ffffff;
+        --ui-surface-dark: #151517;
+        --ui-surface-raised-light: #ffffff;
+        --ui-surface-raised-dark: #242427;
+        --ui-surface-sunken-light: #f3f3f5;
+        --ui-surface-sunken-dark: #141416;
+        --ui-text-light: #161618;
+        --ui-text-dark: #fafafa;
+        --ui-text-secondary-light: #4b4b52;
+        --ui-text-secondary-dark: #c5c5cc;
+        --ui-accent-hover-light: #3152c4;
+        --ui-chrome-background: light-dark(#f5f5f5, #111111);
+        --ui-chrome-text: light-dark(#656565, #969696);
+        --ui-chrome-line: light-dark(#e8e8e8, #262626);
+        --ui-chrome-focus: light-dark(#6256d3, #b4a9ff);
+        --ui-status-success-line-light: #d3e8d8;
+        --ui-status-warning-line-light: #ebdfbf;
+        --ui-status-danger-line-light: #efcfd5;
+        --ui-status-info-line-light: #d4d9dc;
+        --ui-status-success-surface-light: #f3f6f1;
+        --ui-status-warning-surface-light: #fbf5ec;
+        --ui-status-danger-surface-light: #faf1f0;
+        --ui-status-info-surface-light: #f3f6f7;
+        --ui-text-muted-light: #65656e;
+        --ui-text-muted-dark: #a2a2ac;
+        --ui-line-light: #d6d6dc;
+        --ui-line-dark: #34343b;
+        --ui-line-strong-light: #9696a0;
+        --ui-line-strong-dark: #686873;
+
+        --ui-accent-light: #3e63dd;
+        --ui-accent-dark: #9cb4ff;
+        --ui-on-accent-light: #ffffff;
+        --ui-on-accent-dark: #241d4d;
+        --ui-success-light: #277750;
+        --ui-success-dark: #86c9a0;
+        --ui-on-success-light: #ffffff;
+        --ui-on-success-dark: #163320;
+        --ui-warning-light: #8b661d;
+        --ui-warning-dark: #d9bd7c;
+        --ui-on-warning-light: #ffffff;
+        --ui-on-warning-dark: #322714;
+        --ui-danger-light: #bd4052;
+        --ui-danger-dark: #e69ba5;
+        --ui-on-danger-light: #ffffff;
+        --ui-on-danger-dark: #431d25;
+        --ui-info-light: #6256d3;
+        --ui-info-dark: #b4a9ff;
+        --ui-on-info-light: #ffffff;
+        --ui-on-info-dark: #241d4d;
+
+        --ui-accent-soft-light: #edf1ff;
+
+        --ui-success-soft-light: #edf6ef;
+
+        --ui-warning-soft-light: #faf5e9;
+
+        --ui-danger-soft-light: #fbeef0;
+
+        --ui-info-soft-light: #f0edff;
+
+        /* Mixing weights are visual choices, not fixed component mechanics. */
+        --ui-tint-weight: 10%;
+        --ui-hover-weight: 5%;
+        --ui-active-weight: 8%;
+        --ui-selected-weight: 13%;
+        --ui-disabled-opacity: 0.5;
+        --ui-backdrop-light: rgb(0 0 0 / 28%);
+        --ui-backdrop-dark: rgb(0 0 0 / 72%);
+        --ui-shadow-ink-light: rgb(0 0 0 / 8%);
+        --ui-shadow-ink-dark: rgb(0 0 0 / 35%);
+
+        --ui-duration-fast: 100ms;
+        --ui-duration-normal: 150ms;
+        --ui-duration-slow: 200ms;
+        --ui-duration-progress: 1200ms;
+        --ui-duration-skeleton: 1600ms;
+        --ui-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+        --ui-ease-enter: cubic-bezier(0, 0, 0.2, 1);
+        --ui-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+        --ui-motion-distance: 0.25rem;
+        --ui-motion-scale: 0.98;
+        --ui-animation-play-state: running;
+
+        --ui-content-measure: 70ch;
+        --ui-container-narrow: 40rem;
+        --ui-container-default: 82rem;
+        --ui-container-wide: 90rem;
+        --ui-layout-gap: 1rem;
+        --ui-layout-gutter: 1.5rem;
+        --ui-grid-item-min: 16rem;
+
+        /* Ordinary stacking contexts only. Native top-layer order is not z-index. */
+        --ui-z-sticky: 10;
+        --ui-z-floating: 20;
+        --ui-z-overlay: 30;
+        --ui-z-notification: 40;
+    }
+
+    /* 2. Explicit scope inputs. Density never scales font size or target minimum. */
+    :where([data-ui-theme='light']) {
+        color-scheme: light;
+    }
+    :where([data-ui-theme='dark']) {
+        color-scheme: dark;
+    }
+    :where([data-ui-theme='auto']) {
+        color-scheme: light dark;
+    }
+    :where([data-ui-density='compact']) {
+        --ui-density: 0.8;
+    }
+    :where([data-ui-density='comfortable']) {
+        --ui-density: 1;
+    }
+    :where([data-ui-density='spacious']) {
+        --ui-density: 1.2;
+    }
+
+    /* 3. Derived roles. Re-evaluate at each scope, then inherit into components. */
+    :where(:root, [data-ui-scope], [data-ui-theme], [data-ui-density]) {
+        --ui-space-1: var(--ui-space-unit);
+        --ui-space-2: calc(var(--ui-space-unit) * 2);
+        --ui-space-3: calc(var(--ui-space-unit) * 3);
+        --ui-space-4: calc(var(--ui-space-unit) * 4);
+        --ui-space-5: calc(var(--ui-space-unit) * 5);
+        --ui-space-6: calc(var(--ui-space-unit) * 6);
+        --ui-space-8: calc(var(--ui-space-unit) * 8);
+        --ui-space-12: calc(var(--ui-space-unit) * 12);
+        --ui-radius-sm: var(--ui-radius-unit);
+        --ui-radius-md: calc(var(--ui-radius-unit) * 2);
+        --ui-radius-lg: calc(var(--ui-radius-unit) * 3);
+
+        --ui-canvas: light-dark(var(--ui-canvas-light), var(--ui-canvas-dark));
+        --ui-surface: light-dark(var(--ui-surface-light), var(--ui-surface-dark));
+        --ui-surface-raised: light-dark(var(--ui-surface-raised-light), var(--ui-surface-raised-dark));
+        --ui-surface-sunken: light-dark(var(--ui-surface-sunken-light), var(--ui-surface-sunken-dark));
+        --ui-text: light-dark(var(--ui-text-light), var(--ui-text-dark));
+        --ui-text-secondary: light-dark(var(--ui-text-secondary-light), var(--ui-text-secondary-dark));
+        --ui-status-success-line: light-dark(
+            var(--ui-status-success-line-light),
+            color-mix(in oklch, var(--ui-success-solid) 30%, var(--ui-line))
+        );
+        --ui-status-warning-line: light-dark(
+            var(--ui-status-warning-line-light),
+            color-mix(in oklch, var(--ui-warning-solid) 30%, var(--ui-line))
+        );
+        --ui-status-danger-line: light-dark(
+            var(--ui-status-danger-line-light),
+            color-mix(in oklch, var(--ui-danger-solid) 30%, var(--ui-line))
+        );
+        --ui-status-info-line: light-dark(
+            var(--ui-status-info-line-light),
+            color-mix(in oklch, var(--ui-info-solid) 30%, var(--ui-line))
+        );
+        --ui-status-success-surface: light-dark(
+            var(--ui-status-success-surface-light),
+            color-mix(in oklch, var(--ui-success-solid) 14%, var(--ui-surface))
+        );
+        --ui-status-warning-surface: light-dark(
+            var(--ui-status-warning-surface-light),
+            color-mix(in oklch, var(--ui-warning-solid) 14%, var(--ui-surface))
+        );
+        --ui-status-danger-surface: light-dark(
+            var(--ui-status-danger-surface-light),
+            color-mix(in oklch, var(--ui-danger-solid) 14%, var(--ui-surface))
+        );
+        --ui-status-info-surface: light-dark(
+            var(--ui-status-info-surface-light),
+            color-mix(in oklch, var(--ui-info-solid) 14%, var(--ui-surface))
+        );
+        --ui-text-muted: light-dark(var(--ui-text-muted-light), var(--ui-text-muted-dark));
+        --ui-line: light-dark(var(--ui-line-light), var(--ui-line-dark));
+        --ui-line-strong: light-dark(var(--ui-line-strong-light), var(--ui-line-strong-dark));
+        --ui-backdrop: light-dark(var(--ui-backdrop-light), var(--ui-backdrop-dark));
+        --ui-shadow-ink: light-dark(var(--ui-shadow-ink-light), var(--ui-shadow-ink-dark));
+
+        --ui-accent-solid: light-dark(var(--ui-accent-light), var(--ui-accent-dark));
+        --ui-accent-on-solid: light-dark(var(--ui-on-accent-light), var(--ui-on-accent-dark));
+        --ui-success-solid: light-dark(var(--ui-success-light), var(--ui-success-dark));
+        --ui-success-on-solid: light-dark(var(--ui-on-success-light), var(--ui-on-success-dark));
+        --ui-warning-solid: light-dark(var(--ui-warning-light), var(--ui-warning-dark));
+        --ui-warning-on-solid: light-dark(var(--ui-on-warning-light), var(--ui-on-warning-dark));
+        --ui-danger-solid: light-dark(var(--ui-danger-light), var(--ui-danger-dark));
+        --ui-danger-on-solid: light-dark(var(--ui-on-danger-light), var(--ui-on-danger-dark));
+        --ui-info-solid: light-dark(var(--ui-info-light), var(--ui-info-dark));
+        --ui-info-on-solid: light-dark(var(--ui-on-info-light), var(--ui-on-info-dark));
+
+        --ui-accent-soft: light-dark(
+            var(--ui-accent-soft-light),
+            color-mix(in oklch, var(--ui-accent-solid) var(--ui-tint-weight), var(--ui-surface))
+        );
+        --ui-success-soft: light-dark(
+            var(--ui-success-soft-light),
+            color-mix(in oklch, var(--ui-success-solid) var(--ui-tint-weight), var(--ui-surface))
+        );
+        --ui-warning-soft: light-dark(
+            var(--ui-warning-soft-light),
+            color-mix(in oklch, var(--ui-warning-solid) var(--ui-tint-weight), var(--ui-surface))
+        );
+        --ui-danger-soft: light-dark(
+            var(--ui-danger-soft-light),
+            color-mix(in oklch, var(--ui-danger-solid) var(--ui-tint-weight), var(--ui-surface))
+        );
+        --ui-info-soft: light-dark(
+            var(--ui-info-soft-light),
+            color-mix(in oklch, var(--ui-info-solid) var(--ui-tint-weight), var(--ui-surface))
+        );
+        --ui-hover: color-mix(in oklch, var(--ui-text) var(--ui-hover-weight), var(--ui-surface));
+        --ui-active: color-mix(in oklch, var(--ui-text) var(--ui-active-weight), var(--ui-surface));
+        --ui-selected: color-mix(in oklch, var(--ui-text) var(--ui-selected-weight), var(--ui-surface));
+        --ui-accent-hover: light-dark(
+            var(--ui-accent-hover-light),
+            color-mix(in oklch, var(--ui-accent-solid), var(--ui-text) var(--ui-hover-weight))
+        );
+        --ui-accent-active: color-mix(in oklch, var(--ui-accent-solid), var(--ui-text) var(--ui-active-weight));
+
+        /* 4. Shared families: coordinate related controls without coupling components. */
+        --ui-body-font: var(--ui-font-sans);
+        --ui-body-size: var(--ui-font-size-md);
+        --ui-body-leading: var(--ui-leading-body);
+        --ui-heading-weight: var(--ui-font-weight-strong);
+        --ui-heading-leading: var(--ui-leading-tight);
+        --ui-heading-tracking: var(--ui-tracking-tight);
+        --ui-label-size: var(--ui-font-size-sm);
+        --ui-label-weight: var(--ui-font-weight-medium);
+        --ui-data-label-size: var(--ui-font-size-xs);
+        --ui-caption-size: var(--ui-font-size-sm);
+
+        --ui-control-min-size: calc(var(--ui-space-unit) * 8 * var(--ui-density));
+        --ui-control-padding-inline: calc(var(--ui-space-unit) * 2.5 * var(--ui-density));
+        --ui-control-padding-block: calc(var(--ui-space-unit) * 1.25 * var(--ui-density));
+        --ui-control-gap: calc(var(--ui-space-unit) * 1.5);
+        --ui-control-radius: calc(var(--ui-radius-unit) * 1.5);
+        --ui-control-font-family: var(--ui-font-sans);
+        --ui-control-font-size: var(--ui-font-size-sm);
+        --ui-control-font-weight: var(--ui-font-weight-medium);
+        --ui-control-line-height: var(--ui-leading-control);
+        --ui-control-border: var(--ui-line-strong);
+        --ui-control-background: var(--ui-surface);
+        --ui-control-text: var(--ui-text);
+        --ui-control-placeholder: var(--ui-text-muted);
+        --ui-control-invalid: var(--ui-danger-solid);
+        --ui-control-selected: var(--ui-accent-solid);
+        --ui-control-shadow: none;
+        --ui-control-hover-border: var(--ui-control-border);
+        --ui-control-hover-background: var(--ui-control-background);
+        --ui-control-focus-border: var(--ui-focus-colour);
+        --ui-control-focus-outline: var(--ui-focus-colour);
+        --ui-control-focus-outline-width: var(--ui-focus-width);
+        --ui-control-focus-outline-offset: 1px;
+        --ui-control-focus-outline-style: solid;
+        --ui-choice-size: 1.125rem;
+
+        --ui-focus-colour: var(--ui-info-solid);
+        --ui-focus-width: var(--ui-border-width-strong);
+        --ui-focus-offset: 2px;
+        --ui-focus-style: solid;
+
+        --ui-item-min-size: var(--ui-control-min-size);
+        --ui-item-padding-inline: var(--ui-control-padding-inline);
+        --ui-item-padding-block: var(--ui-control-padding-block);
+        --ui-item-gap: var(--ui-space-3);
+        --ui-item-radius: var(--ui-control-radius);
+        --ui-item-hover: var(--ui-hover);
+        --ui-item-active: var(--ui-active);
+        --ui-item-selected: var(--ui-selected);
+
+        --ui-panel-padding: calc(var(--ui-space-unit) * 4 * var(--ui-density));
+        --ui-panel-gap: var(--ui-space-4);
+        --ui-panel-radius: var(--ui-radius-md);
+        --ui-panel-background: var(--ui-surface);
+        --ui-panel-border: var(--ui-line);
+        --ui-shadow-sm: none;
+        --ui-shadow-md: 0 4px 6px -2px var(--ui-shadow-ink), 0 12px 28px -6px var(--ui-shadow-ink);
+        --ui-shadow-lg: 0 24px 64px -12px light-dark(rgb(24 28 40 / 20%), rgb(0 0 0 / 55%));
+        --ui-popup-background: var(--ui-surface-raised);
+        --ui-popup-border: var(--ui-line);
+        --ui-popup-radius: var(--ui-radius-md);
+        --ui-popup-padding: var(--ui-space-1);
+        --ui-popup-gap: var(--ui-space-2);
+        --ui-popup-shadow: var(--ui-shadow-md);
+        --ui-popup-max-block-size: min(24rem, 70dvh);
+
+        --ui-navigation-gap: calc(var(--ui-space-unit) * 0.5);
+        --ui-navigation-indicator-size: var(--ui-border-width-strong);
+        --ui-navigation-selected-text: var(--ui-text);
+        --ui-data-cell-padding-inline: calc(var(--ui-space-unit) * 3 * var(--ui-density));
+        --ui-data-cell-padding-block: calc(var(--ui-space-unit) * 2.5 * var(--ui-density));
+        --ui-data-header-background: var(--ui-canvas);
+        --ui-data-row-hover: var(--ui-hover);
+        --ui-data-row-selected: var(--ui-selected);
+        --ui-data-rule: var(--ui-line);
+        --ui-data-numeric-variant: tabular-nums;
+
+        /* 5. Distinct design dimensions. Only add another when it has a consumer. */
+        --ui-avatar-size: 1.5rem;
+        --ui-badge-min-size: 1.25rem;
+        --ui-chip-min-size: 1.375rem;
+        --ui-fab-size: 3.5rem;
+        --ui-switch-track-inline-size: 2.25rem;
+        --ui-switch-track-block-size: 1.25rem;
+        --ui-switch-thumb-size: 0.9rem;
+        --ui-switch-inset: 0.125rem;
+        --ui-slider-track-size: 0.25rem;
+        --ui-slider-thumb-size: 1.125rem;
+        --ui-rating-symbol-size: 1.5rem;
+        --ui-progress-track-size: 0.25rem;
+        --ui-progress-circle-size: 2rem;
+        --ui-progress-stroke-size: 3px;
+        --ui-skeleton-background: var(--ui-surface-sunken);
+        --ui-skeleton-highlight: var(--ui-hover);
+        --ui-app-bar-min-size: 3rem;
+        --ui-bottom-navigation-min-size: 3.5rem;
+        --ui-drawer-inline-size: 14.5rem;
+        --ui-dialog-inline-size: 32rem;
+        --ui-dialog-viewport-gap: var(--ui-space-6);
+        --ui-tooltip-max-inline-size: 30ch;
+        --ui-snackbar-max-inline-size: 28rem;
+        --ui-step-marker-size: 1.75rem;
+        --ui-timeline-marker-size: 0.75rem;
+        --ui-tree-indent: 1.25rem;
+        --ui-calendar-cell-min-size: var(--ui-control-min-size);
+        --ui-textarea-min-block-size: 4.5rem;
+        --ui-textarea-max-block-size: 20rem;
+
+        /* Optional charts: categorical hues are independent, not a status scale. */
+        --ui-chart-1: light-dark(#7565cf, #a69adb);
+        --ui-chart-2: light-dark(#538db5, #85b4d4);
+        --ui-chart-3: light-dark(#478e7d, #83bfa9);
+        --ui-chart-4: light-dark(#a98646, #d4b881);
+        --ui-chart-5: light-dark(#b0628b, #cf98b6);
+        --ui-chart-6: light-dark(#788643, #b3bd88);
+        --ui-chart-grid: var(--ui-line);
+        --ui-chart-axis: var(--ui-text-muted);
+        --ui-chart-fill-weight: 6%;
+        --ui-chart-height: 16rem;
+        --ui-sparkline-height: 2.5rem;
+        --ui-chart-legend-space: calc(var(--ui-caption-size) * var(--ui-leading-body) * 3 + var(--ui-space-6));
+        --ui-chart-end-padding: 48px;
+        --ui-chart-line-width: 2px;
+        --ui-chart-point-size: 4px;
+        --ui-chart-cursor-size: 7px;
+        --ui-chart-axis-label-size: 24px;
+        --ui-chart-axis-size: 40px;
+        --ui-chart-axis-space: 110px;
+        --ui-chart-axis-gap: 10px;
+        --ui-chart-value-axis-min: 56px;
+        --ui-chart-value-axis-space: 48px;
+        --ui-chart-value-axis-padding: 20px;
+    }
+}
+
+/* 6. User preferences. No global reset or component styling is hidden here. */
+@layer ui.preferences {
+    @media (prefers-reduced-motion: reduce) {
+        :where(:root, [data-ui-scope], [data-ui-theme], [data-ui-density]) {
+            --ui-duration-fast: 0ms;
+            --ui-duration-normal: 0ms;
+            --ui-duration-slow: 0ms;
+            --ui-duration-progress: 0ms;
+            --ui-duration-skeleton: 0ms;
+            --ui-motion-distance: 0rem;
+            --ui-motion-scale: 1;
+            --ui-animation-play-state: paused;
+        }
+    }
+
+    @media (prefers-contrast: more) {
+        :where(:root, [data-ui-scope], [data-ui-theme], [data-ui-density]) {
+            --ui-line: var(--ui-text-muted);
+            --ui-line-strong: var(--ui-text);
+            --ui-control-border: var(--ui-text);
+            --ui-panel-border: var(--ui-text-muted);
+            --ui-popup-border: var(--ui-text-muted);
+            --ui-data-rule: var(--ui-text-muted);
+            --ui-focus-width: 3px;
+            --ui-disabled-opacity: 1;
+        }
+    }
+
+    @media (forced-colors: active) {
+        :where(:root, [data-ui-scope], [data-ui-theme], [data-ui-density]) {
+            --ui-canvas: Canvas;
+            --ui-surface: Canvas;
+            --ui-surface-raised: Canvas;
+            --ui-surface-sunken: Canvas;
+            --ui-text: CanvasText;
+            --ui-text-secondary: CanvasText;
+            --ui-chrome-background: Canvas;
+            --ui-chrome-text: CanvasText;
+            --ui-chrome-line: CanvasText;
+            --ui-chrome-focus: Highlight;
+            --ui-status-success-line: CanvasText;
+            --ui-status-warning-line: CanvasText;
+            --ui-status-danger-line: CanvasText;
+            --ui-status-info-line: CanvasText;
+            --ui-status-success-surface: Canvas;
+            --ui-status-warning-surface: Canvas;
+            --ui-status-danger-surface: Canvas;
+            --ui-status-info-surface: Canvas;
+            --ui-text-muted: CanvasText;
+            --ui-line: CanvasText;
+            --ui-line-strong: CanvasText;
+            --ui-accent-solid: Highlight;
+            --ui-accent-on-solid: HighlightText;
+            --ui-success-solid: CanvasText;
+            --ui-warning-solid: CanvasText;
+            --ui-danger-solid: CanvasText;
+            --ui-info-solid: CanvasText;
+            --ui-success-on-solid: Canvas;
+            --ui-warning-on-solid: Canvas;
+            --ui-danger-on-solid: Canvas;
+            --ui-info-on-solid: Canvas;
+            --ui-hover: Canvas;
+            --ui-active: Canvas;
+            --ui-selected: Highlight;
+            --ui-focus-colour: Highlight;
+            --ui-disabled-opacity: 1;
+            --ui-shadow-sm: none;
+            --ui-shadow-md: none;
+            --ui-shadow-lg: none;
+        }
+    }
+}
+
+/*
+ * 7. COMPONENT CONSUMPTION CONTRACT
+ *
+ * These are recipes for separate component stylesheets, not emitted CSS.
+ * Common optional hooks for EVERY styled component:
+ *   --ui-<name>-background / -text / -border / -border-width / -radius
+ *   --ui-<name>-padding-inline / -padding-block / -gap / -shadow
+ *   --ui-<name>-font-family / -font-size / -font-weight / -line-height
+ * Add only hooks the component actually reads. Keep longhands independently
+ * configurable. Do not expose arbitrary selectors or JS configuration via CSS.
+ *
+ * FAMILY FALLBACKS
+ *   button, button-group, fab, toggle-button: control + accent + focus
+ *   text-field, number-field, select, autocomplete: control + popup + item
+ *   checkbox, radio, switch: control + choice-size + focus
+ *   slider, rating: control + their distinct dimensions + focus
+ *   transfer-list: panel + item + control (selection remains application state)
+ *   avatar, badge, chip: control typography + distinct dimensions + tone
+ *   divider: line + border-width
+ *   icon: currentColor + icon-size + icon-stroke-width (selected SVGs only)
+ *   list: item; table/data-grid: data; tooltip: popup + caption
+ *   typography: body/heading/label/caption roles; code uses font-mono
+ *   alert: status surface/line wash + solid/soft icon; body text stays ink/muted
+ *   toast: panel + shadow; status solid/soft icon only (not a tinted wash)
+ *   backdrop: backdrop; dialog: panel + popup shadow + dialog dimensions
+ *   progress: accent + progress dimensions; skeleton: skeleton roles + motion
+ *   snackbar: popup + snackbar width (timeouts are behaviour, not CSS tokens)
+ *   accordion, card, paper: panel; accordion trigger additionally uses control
+ *   app-bar: panel + app-bar size; drawer: panel + drawer width
+ *   bottom-navigation, breadcrumbs, link, pagination: navigation + control
+ *   menu/menubar: popup + item; tabs: navigation + item + focus
+ *   speed-dial: fab + popup gap; stepper: navigation + step marker
+ *   box, container, grid, stack, image-list: layout + container + spacing
+ *   timeline: item + timeline marker; masonry: layout (fallback is ordinary grid)
+ *   tree-view: item + tree-indent; date/time picker: control + popup + calendar
+ *   charts: chart series + grid + axis + typography; shape also encodes series
+ *
+ * STATES
+ * Read :disabled, :checked, :indeterminate, :focus-visible, :user-invalid,
+ * :open / [open], :popover-open, [aria-pressed], [aria-selected], [aria-current],
+ * and the selected primitive's documented state attributes. Use :has() to style
+ * a field wrapper from its input state. It never supplies semantics or state.
+ * Disabled custom widgets still need actual interaction prevention.
+ *
+ * For stateful surfaces expose component -hover-background, -active-background,
+ * -selected-background, -selected-text and -disabled-opacity hooks as applicable.
+ * Filled buttons use accent-hover/active with accent-on-solid. Ordinary list
+ * items use item-hover/active/selected with text; forced-colour selected items
+ * explicitly use HighlightText. Do not infer every variant from one state mix.
+ *
+ * COMPONENT PREFERENCE RULES
+ * - Use outlines/borders, not only shadows, for focus and control boundaries.
+ * - In forced colours allow browser adjustment (do not globally opt out).
+ * - Draw selected/checked/invalid states with shapes/text as well as colour.
+ * - Prefer static indeterminate progress when reduced motion is requested.
+ * - Do not shrink actionable touch targets with visual density. On coarse
+ *   pointers, components can use max(their visual minimum, --ui-target-min).
+ * - Font-size, border and radius preferences remain distinct from density.
+ *
+ * MODERN PLATFORM IMPLEMENTATION POLICY
+ * - Logical properties and flex/grid gap are defaults; RTL must not need a fork.
+ * - Grid/subgrid align layouts; container queries adapt to the host's inline size.
+ *   Declare containment on a layout host, not indiscriminately on every control.
+ * - clamp()/min()/max() express bounded sizes; use rem for text-related sizes.
+ * - Container-query thresholds are literal structural constants: native CSS
+ *   cannot substitute var() into size-query or media-query conditions.
+ * - field-sizing: content is an enhancement; fallback textarea stays resizable.
+ * - anchor positioning is an enhancement with a positioning fallback when needed.
+ * - @starting-style plus discrete display/overlay transitions animate native
+ *   popups without delaying DOM cleanup in JS. Fallback opens/closes immediately.
+ * - interpolate-size: allow-keywords is opt-in per animated region, never global.
+ * - @property is reserved for a concrete typed-animation need. Registering every
+ *   public hook would give it an initial value and defeat var() fallback chains.
+ * - @scope is optional for embedding; it does not stop property inheritance.
+ * - Do not use CSS visual reordering to change a meaningful reading/tab order.
+ * - Do not attach scroll-driven or view-transition effects as global defaults.
+ *
+ * APPLICATION EXAMPLE (put after this file, in a separate stylesheet)
+ *
+ * @layer app {
+ *   :root {
+ *     --ui-accent-light: #6d28d9;
+ *     --ui-accent-dark: #c4b5fd;
+ *     --ui-on-accent-light: white;
+ *     --ui-on-accent-dark: #27134f;
+ *     --ui-radius-unit: 0.125rem;
+ *   }
+ *   .billing[data-ui-scope] {
+ *     --ui-space-unit: 0.3rem;
+ *   }
+ *   Put .ui-destructive-confirm on dialog confirm buttons when needed.
+ * }
+ *
+ * A corresponding component declaration resolves its optional override locally:
+ * @layer ui.components {
+ *   :where(.ui-button) {
+ *     background: var(--ui-button-background, var(--ui-accent-solid));
+ *     color: var(--ui-button-text, var(--ui-accent-on-solid));
+ *     min-block-size: var(--ui-button-min-size, var(--ui-control-min-size));
+ *     border-radius: var(--ui-button-radius, var(--ui-control-radius));
+ *   }
+ * }
+ */

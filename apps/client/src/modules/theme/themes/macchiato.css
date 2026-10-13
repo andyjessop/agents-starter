@@ -1,0 +1,210 @@
+/*
+ * Catppuccin Macchiato — console shell overrides.
+ *
+ * Palette, type and buttons live in @agent-starter/design-system/themes/macchiato.css.
+ * This file tunes the shell, explorer and browse tiles.
+ */
+@import "@fontsource-variable/geist-mono";
+@import "../../../../../../packages/design-system/src/styles/themes/macchiato.css";
+
+@layer themes {
+  :root[data-app-theme="macchiato"] .app-shell {
+    letter-spacing: -0.012em;
+
+    --app-font-editorial: var(--ui-font-sans);
+    --app-font-utility: var(--ui-font-sans);
+    --ui-control-font-family: var(--ui-font-sans);
+    --ui-control-radius: 0.3rem;
+    --ui-item-radius: 0.3rem;
+    --ui-panel-radius: 0.45rem;
+    --ui-card-radius: 0.45rem;
+    --ui-table-frame-radius: 0.45rem;
+
+    --app-masthead-height: auto;
+    --app-masthead-image: none;
+    --app-masthead-wash: transparent;
+    --app-title-size: 1.375rem;
+    --app-stat-size: 1.625rem;
+    --shell-page-heading-block: auto;
+
+    /* Rail */
+    --shell-rail-width: 17rem;
+    --shell-rail-compact-width: 3.25rem;
+    --shell-rail-mobile-width: min(15rem, 86vw);
+    --shell-topbar-height: 2.625rem;
+    --shell-content-max: none;
+    --shell-content-pad-block: 0.7rem 1rem;
+    --shell-content-pad-inline: 0.7rem;
+    --shell-content-pad-inline-narrow: 0.6rem;
+    --shell-brand-mark-size: 2.1rem;
+    --shell-nav-row-height: 1.875rem;
+    --shell-nav-group-gap: 0.4rem;
+    --shell-profile-avatar-size: 1.6rem;
+    --shell-font-brand: var(--ui-font-sans);
+    --shell-font-ui: var(--ui-font-sans);
+    --shell-brand-size: 1rem;
+    --shell-brand-tag-size: 0.75rem;
+    --shell-brand-tag-tracking: 0.035em;
+    --shell-nav-label-size: 0.75rem;
+    --shell-nav-label-tracking: 0.1em;
+    --shell-nav-link-size: 0.8125rem;
+    --shell-nav-link-weight: 500;
+    --shell-topbar-title-size: 0.8125rem;
+
+    --shell-rail-wash: var(--ctp-bg2);
+    --shell-topbar-wash: light-dark(rgb(239 241 245 / 96%), rgb(24 25 38 / 96%));
+    --shell-rail-line: var(--ctp-line-soft);
+    --shell-rail-line-soft: var(--ctp-line-soft);
+    --shell-rail-line-divider: var(--ctp-line);
+    --shell-rail-text: var(--ctp-text);
+    --shell-brand-text: var(--ctp-strong);
+    --shell-rail-muted: var(--ctp-muted);
+    --shell-nav-label-color: var(--ctp-faint);
+    --shell-nav-text: var(--ctp-text);
+    --shell-nav-icon: var(--ctp-muted);
+    --shell-nav-hover-bg: var(--ctp-wash);
+    --shell-nav-hover-line: transparent;
+    --shell-nav-hover-text: var(--ctp-strong);
+    --shell-nav-active-bg: var(--ctp-sel);
+    --shell-nav-active-line: var(--ctp-sel-edge);
+    --shell-nav-active-text: var(--ctp-strong);
+    --shell-nav-active-bar: var(--ctp-accent);
+    --shell-nav-active-icon: var(--ctp-accent);
+    --shell-nav-active-inset: transparent;
+    --shell-workspace-bg: var(--ctp-panel);
+    --shell-workspace-bg-hover: var(--ctp-panel2);
+    --shell-workspace-border: var(--ctp-line);
+    --shell-workspace-border-hover: var(--ctp-sel-line);
+    --shell-workspace-inset: transparent;
+    --shell-workspace-drop: transparent;
+    --shell-profile-hover-bg: var(--ctp-panel3);
+    --shell-profile-name: var(--ctp-text);
+    --shell-profile-detail: var(--ctp-muted);
+    --shell-rail-edge-inset: transparent;
+    --shell-rail-edge-shadow: none;
+    --shell-topbar-shadow: none;
+    --shell-brand-mark-highlight: transparent;
+    --shell-topbar-title-color: var(--ctp-muted);
+    --shell-tip-bg: var(--ctp-panel3);
+    --shell-tip-text: var(--ctp-strong);
+    --shell-radius-nav: 0.375rem;
+    --shell-radius-workspace: 0.375rem;
+    --shell-radius-control: 0.3rem;
+    --shell-paper-noise: none;
+
+    /* Workspace chrome */
+    --shell-explorer-width: 32rem;
+    --shell-status-height: 1.5rem;
+    --shell-status-size: 0.75rem;
+    --shell-status-bg: var(--ctp-bg);
+    --shell-status-text: var(--ctp-muted);
+    --shell-topbar-gap: 0.25rem;
+    --shell-topbar-pad-inline: 0.55rem;
+    --shell-crumb-size: 0.8125rem;
+    --shell-crumb-text: var(--ctp-muted);
+    --shell-crumb-current: var(--ctp-strong);
+    --shell-crumb-separator: "/";
+    --shell-crumb-separator-colour: var(--ctp-faint);
+    --shell-search-width: 13rem;
+    --shell-search-bg: var(--ctp-panel);
+    --shell-search-line: var(--ctp-line);
+    --shell-explorer-bg: var(--ctp-bg2);
+    --shell-explorer-line: var(--ctp-line-soft);
+    --shell-explorer-title-size: 0.75rem;
+    --shell-explorer-title-tracking: 0.1em;
+    --shell-explorer-row-height: 1.75rem;
+    --shell-explorer-row-size: 0.8125rem;
+    --shell-explorer-glyph: var(--ctp-muted);
+    --shell-explorer-selected-bg: var(--ctp-sel);
+    --shell-explorer-selected-text: var(--ctp-strong);
+
+    /* Browse tiles */
+    --app-tile-min: 7.875rem;
+    --app-tile-gap: 0.5625rem;
+    --app-tile-min-block: 6.5rem;
+    --app-tile-padding: 0.625rem 0.5rem 0.5rem;
+    --app-tile-radius: 0.45rem;
+    --app-tile-glyph-size: 2.625rem;
+    --app-tile-glyph-colour: var(--ctp-accent);
+    --app-tile-name-size: 0.8125rem;
+    --app-tile-meta-size: 0.75rem;
+    --app-tile-hover: light-dark(rgb(30 102 245 / 5%), rgb(138 173 244 / 6%));
+    --app-tile-hover-line: var(--ctp-line-soft);
+    --app-tile-dot-size: 0.4375rem;
+    --app-tile-dot-ring: var(--ctp-bg);
+    --app-table-label-size: 0.75rem;
+  }
+
+  /* Rail: prototype sidebar lockup, section titles and side items */
+  :root[data-app-theme="macchiato"] .app-shell-brand {
+    gap: 0.5rem;
+    padding: 0.75rem 0.7rem 0.7rem;
+    letter-spacing: -0.035em;
+  }
+
+  :root[data-app-theme="macchiato"] .app-shell-brand-lockup strong {
+    font-weight: 700;
+  }
+
+  :root[data-app-theme="macchiato"] .app-shell-brand-lockup small {
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  :root[data-app-theme="macchiato"] .app-shell-workspace {
+    padding: 0.55rem 0.4rem;
+  }
+
+  :root[data-app-theme="macchiato"] .app-shell-rail-scroll {
+    padding: 0.35rem 0.4rem 0.6rem;
+  }
+
+  :root[data-app-theme="macchiato"] .app-shell-nav-label {
+    margin: 0.4rem 0.4rem 0.3rem;
+  }
+
+  :root[data-app-theme="macchiato"] .app-shell-nav-link {
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+
+  :root[data-app-theme="macchiato"] .app-shell-nav-link[aria-current="page"]::before {
+    content: none;
+  }
+
+  :root[data-app-theme="macchiato"] .app-shell-rail-footer {
+    border-block-start-style: dotted;
+  }
+
+  :root[data-app-theme="macchiato"] .app-shell .app-masthead {
+    align-items: center;
+    justify-items: start;
+    padding: 0 0 var(--ui-space-2);
+    border: 0;
+    border-block-end: var(--ui-border-width) solid var(--ctp-line-soft);
+    border-radius: 0;
+    background: none;
+    text-align: start;
+  }
+
+  :root[data-app-theme="macchiato"] .app-shell .app-masthead-actions {
+    justify-content: flex-end;
+  }
+
+  :root[data-app-theme="macchiato"] .app-shell .ui-table :is(th, td) {
+    font-size: var(--ui-font-size-xs);
+  }
+
+  :root[data-app-theme="macchiato"] .app-shell .ui-table th {
+    color: var(--ctp-muted);
+    font-size: var(--app-table-label-size);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  :root[data-app-theme="macchiato"] .app-shell .ui-empty {
+    --ui-empty-min-block-size: 18rem;
+    color: var(--ctp-muted);
+  }
+
+}

@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Router E2E</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; }
+    nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+    a { padding: .5rem .75rem; border: 1px solid currentColor; border-radius: .35rem; }
+    pre { margin-top: 2rem; white-space: pre-wrap; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a id="home" href="/">Home</a>
+    <a id="post" href="/users/U1/posts/P1?view=post#details"><span id="post-label">Post U1</span></a>
+    <a id="post-two" href="/users/U2/posts/P2?view=post">Post U2</a>
+    <a id="comments" href="/users/U3/posts/P3?view=comments">Comments U3</a>
+    <a id="unknown" href="/does-not-exist">Unknown</a>
+    <a id="external" href="https://example.com/">External</a>
+  </nav>
+  <pre id="state"></pre>
+  <script type="module" src="/test/browser/app/app.js"></script>
+</body>
+</html>

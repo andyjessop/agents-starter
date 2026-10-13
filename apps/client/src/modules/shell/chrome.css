@@ -1,0 +1,383 @@
+/*
+ * Workspace chrome around the page: top bar (history, breadcrumb, browse
+ * controls), status line and right-hand explorer.
+ * Defaults derive from shell and design-system tokens; theme packs tune the
+ * --shell-* properties declared here.
+ */
+@layer app {
+  .app-shell {
+    --shell-explorer-width: 32rem;
+    --shell-status-height: 1.6rem;
+    --shell-status-size: var(--ui-font-size-xs);
+    --shell-status-bg: var(--shell-topbar-wash);
+    --shell-status-text: var(--shell-rail-muted);
+    --shell-topbar-gap: var(--ui-space-2);
+    --shell-topbar-pad-inline: var(--ui-space-4);
+    --shell-crumb-size: var(--shell-topbar-title-size);
+    --shell-crumb-text: var(--shell-topbar-title-color);
+    --shell-crumb-current: var(--shell-rail-text);
+    --shell-crumb-separator: "/";
+    --shell-crumb-separator-colour: var(--shell-rail-line);
+    --shell-search-width: 15rem;
+    --shell-search-width-narrow: 9rem;
+    --shell-search-bg: var(--ui-control-background);
+    --shell-search-line: var(--shell-rail-line);
+    --shell-explorer-bg: var(--shell-rail-wash);
+    --shell-explorer-line: var(--shell-rail-line);
+    --shell-explorer-title-size: var(--shell-nav-label-size);
+    --shell-explorer-title-tracking: var(--shell-nav-label-tracking);
+    --shell-explorer-row-height: 1.9rem;
+    --shell-explorer-row-size: var(--shell-nav-link-size);
+    --shell-explorer-indent: 1.1rem;
+    --shell-explorer-tree-node-gap: var(--ui-navigation-gap);
+    --shell-explorer-glyph: var(--shell-nav-icon);
+    --shell-explorer-selected-bg: var(--shell-nav-active-bg);
+    --shell-explorer-selected-text: var(--shell-nav-active-text);
+    --shell-explorer-disclosure-size: 0.45rem;
+    --shell-explorer-disclosure-col: 0.85rem;
+    --shell-explorer-disclosure-outline: var(--shell-rail-muted);
+    --shell-explorer-disclosure-outline-width: 2px;
+    --shell-explorer-disclosure-muted: var(--shell-rail-muted);
+    --shell-explorer-disclosure-selected: light-dark(#5c9154, #aff497);
+    --shell-explorer-search-mark-bg: light-dark(
+      rgb(92 145 84 / 28%),
+      rgb(175 244 151 / 22%)
+    );
+  }
+
+  .app-shell-frame {
+    height: 100dvh;
+  }
+
+  .app-shell[data-shell-explorer="true"] .app-shell-frame {
+    grid-template-columns:
+      var(--shell-rail-width) minmax(0, 1fr) var(--shell-explorer-width);
+  }
+
+  .app-shell[data-shell-explorer="true"][data-shell-compact="true"]
+    .app-shell-frame {
+    grid-template-columns:
+      var(--shell-rail-compact-width) minmax(0, 1fr) var(--shell-explorer-width);
+  }
+
+  .app-shell-stage {
+    height: 100dvh;
+    min-height: 0;
+  }
+
+  /* Top bar */
+  .app-shell-topbar {
+    gap: var(--shell-topbar-gap);
+    padding-inline: var(--shell-topbar-pad-inline);
+  }
+
+  .app-shell-history {
+    display: flex;
+    flex: 0 0 auto;
+  }
+
+  .app-shell-topbar-icon.ui-button {
+    color: var(--shell-crumb-text);
+  }
+
+  .app-shell-topbar-icon.ui-button:hover:not(:disabled) {
+    color: var(--shell-crumb-current);
+  }
+
+  .app-shell-crumbs {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .app-shell-crumbs ol {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--shell-crumb-text);
+    font-size: var(--shell-crumb-size);
+  }
+
+  .app-shell-crumbs li {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    white-space: nowrap;
+  }
+
+  .app-shell-crumbs li + li::before {
+    content: var(--shell-crumb-separator);
+    padding-inline: var(--ui-space-2);
+    color: var(--shell-crumb-separator-colour);
+  }
+
+  .app-shell-crumbs a,
+  .app-shell-crumbs span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .app-shell-crumbs a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .app-shell-crumbs a:hover {
+    color: var(--shell-crumb-current);
+    text-decoration: underline;
+  }
+
+  .app-shell-crumbs [aria-current="page"] {
+    color: var(--shell-crumb-current);
+    font-weight: 600;
+  }
+
+  .app-shell[data-shell-band="mobile"] .app-shell-crumbs li:not(:last-child) {
+    display: none;
+  }
+
+  .app-shell[data-shell-band="mobile"] .app-shell-crumbs li + li::before {
+    content: none;
+  }
+
+  .app-shell-topbar-tools {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: var(--shell-topbar-gap);
+  }
+
+  .app-shell-search {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .app-shell-search-icon.ui-icon {
+    position: absolute;
+    inset-inline-start: var(--ui-space-2);
+    color: var(--shell-crumb-text);
+    pointer-events: none;
+  }
+
+  .app-shell-search input {
+    inline-size: var(--shell-search-width);
+    min-block-size: var(--ui-control-min-size);
+    padding-inline: calc(var(--ui-space-2) * 2 + var(--ui-icon-size-sm)) var(--ui-space-2);
+    border: var(--ui-border-width) solid var(--shell-search-line);
+    border-radius: var(--shell-radius-control);
+    background: var(--shell-search-bg);
+    color: var(--ui-text);
+    font: inherit;
+    font-size: var(--shell-crumb-size);
+  }
+
+  .app-shell-search input:focus-visible,
+  .app-shell-crumbs a:focus-visible {
+    outline: var(--ui-focus-width) solid var(--ui-focus-colour);
+    outline-offset: var(--ui-focus-offset);
+  }
+
+  .app-shell[data-shell-band="mobile"] .app-shell-search input {
+    inline-size: auto;
+    max-inline-size: var(--shell-search-width-narrow);
+  }
+
+  .app-shell[data-shell-band="mobile"] .app-shell-history {
+    display: none;
+  }
+
+  /* Status line */
+  .app-shell-status {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--ui-space-3);
+    min-block-size: var(--shell-status-height);
+    padding-inline: var(--shell-topbar-pad-inline);
+    border-block-start: var(--ui-border-width) solid var(--shell-rail-line);
+    background: var(--shell-status-bg);
+    color: var(--shell-status-text);
+    font-size: var(--shell-status-size);
+  }
+
+  /* Explorer */
+  .app-shell-explorer {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    height: 100dvh;
+    border-inline-start: var(--ui-border-width) solid var(--shell-explorer-line);
+    background: var(--shell-explorer-bg);
+    color: var(--shell-rail-text);
+  }
+
+  .app-explorer-head {
+    display: flex;
+    align-items: center;
+    flex: 0 0 auto;
+    min-block-size: var(--shell-topbar-height);
+    padding-inline: var(--ui-space-3);
+    border-block-end: var(--ui-border-width) solid var(--shell-explorer-line);
+    color: var(--shell-nav-label-color);
+    font-size: var(--shell-explorer-title-size);
+    font-weight: 700;
+    letter-spacing: var(--shell-explorer-title-tracking);
+    text-transform: uppercase;
+  }
+
+  .app-explorer-filter {
+    flex: 0 0 auto;
+    padding: var(--ui-space-2) var(--ui-space-3);
+    border-block-end: var(--ui-border-width) solid var(--shell-explorer-line);
+  }
+
+  .app-explorer-search {
+    position: relative;
+    display: block;
+  }
+
+  .app-explorer-search-icon.ui-icon {
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: var(--ui-space-2);
+    translate: 0 -50%;
+    pointer-events: none;
+    color: var(--shell-rail-muted);
+  }
+
+  /* biome-ignore lint/style/noDescendingSpecificity: explorer search field overrides generic shell inputs inside the rail */
+  .app-explorer-search input {
+    inline-size: 100%;
+    box-sizing: border-box;
+    padding-block: var(--ui-space-2);
+    padding-inline: var(--ui-space-2) var(--ui-space-2);
+    padding-inline-start: calc(var(--ui-space-2) + 1.25rem);
+    border: var(--ui-border-width) solid var(--shell-search-line);
+    border-radius: var(--shell-radius-nav);
+    background: var(--shell-search-bg);
+    color: var(--shell-rail-text);
+    font-size: var(--shell-explorer-row-size);
+  }
+
+  .app-explorer-search input:focus-visible {
+    outline: var(--ui-focus-ring);
+    outline-offset: var(--ui-focus-offset);
+  }
+
+  .app-explorer-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    padding: var(--ui-space-2);
+  }
+
+  .app-explorer-tree {
+    --ui-tree-indent: var(--shell-explorer-indent);
+    --ui-tree-item-gap: var(--ui-space-3);
+    --ui-tree-disclosure-size: var(--shell-explorer-disclosure-col);
+    --ui-tree-item-min-size: var(--shell-explorer-row-height);
+    --ui-tree-item-padding-inline: var(--ui-space-2);
+    --ui-tree-item-radius: var(--shell-radius-nav);
+    --ui-tree-item-text: var(--shell-nav-text);
+    --ui-tree-item-hover-background: var(--shell-nav-hover-bg);
+    --ui-tree-item-hover-border: var(--shell-nav-hover-line);
+    --ui-tree-item-hover-text: var(--shell-nav-hover-text);
+    --ui-tree-item-selected-background: var(--shell-explorer-selected-bg);
+    --ui-tree-item-selected-border: var(--shell-nav-active-line);
+    --ui-tree-item-selected-text: var(--shell-explorer-selected-text);
+    --ui-tree-leading-colour: var(--shell-explorer-glyph);
+    font-size: var(--shell-explorer-row-size);
+  }
+
+  .app-explorer-tree :is(.ui-tree-root, .ui-tree-group) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--shell-explorer-tree-node-gap);
+  }
+
+  .app-explorer-tree .ui-tree-disclosure {
+    display: flex;
+    flex: 0 0 var(--shell-explorer-disclosure-col);
+    align-items: center;
+    justify-content: center;
+    inline-size: var(--shell-explorer-disclosure-col);
+    color: transparent;
+    font-size: 0;
+    line-height: 0;
+    transition: none;
+  }
+
+  .app-explorer-tree .ui-tree-item[aria-expanded="true"] .ui-tree-disclosure {
+    rotate: none;
+  }
+
+  .app-explorer-tree .ui-tree-item[aria-expanded] .ui-tree-disclosure::before,
+  .app-explorer-tree
+    .ui-tree-item[data-ui-selectable="true"]
+    .ui-tree-disclosure::before {
+    content: "";
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    inline-size: var(--shell-explorer-disclosure-size);
+    block-size: var(--shell-explorer-disclosure-size);
+    border: var(--shell-explorer-disclosure-outline-width) solid
+      var(--shell-explorer-disclosure-outline);
+    border-radius: 50%;
+    background: transparent;
+  }
+
+  /* Branches with children below: filled even when collapsed. */
+  .app-explorer-tree .ui-tree-item[aria-expanded] .ui-tree-disclosure::before {
+    border-color: transparent;
+    background: var(--shell-explorer-disclosure-muted);
+  }
+
+  /* Leaves: nothing below — outline until selected. */
+  .app-explorer-tree
+    .ui-tree-item[data-ui-selectable="true"]:not([aria-expanded])
+    .ui-tree-disclosure::before {
+    border-color: var(--shell-explorer-disclosure-outline);
+    background: transparent;
+  }
+
+  .app-explorer-tree
+    .ui-tree-item[aria-selected="true"]:not([aria-expanded])
+    .ui-tree-disclosure::before {
+    border-color: var(--shell-explorer-disclosure-selected);
+    background: transparent;
+  }
+
+  .app-explorer-tree
+    .ui-tree-item[aria-selected="true"][aria-expanded]
+    .ui-tree-disclosure::before,
+  /* biome-ignore lint/style/noDescendingSpecificity: selected-path disclosure styling follows tree selection states */
+  .app-explorer-tree .ui-tree-item[data-ui-selected-path] .ui-tree-disclosure::before {
+    border-color: transparent;
+    background: var(--shell-explorer-disclosure-selected);
+  }
+
+  .app-explorer-tree
+    .ui-tree-item[data-ui-selectable="false"] {
+    color: var(--shell-nav-label-color);
+    font-size: var(--shell-explorer-title-size);
+    font-weight: 700;
+    letter-spacing: var(--shell-explorer-title-tracking);
+    text-transform: uppercase;
+  }
+
+  .app-explorer-empty {
+    margin: var(--ui-space-2);
+    color: var(--shell-rail-muted);
+    font-size: var(--shell-explorer-row-size);
+  }
+
+  .app-explorer-mark {
+    border-radius: 0.12em;
+    background: var(--shell-explorer-search-mark-bg);
+    color: inherit;
+  }
+}

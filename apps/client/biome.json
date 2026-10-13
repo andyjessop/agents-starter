@@ -1,0 +1,19 @@
+{
+  "root": false,
+  "$schema": "https://biomejs.dev/schemas/2.5.12/schema.json",
+  "extends": ["../../biome.json"],
+  "assist": { "actions": { "source": { "organizeImports": "off" } } },
+  "formatter": {
+    "enabled": false
+  },
+  "linter": {
+    "rules": {
+      "nursery": {
+        "useExplicitType": "off"
+      },
+      "style": {
+        "noDefaultExport": "off"
+      }
+    }
+  }
+}

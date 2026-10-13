@@ -1,0 +1,187 @@
+{
+  "name": "@agent-starter/design-system",
+  "version": "0.1.0",
+  "description": "CSS-first UI primitives with token theming for Agent Starter apps",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": ["**/*.css"],
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "@workspace/source": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./theme.css": "./src/styles/theme.css",
+    "./styles.css": "./src/styles/index.css",
+    "./components.css": "./src/styles/components.css",
+    "./themes/default.css": "./src/styles/themes/default.css",
+    "./themes/macchiato.css": {
+      "style": "./src/styles/themes/macchiato.css",
+      "import": "./src/styles/themes/macchiato.css",
+      "default": "./src/styles/themes/macchiato.css"
+    },
+    "./advanced": {
+      "types": "./src/advanced/index.tsx",
+      "@workspace/source": "./src/advanced/index.tsx",
+      "default": "./src/advanced/index.tsx"
+    },
+    "./extra": {
+      "types": "./src/extra/index.tsx",
+      "@workspace/source": "./src/extra/index.tsx",
+      "default": "./src/extra/index.tsx"
+    },
+    "./behaviours/menu": {
+      "types": "./src/behaviours/menu/index.ts",
+      "@workspace/source": "./src/behaviours/menu/index.ts",
+      "default": "./src/behaviours/menu/index.ts"
+    },
+    "./behaviours/popover": {
+      "types": "./src/behaviours/popover/index.ts",
+      "@workspace/source": "./src/behaviours/popover/index.ts",
+      "default": "./src/behaviours/popover/index.ts"
+    },
+    "./behaviours/tooltip": {
+      "types": "./src/behaviours/tooltip/index.ts",
+      "@workspace/source": "./src/behaviours/tooltip/index.ts",
+      "default": "./src/behaviours/tooltip/index.ts"
+    },
+    "./behaviours/tabs": {
+      "types": "./src/behaviours/tabs/index.ts",
+      "@workspace/source": "./src/behaviours/tabs/index.ts",
+      "default": "./src/behaviours/tabs/index.ts"
+    },
+    "./behaviours/tree": {
+      "types": "./src/behaviours/tree/index.ts",
+      "@workspace/source": "./src/behaviours/tree/index.ts",
+      "default": "./src/behaviours/tree/index.ts"
+    },
+    "./behaviours/combobox": {
+      "types": "./src/behaviours/combobox/index.ts",
+      "@workspace/source": "./src/behaviours/combobox/index.ts",
+      "default": "./src/behaviours/combobox/index.ts"
+    },
+    "./behaviours/dialog": {
+      "types": "./src/behaviours/dialog/index.ts",
+      "@workspace/source": "./src/behaviours/dialog/index.ts",
+      "default": "./src/behaviours/dialog/index.ts"
+    },
+    "./behaviours/toast": {
+      "types": "./src/behaviours/toast/index.ts",
+      "@workspace/source": "./src/behaviours/toast/index.ts",
+      "default": "./src/behaviours/toast/index.ts"
+    },
+    "./react/menu": {
+      "types": "./src/react/menu.tsx",
+      "@workspace/source": "./src/react/menu.tsx",
+      "default": "./src/react/menu.tsx"
+    },
+    "./react/popover": {
+      "types": "./src/react/popover.tsx",
+      "@workspace/source": "./src/react/popover.tsx",
+      "default": "./src/react/popover.tsx"
+    },
+    "./react/tooltip": {
+      "types": "./src/react/tooltip.tsx",
+      "@workspace/source": "./src/react/tooltip.tsx",
+      "default": "./src/react/tooltip.tsx"
+    },
+    "./react/tabs": {
+      "types": "./src/react/tabs.tsx",
+      "@workspace/source": "./src/react/tabs.tsx",
+      "default": "./src/react/tabs.tsx"
+    },
+    "./react/tree": {
+      "types": "./src/react/tree.tsx",
+      "@workspace/source": "./src/react/tree.tsx",
+      "default": "./src/react/tree.tsx"
+    },
+    "./react/combobox": {
+      "types": "./src/react/combobox.tsx",
+      "@workspace/source": "./src/react/combobox.tsx",
+      "default": "./src/react/combobox.tsx"
+    },
+    "./react/dialog": {
+      "types": "./src/react/dialog.tsx",
+      "@workspace/source": "./src/react/dialog.tsx",
+      "default": "./src/react/dialog.tsx"
+    },
+    "./react/toast": {
+      "types": "./src/react/toast.tsx",
+      "@workspace/source": "./src/react/toast.tsx",
+      "default": "./src/react/toast.tsx"
+    },
+    "./react/button": {
+      "types": "./src/react/button.ts",
+      "@workspace/source": "./src/react/button.ts",
+      "default": "./src/react/button.ts"
+    },
+    "./react/uplot": {
+      "types": "./src/react/uplot.tsx",
+      "@workspace/source": "./src/react/uplot.tsx",
+      "default": "./src/react/uplot.tsx"
+    },
+    "./react/line-chart": {
+      "types": "./src/react/line-chart.tsx",
+      "@workspace/source": "./src/react/line-chart.tsx",
+      "default": "./src/react/line-chart.tsx"
+    },
+    "./elements/menu": {
+      "types": "./src/elements/menu.ts",
+      "@workspace/source": "./src/elements/menu.ts",
+      "default": "./src/elements/menu.ts"
+    },
+    "./elements/popover": {
+      "types": "./src/elements/popover.ts",
+      "@workspace/source": "./src/elements/popover.ts",
+      "default": "./src/elements/popover.ts"
+    },
+    "./elements/tooltip": {
+      "types": "./src/elements/tooltip.ts",
+      "@workspace/source": "./src/elements/tooltip.ts",
+      "default": "./src/elements/tooltip.ts"
+    },
+    "./elements/tabs": {
+      "types": "./src/elements/tabs.ts",
+      "@workspace/source": "./src/elements/tabs.ts",
+      "default": "./src/elements/tabs.ts"
+    },
+    "./elements/tree": {
+      "types": "./src/elements/tree.ts",
+      "@workspace/source": "./src/elements/tree.ts",
+      "default": "./src/elements/tree.ts"
+    },
+    "./elements/combobox": {
+      "types": "./src/elements/combobox.ts",
+      "@workspace/source": "./src/elements/combobox.ts",
+      "default": "./src/elements/combobox.ts"
+    },
+    "./elements/dialog": {
+      "types": "./src/elements/dialog.ts",
+      "@workspace/source": "./src/elements/dialog.ts",
+      "default": "./src/elements/dialog.ts"
+    },
+    "./elements/toast": {
+      "types": "./src/elements/toast.ts",
+      "@workspace/source": "./src/elements/toast.ts",
+      "default": "./src/elements/toast.ts"
+    }
+  },
+  "files": ["src", "docs", "README.md", "AGENTS.md"],
+  "scripts": {
+    "format": "biome format --write --no-errors-on-unmatched .",
+    "lint": "biome check --error-on-warnings --no-errors-on-unmatched .",
+    "test": "npm run typecheck",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "uplot": "^1.6.0"
+  },
+  "peerDependenciesMeta": {
+    "uplot": {
+      "optional": true
+    }
+  }
+}

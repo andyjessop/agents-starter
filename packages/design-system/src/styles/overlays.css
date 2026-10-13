@@ -1,0 +1,137 @@
+@layer ui.components {
+    :where(.ui-accordion) {
+        background: var(--ui-panel-background);
+        border: var(--ui-border-width) solid var(--ui-panel-border);
+        border-radius: var(--ui-panel-radius);
+    }
+    :where(.ui-accordion > summary) {
+        cursor: pointer;
+        padding: var(--ui-panel-padding);
+        font-weight: var(--ui-font-weight-medium);
+    }
+    :where(.ui-accordion-content) {
+        padding: 0 var(--ui-panel-padding) var(--ui-panel-padding);
+    }
+    :where(.ui-dialog) {
+        box-sizing: border-box;
+        inline-size: var(--ui-dialog-inline-size);
+        max-inline-size: calc(100% - var(--ui-dialog-viewport-gap) * 2);
+        max-block-size: calc(100dvh - var(--ui-dialog-viewport-gap) * 2);
+        padding: var(--ui-dialog-padding, var(--ui-space-6));
+        border: var(--ui-border-width) solid var(--ui-popup-border);
+        border-radius: var(--ui-dialog-radius, var(--ui-radius-lg));
+        background: var(--ui-panel-background);
+        color: var(--ui-text);
+        box-shadow: var(--ui-shadow-lg);
+        overflow: auto;
+    }
+    :where(.ui-dialog)::backdrop {
+        background: var(--ui-backdrop);
+    }
+    :where(.ui-dialog-heading) {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: var(--ui-panel-gap);
+    }
+    :where(.ui-dialog-sectioned) {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    :where(.ui-dialog-sectioned > .ui-dialog-heading, .ui-dialog-footer) {
+        padding: var(--ui-dialog-padding, var(--ui-space-6));
+    }
+    :where(.ui-dialog-sectioned > .ui-dialog-heading) {
+        align-items: center;
+        flex-shrink: 0;
+    }
+    :where(.ui-dialog-content) {
+        min-block-size: 0;
+        overflow: auto;
+        padding-block: var(--ui-dialog-content-padding-block, var(--ui-dialog-padding, var(--ui-space-6)));
+        padding-inline: var(--ui-dialog-content-padding-inline, var(--ui-dialog-padding, var(--ui-space-6)));
+    }
+    :where(.ui-dialog-content > :first-child) {
+        margin-block-start: 0;
+    }
+    :where(.ui-dialog-content > :last-child) {
+        margin-block-end: 0;
+    }
+    :where(.ui-dialog-footer) {
+        border-block-start: var(--ui-border-width) solid var(--ui-line);
+        background: var(--ui-surface-sunken);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        gap: var(--ui-space-2);
+        flex-shrink: 0;
+    }
+    :where(.ui-dialog-heading h2) {
+        margin: 0;
+        font-size: var(--ui-font-size-xl);
+    }
+    :where(.ui-drawer) {
+        margin: 0;
+        margin-inline-start: auto;
+        block-size: 100dvh;
+        max-block-size: 100dvh;
+        inline-size: var(--ui-drawer-inline-size);
+        border-radius: 0;
+    }
+    :where(.ui-backdrop) {
+        position: fixed;
+        inset: 0;
+        background: var(--ui-backdrop);
+        z-index: var(--ui-z-overlay);
+    }
+    :where(.ui-popover) {
+        box-sizing: border-box;
+        max-inline-size: calc(100vw - var(--ui-overlay-margin) * 2);
+        max-block-size: var(--ui-popup-max-block-size);
+        overflow: auto;
+        padding: var(--ui-popover-padding, var(--ui-panel-padding));
+        border: var(--ui-border-width) solid var(--ui-popup-border);
+        border-radius: var(--ui-popup-radius);
+        background: var(--ui-popup-background);
+        color: var(--ui-text);
+        box-shadow: var(--ui-popup-shadow);
+    }
+    /*
+     * Closed popovers must stay display:none. Author display on .ui-popover
+     * (or a host class) without :popover-open defeats the UA rule and leaves an
+     * invisible fixed hit-target. Set display only on :popover-open, as below.
+     */
+    :where(.ui-speed-dial) {
+        gap: var(--ui-control-gap);
+    }
+    :where(.ui-speed-dial:popover-open) {
+        display: flex;
+        flex-direction: column;
+    }
+    @supports (position-area: block-end) {
+        :where(.ui-popover) {
+            position-area: block-end;
+            position-try-fallbacks: flip-block, flip-inline;
+            margin: var(--ui-popup-gap);
+        }
+    }
+    @supports (transition-behavior: allow-discrete) {
+        :where(.ui-dialog, .ui-popover) {
+            opacity: 0;
+            transition:
+                opacity var(--ui-duration-normal) var(--ui-ease-standard),
+                display var(--ui-duration-normal) allow-discrete,
+                overlay var(--ui-duration-normal) allow-discrete;
+        }
+        :where(.ui-dialog[open], .ui-popover:popover-open) {
+            opacity: 1;
+        }
+        @starting-style {
+            :where(.ui-dialog[open], .ui-popover:popover-open) {
+                opacity: 0;
+            }
+        }
+    }
+}

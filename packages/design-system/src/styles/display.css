@@ -1,0 +1,438 @@
+@layer ui.components {
+    :where(.ui-avatar) {
+        display: inline-grid;
+        place-items: center;
+        inline-size: var(--ui-avatar-size);
+        block-size: var(--ui-avatar-size);
+        border-radius: var(--ui-avatar-radius, var(--ui-radius-pill));
+        overflow: hidden;
+        background: var(--ui-avatar-background, var(--ui-accent-solid));
+        color: var(--ui-avatar-text, var(--ui-accent-on-solid));
+        font-family: var(--ui-avatar-font-family, var(--ui-control-font-family, var(--ui-font-sans)));
+        font-size: var(--ui-avatar-font-size, 0.625rem);
+        font-weight: var(--ui-font-weight-strong);
+    }
+    :where(.ui-avatar img) {
+        inline-size: 100%;
+        block-size: 100%;
+        object-fit: cover;
+    }
+    :where(.ui-badge, .ui-chip) {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--ui-control-gap);
+        padding-inline: var(--ui-space-2);
+        border-radius: var(--ui-radius-sm);
+        padding-block: calc(var(--ui-space-unit) * 0.5);
+        font-family: var(--ui-chip-font-family, var(--ui-control-font-family, var(--ui-font-sans)));
+        font-weight: var(--ui-font-weight-medium);
+        line-height: var(--ui-leading-control);
+        font-size: var(--ui-caption-size);
+    }
+    :where(.ui-badge) {
+        white-space: nowrap;
+        overflow-wrap: normal;
+        min-block-size: var(--ui-badge-min-size);
+        background: var(
+            --ui-badge-background,
+            color-mix(in oklch, var(--_ui-tone, var(--ui-info-solid)) 14%, var(--ui-surface))
+        );
+        border: var(--ui-border-width) solid
+            var(--ui-badge-border, color-mix(in oklch, var(--_ui-tone, var(--ui-info-solid)) 40%, var(--ui-surface)));
+        border-radius: var(--ui-badge-radius, var(--ui-radius-sm));
+        color: var(--ui-badge-text, var(--_ui-tone, var(--ui-info-solid)));
+    }
+    :where(.ui-instant) {
+        --_ui-instant-dash: var(--ui-instant-dash-length, 0.42em);
+        --_ui-instant-gap: var(--ui-instant-dash-gap, 0.22em);
+        --_ui-instant-underline-offset: var(--ui-instant-underline-offset, 0.28em);
+        --_ui-instant-underline-thickness: var(--ui-instant-underline-thickness, max(1px, 0.07em));
+        font-family: var(--ui-control-font-family, var(--ui-font-sans));
+        font-variant-numeric: tabular-nums;
+        color: var(--ui-instant-text, var(--ui-text-secondary));
+        white-space: nowrap;
+        text-decoration: none;
+        background-image: repeating-linear-gradient(
+            to right,
+            var(--ui-instant-decoration, var(--ui-text-muted)) 0,
+            var(--ui-instant-decoration, var(--ui-text-muted)) var(--_ui-instant-dash),
+            transparent var(--_ui-instant-dash),
+            transparent calc(var(--_ui-instant-dash) + var(--_ui-instant-gap))
+        );
+        background-repeat: repeat-x;
+        background-size: calc(var(--_ui-instant-dash) + var(--_ui-instant-gap)) var(--_ui-instant-underline-thickness);
+        background-position: left bottom;
+        padding-block-end: var(--_ui-instant-underline-offset);
+    }
+    :where(.ui-instant[data-ui-part='trigger']) {
+        cursor: help;
+    }
+    :where(.ui-chip) {
+        max-inline-size: 18rem;
+        white-space: normal;
+        text-align: start;
+        min-block-size: var(--ui-chip-min-size);
+        background: var(
+            --ui-chip-background,
+            color-mix(in oklch, var(--_ui-soft, var(--ui-surface-sunken)) 80%, var(--ui-surface))
+        );
+        color: var(--ui-chip-text, var(--_ui-tone, var(--ui-text-secondary)));
+        border: var(--ui-border-width) solid
+            var(--ui-chip-border, color-mix(in oklch, var(--_ui-tone, var(--ui-text-muted)) 16%, var(--ui-surface)));
+        border-radius: var(--ui-chip-radius, var(--ui-radius-sm));
+    }
+    /*
+     * Alert: calm status panel. Tone colours the icon and wash; body copy stays ink/muted
+     * so status is not colour-only (status feedback).
+     */
+    :where(.ui-alert) {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        /* Single-line copy: centre icon with the text on the cross axis. */
+        align-items: center;
+        gap: var(--ui-alert-gap, 0.75rem);
+        padding: var(--ui-alert-padding, 0.875rem 1rem);
+        border: var(--ui-border-width) solid var(--ui-alert-border, var(--_ui-tone-line, var(--ui-line)));
+        border-radius: var(--ui-alert-radius, var(--ui-radius-sm));
+        background: var(--ui-alert-background, var(--_ui-status-surface, var(--_ui-soft, var(--ui-surface))));
+        color: var(--ui-alert-text, var(--ui-text));
+    }
+    /* Multi-line body (title + description, or multiple children): pin the icon to the start. */
+    :where(.ui-alert:has(.ui-alert-body > :nth-child(2))) {
+        align-items: start;
+    }
+    :where(.ui-alert[data-tone='info']) {
+        --_ui-status-surface: var(--ui-status-info-surface);
+    }
+    :where(.ui-alert[data-tone='success']) {
+        --_ui-status-surface: var(--ui-status-success-surface);
+    }
+    :where(.ui-alert[data-tone='warning']) {
+        --_ui-status-surface: var(--ui-status-warning-surface);
+    }
+    :where(.ui-alert[data-tone='danger']) {
+        --_ui-status-surface: var(--ui-status-danger-surface);
+    }
+    :where(.ui-alert:has(> .ui-alert-action)) {
+        grid-template-columns: auto minmax(0, 1fr) auto;
+    }
+    :where(.ui-alert-icon) {
+        display: grid;
+        place-items: center;
+        inline-size: var(--ui-alert-icon-size, 1.625rem);
+        block-size: var(--ui-alert-icon-size, 1.625rem);
+        border-radius: var(--ui-radius-pill);
+        background: var(--ui-alert-icon-background, var(--_ui-soft, var(--ui-info-soft)));
+        color: var(--ui-alert-icon-text, var(--_ui-tone, var(--ui-info-solid)));
+        font-size: var(--ui-alert-icon-font-size, 0.75rem);
+        font-weight: 800;
+        line-height: 1;
+    }
+    :where(.ui-alert-body) {
+        min-inline-size: 0;
+    }
+    :where(.ui-alert-body strong) {
+        display: block;
+        margin-block-end: 0.1875rem;
+        font-size: var(--ui-alert-title-size, 0.8125rem);
+        font-weight: var(--ui-alert-title-weight, var(--ui-font-weight-strong));
+        color: var(--ui-alert-title-text, var(--ui-text));
+    }
+    :where(.ui-alert-body p) {
+        margin: 0;
+        font-size: var(--ui-alert-description-size, 0.75rem);
+        line-height: 1.5;
+        color: var(--ui-alert-description-text, var(--ui-text-muted));
+    }
+    :where(.ui-alert-action) {
+        align-self: center;
+    }
+    :where(.ui-skeleton) {
+        display: block;
+        min-block-size: var(--ui-skeleton-min-size);
+        min-inline-size: var(--ui-skeleton-min-inline-size);
+        border-radius: var(--ui-skeleton-radius, var(--ui-radius-sm));
+        background: var(--ui-skeleton-background);
+        animation: ui-pulse var(--ui-duration-skeleton) var(--ui-ease-standard) infinite;
+        animation-play-state: var(--ui-animation-play-state);
+    }
+    @keyframes ui-pulse {
+        50% {
+            background: var(--ui-skeleton-highlight);
+        }
+    }
+    :where(.ui-progress) {
+        inline-size: 100%;
+        block-size: var(--ui-progress-track-size);
+        accent-color: var(--ui-accent-solid);
+    }
+    :where(.ui-circular-progress) {
+        inline-size: var(--ui-progress-circle-size);
+        block-size: var(--ui-progress-circle-size);
+        fill: none;
+        stroke-width: var(--ui-progress-stroke-size);
+    }
+    :where(.ui-progress-track) {
+        stroke: var(--ui-line);
+    }
+    :where(.ui-progress-value) {
+        stroke: var(--ui-accent-solid);
+        transform: rotate(-90deg);
+        transform-origin: center;
+    }
+    :where(.ui-circular-progress[data-indeterminate='true']) {
+        animation: ui-spin var(--ui-duration-progress) linear infinite;
+        animation-play-state: var(--ui-animation-play-state);
+    }
+    @keyframes ui-spin {
+        to {
+            transform: rotate(1turn);
+        }
+    }
+    :where(.ui-icon) {
+        inline-size: var(--ui-icon-size-sm);
+        block-size: var(--ui-icon-size-sm);
+        fill: none;
+        stroke: currentColor;
+        stroke-width: var(--ui-icon-stroke-width);
+        flex-shrink: 0;
+    }
+    :where(.ui-empty) {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: var(--ui-empty-gap, var(--ui-space-3));
+        inline-size: 100%;
+        min-block-size: var(--ui-empty-min-block-size, 17.5rem);
+        padding-block: var(--ui-empty-padding-block, calc(var(--ui-space-unit) * 10));
+        padding-inline: var(--ui-empty-padding-inline, var(--ui-space-6));
+        text-align: center;
+        background: var(--ui-empty-background, var(--ui-surface));
+        color: var(--ui-empty-text, var(--ui-text-secondary));
+        border: var(--ui-empty-border-width, var(--ui-border-width)) var(--ui-border-style)
+            var(--ui-empty-border, var(--ui-line));
+        border-radius: var(--ui-empty-radius, var(--ui-radius-md));
+    }
+    :where(.ui-empty-icon) {
+        display: grid;
+        place-items: center;
+        inline-size: var(--ui-empty-icon-size, 3rem);
+        block-size: var(--ui-empty-icon-size, 3rem);
+        border-radius: var(--ui-radius-pill);
+        background: var(--ui-empty-icon-background, var(--ui-accent-soft));
+        color: var(--ui-empty-icon-text, var(--ui-text-muted));
+    }
+    :where(.ui-empty-icon .ui-icon) {
+        inline-size: var(--ui-empty-glyph-size, 1.25rem);
+        block-size: var(--ui-empty-glyph-size, 1.25rem);
+    }
+    :where(.ui-empty h2) {
+        margin: 0;
+        font-size: var(--ui-empty-title-size, var(--ui-font-size-lg));
+        font-weight: var(--ui-empty-title-weight, var(--ui-heading-weight));
+        color: var(--ui-empty-title, var(--ui-text-secondary));
+    }
+    :where(.ui-empty p) {
+        margin: 0;
+        max-inline-size: var(--ui-empty-copy-measure, 36ch);
+        font-size: var(--ui-empty-description-size, var(--ui-font-size-sm));
+        color: var(--ui-empty-description, var(--ui-text-muted));
+    }
+    :where(.ui-empty-action) {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: var(--ui-empty-action-gap, var(--ui-space-2));
+        margin-block-start: var(--ui-empty-action-offset, var(--ui-space-1));
+    }
+    :where(.ui-stat-cards) {
+        --ui-stat-card-min-width: 14rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ui-stat-card-min-width)), 1fr));
+        grid-auto-rows: 1fr;
+        gap: var(--ui-space-3);
+    }
+    :where(.ui-stat-card) {
+        --ui-stat-card-icon-size: var(--ui-space-6);
+        --ui-stat-card-action-height: var(--ui-control-min-size);
+        display: flex;
+        flex-direction: column;
+        min-inline-size: 0;
+        overflow: hidden;
+        background: var(--ui-card-background, var(--ui-surface));
+        background-size: var(--ui-card-background-size, auto);
+        color: var(--ui-text);
+        border: var(--ui-border-width) var(--ui-border-style) var(--ui-card-border, var(--ui-line));
+        border-radius: var(--ui-card-radius, var(--ui-panel-radius));
+        box-shadow: var(--ui-card-shadow, var(--ui-shadow-sm));
+        text-decoration: none;
+        transition:
+            border-color var(--ui-duration-fast) var(--ui-ease-standard),
+            background-color var(--ui-duration-fast) var(--ui-ease-standard),
+            box-shadow var(--ui-duration-fast) var(--ui-ease-standard);
+    }
+    :where(.ui-stat-card-summary) {
+        padding: var(--ui-space-4);
+    }
+    :where(.ui-stat-card-heading) {
+        display: flex;
+        align-items: center;
+        gap: var(--ui-space-2);
+    }
+    :where(.ui-stat-card-icon) {
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+        inline-size: var(--ui-stat-card-icon-size);
+        block-size: var(--ui-stat-card-icon-size);
+        border-radius: var(--ui-radius-md);
+        background: transparent;
+        color: var(--ui-text-muted);
+    }
+    :where(.ui-stat-card .ui-icon-button) {
+        --ui-button-min-size: var(--ui-stat-card-icon-size);
+    }
+    :where(.ui-stat-card-label) {
+        color: var(--ui-text-secondary);
+        font-size: var(--ui-font-size-sm);
+        font-weight: var(--ui-font-weight-medium);
+    }
+    :where(.ui-stat-card-value) {
+        display: block;
+        margin-block-start: var(--ui-space-2);
+        text-align: start;
+        font-weight: var(--ui-font-weight-medium);
+        letter-spacing: var(--ui-tracking-tight);
+        font-size: var(--ui-font-size-3xl);
+        font-variant-numeric: tabular-nums;
+        line-height: var(--ui-heading-leading);
+        overflow-wrap: anywhere;
+    }
+    :where(.ui-stat-card-unavailable) {
+        font-size: var(--ui-font-size-sm);
+    }
+    :where(.ui-stat-card-description) {
+        margin: var(--ui-space-3) 0 0;
+        color: var(--ui-text-muted);
+        font-size: var(--ui-font-size-sm);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    :where(.ui-stat-card-link) {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--ui-space-2);
+        margin-top: auto;
+        padding: var(--ui-space-4);
+        border-top: var(--ui-border-width) var(--ui-border-style) var(--ui-line);
+        min-block-size: var(--ui-stat-card-action-height);
+        background: var(--ui-surface-sunken);
+        font-size: var(--ui-font-size-sm);
+        font-weight: var(--ui-font-weight-medium);
+        transition: background var(--ui-duration-fast) var(--ui-ease-standard);
+    }
+    :where(a.ui-stat-card:hover),
+    :where(a.ui-stat-card:focus-visible) {
+        border-color: var(--ui-line-strong);
+        box-shadow: var(--ui-shadow-sm);
+        color: var(--ui-text);
+        text-decoration: none;
+    }
+    :where(a.ui-stat-card:hover .ui-stat-card-link),
+    :where(a.ui-stat-card:focus-visible .ui-stat-card-link) {
+        background: var(--ui-hover);
+    }
+    :where(a.ui-stat-card:hover .ui-icon-button),
+    :where(a.ui-stat-card:focus-visible .ui-icon-button) {
+        --ui-button-background: var(--ui-info-solid);
+        --ui-button-hover-background: var(--ui-info-solid);
+        --ui-button-border: var(--ui-info-solid);
+        --ui-button-text: var(--ui-info-on-solid);
+    }
+    :where(a.ui-stat-card:focus-visible) {
+        outline: var(--ui-focus-width) var(--ui-border-style) var(--ui-focus-colour);
+        outline-offset: var(--ui-focus-offset);
+    }
+    :where(.ui-stat-card-destination) {
+        display: flex;
+        flex-direction: column;
+        min-inline-size: 0;
+        gap: var(--ui-space-1);
+    }
+    :where(.ui-copyable-code) {
+        position: relative;
+        max-inline-size: 100%;
+        min-inline-size: 0;
+        vertical-align: middle;
+        border-radius: var(--ui-radius-md);
+        background: var(--ui-surface-sunken);
+        color: var(--ui-text);
+        font-family: var(--ui-font-mono);
+        font-size: var(--ui-font-size-sm);
+    }
+    :where(.ui-copyable-code[data-layout='inline']) {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--ui-space-1);
+        padding-block: var(--ui-space-1);
+        padding-inline: var(--ui-space-2) var(--ui-space-1);
+    }
+    :where(.ui-copyable-code[data-layout='block']) {
+        display: block;
+    }
+    :where(.ui-copyable-code[data-layout='block'] .ui-copyable-code-action) {
+        position: absolute;
+        inset-block-start: var(--ui-space-1);
+        inset-inline-end: var(--ui-space-1);
+        z-index: 1;
+    }
+    :where(.ui-copyable-code-body) {
+        display: block;
+        margin: 0;
+        min-inline-size: 0;
+        font: inherit;
+        line-height: var(--ui-leading-body);
+        overflow-x: auto;
+        overflow-wrap: anywhere;
+        background: transparent;
+        color: inherit;
+    }
+    :where(.ui-copyable-code[data-layout='inline'] .ui-copyable-code-body) {
+        flex: 1 1 auto;
+    }
+    :where(.ui-copyable-code[data-layout='block'] .ui-copyable-code-body) {
+        padding: var(--ui-space-2) var(--ui-space-3);
+        padding-inline-end: calc(var(--ui-space-3) + 2.25rem);
+        white-space: pre-wrap;
+    }
+    :where(.ui-copyable-code-body a) {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 0.12em;
+    }
+}
+
+@layer ui.preferences {
+    @media (prefers-contrast: more) {
+        :where(.ui-badge, .ui-chip) {
+            border-color: currentColor;
+        }
+    }
+    @media (forced-colors: active) {
+        :where(.ui-badge, .ui-chip) {
+            border-color: CanvasText;
+            background: Canvas;
+            color: CanvasText;
+        }
+        :where(.ui-instant) {
+            background: none;
+            text-decoration: underline;
+        }
+    }
+}

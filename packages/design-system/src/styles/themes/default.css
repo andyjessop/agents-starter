@@ -1,0 +1,712 @@
+/*
+ * Default identity pack — Nodelets interface standard.
+ *
+ * Shared by console, website and any other Nodelets surface that should match
+ * the Country editorial console PRD (sage-green signal, warm paper surfaces,
+ * serif editorial type, modest radii, denser controls).
+ *
+ * Source of truth: packages/design-system/src/styles/theme.css (console editorial palette)
+ * (Country editorial reskin + Controls and chips + sans-serif controls + cards/tables
+ * parchment registers). Light values match that specimen exactly.
+ *
+ * Note: a later "tighter radius pass" exists in the HTML as a mangled single-line
+ * comment (literal \\n escapes) and does not apply in the browser. Live Country
+ * values therefore win: panels / table frames use `border-radius: 0.9rem` with
+ * inset highlight `inset 0 1px 0 rgb(255 255 255 / 66%)`; fields and buttons use
+ * `border-radius: 0.72rem` from the Controls and chips specimen.
+ * Dark pairs keep the same editorial language for Light / Dark / System via
+ * light-dark() through data-ui-theme.
+ *
+ * Import after theme.css. Hosts set data-app-theme="default" on :root.
+ */
+@layer themes {
+  :root[data-app-theme="default"] {
+    /* ------------------------------------------------------------------ */
+    /* 1. Primitive inputs                                                 */
+    /* ------------------------------------------------------------------ */
+
+    /* Type — editorial serif for product UI (PRD names this --ui-font-sans).
+     * Interactive controls use --ui-control-font-family (utilitarian sans). */
+    --ui-font-sans: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua",
+      Georgia, serif;
+    --ui-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    --ui-font-weight-strong: 600;
+    --ui-leading-tight: 1.06;
+    --ui-leading-body: 1.45;
+    --ui-tracking-tight: -0.025em;
+    --ui-tracking-label: 0.06em;
+
+    /* Geometry — Country editorial live radii (tighter pass in HTML is inactive). */
+    --ui-radius-unit: 0.25rem;
+
+    /* Surfaces — warm paper / cream. Dark keeps the same olive-ink undertone. */
+    --ui-canvas-light: #f3ead8;
+    --ui-canvas-dark: #1a1c17;
+    --ui-surface-light: #fbf7ed;
+    --ui-surface-dark: #23261f;
+    --ui-surface-raised-light: #fffaf1;
+    --ui-surface-raised-dark: #2c3028;
+    --ui-surface-sunken-light: #f1e7d4;
+    --ui-surface-sunken-dark: #161814;
+
+    --ui-text-light: #262921;
+    --ui-text-dark: #f7f0e2;
+    --ui-text-secondary-light: #5f5a4d;
+    --ui-text-secondary-dark: #c5bba8;
+    --ui-text-muted-light: #827b6a;
+    --ui-text-muted-dark: #9a9282;
+
+    --ui-line-light: #d6cdbb;
+    --ui-line-dark: #3d4136;
+    --ui-line-strong-light: #bfb39e;
+    --ui-line-strong-dark: #565a4e;
+
+    /* Signal — sage green primary; blue for info; olive / amber / clay status. */
+    --ui-accent-light: #4d6448;
+    --ui-accent-dark: #a3b892;
+    --ui-on-accent-light: #fffaf1;
+    --ui-on-accent-dark: #1a1c17;
+    --ui-accent-hover-light: #3e563d;
+    --ui-accent-soft-light: #dce3cf;
+    /* Text accents and contained-button labels. */
+    --ui-accent-bright-light: #61785a;
+    --ui-accent-bright-dark: #c5d4b5;
+    --ui-on-accent-soft-light: #293528;
+    --ui-on-accent-soft-dark: #e2ead9;
+
+    --ui-success-light: #58734f;
+    --ui-success-dark: #a3c496;
+    --ui-on-success-light: #ffffff;
+    --ui-on-success-dark: #121a12;
+    --ui-success-soft-light: #dce7d2;
+
+    --ui-warning-light: #aa7749;
+    --ui-warning-dark: #d4b07a;
+    --ui-on-warning-light: #fffaf1;
+    --ui-on-warning-dark: #1c160c;
+    --ui-warning-soft-light: #f0dfc6;
+
+    --ui-danger-light: #a6564e;
+    --ui-danger-dark: #d48b82;
+    --ui-on-danger-light: #fffaf1;
+    --ui-on-danger-dark: #1c1014;
+    --ui-danger-soft-light: #efd8d2;
+
+    --ui-info-light: #54778a;
+    --ui-info-dark: #8fb0c0;
+    --ui-on-info-light: #ffffff;
+    --ui-on-info-dark: #101820;
+    --ui-info-soft-light: #d2e1e8;
+
+    --ui-status-success-line-light: #afc5a2;
+    --ui-status-warning-line-light: #dcc29f;
+    --ui-status-danger-line-light: #d8b0a9;
+    --ui-status-info-line-light: #b6ccd7;
+    --ui-status-success-surface-light: #eef3e9;
+    --ui-status-warning-surface-light: #f7ecdc;
+    --ui-status-danger-surface-light: #f7e8e4;
+    --ui-status-info-surface-light: #eaf2f5;
+
+    /* Mixing weights stay as visual choices; specimen also pins exact washes. */
+    --ui-tint-weight: 14%;
+    --ui-selected-weight: 12%;
+    --ui-hover-weight: 5%;
+    --ui-active-weight: 8%;
+    --ui-disabled-opacity: 0.42;
+
+    --ui-backdrop-light: rgb(47 41 31 / 40%);
+    --ui-backdrop-dark: rgb(10 12 8 / 72%);
+    --ui-shadow-ink-light: rgb(87 73 49 / 12%);
+    --ui-shadow-ink-dark: rgb(0 0 0 / 40%);
+
+    /* ------------------------------------------------------------------ */
+    /* 2. Derived roles and family overrides                               */
+    /* ------------------------------------------------------------------ */
+
+    /* Explicit radius ladder. Panels/cards/tables use 0.9rem (see --ui-panel-radius). */
+    --ui-radius-sm: 0.375rem;
+    --ui-radius-md: 0.45rem;
+    --ui-radius-lg: 0.5rem;
+
+    /* Typography roles — specimen sizes and weights. */
+    --ui-body-font: var(--ui-font-sans);
+    --ui-body-size: 0.875rem;
+    --ui-body-leading: 1.45;
+    --ui-heading-weight: 600;
+    --ui-heading-leading: 1.06;
+    --ui-heading-tracking: -0.025em;
+    --ui-label-size: 0.75rem;
+    --ui-label-weight: 600;
+    --ui-caption-size: 0.75rem;
+
+    /*
+     * Controls — Country editorial “Controls and chips” specimen.
+     * Fields hardcode border-radius: 0.72rem in the live PRD app layer; match that.
+     * (The later “tighter radius pass” is a mangled comment and does not render.)
+     */
+    --ui-control-min-size: 2.35rem;
+    --ui-control-padding-inline: 0.85rem;
+    --ui-control-padding-block: 0.375rem;
+    --ui-control-gap: 0.45rem;
+    /* Utilitarian sans for buttons/chips/labels; fields keep editorial body serif. */
+    --ui-control-font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      sans-serif;
+    --ui-control-font-size: 0.8rem;
+    --ui-control-font-weight: 400;
+    --ui-control-radius: 0.72rem;
+    --ui-control-background: light-dark(#fffaf1, #2c3028);
+    --ui-control-text: light-dark(#2a2d27, #f7f0e2);
+    --ui-control-placeholder: light-dark(#8a8375, #9a9282);
+    --ui-control-border: light-dark(#cec2ad, #565a4e);
+    --ui-control-selected: light-dark(#4d6448, #a3b892);
+    --ui-control-shadow: inset 0 1px 2px light-dark(rgb(93 76 48 / 5%), rgb(0 0 0 / 28%));
+    --ui-control-hover-border: light-dark(#b4a68f, #6a6e62);
+    --ui-control-hover-background: light-dark(#fffdf7, #32362d);
+    --ui-control-focus-border: light-dark(#5e7658, #a3b892);
+    --ui-control-focus-outline: light-dark(rgb(94 118 88 / 18%), rgb(163 184 146 / 28%));
+    --ui-control-focus-outline-width: 2px;
+    --ui-control-focus-outline-offset: 1px;
+
+    --ui-item-radius: 0.72rem;
+    /*
+     * Panel radius: Country editorial hardcodes 0.9rem on panels / table-wrap.
+     * The later "tighter radius pass" in the HTML specimen is mangled (literal
+     * \\n inside a comment) and does not apply in the browser. Match what renders.
+     */
+    --ui-panel-radius: 0.9rem;
+    --ui-popup-radius: 0.45rem;
+    --ui-alert-radius: 0.5rem;
+    --ui-dialog-radius: 0.5rem;
+    --ui-chip-radius: var(--ui-radius-pill);
+    --ui-chip-min-size: 1.55rem;
+
+    /* Chrome (masthead / rail) — warm paper wash. */
+    --ui-chrome-background: light-dark(rgb(250 246 236 / 94%), rgb(22 24 20 / 94%));
+    --ui-chrome-text: light-dark(#645f53, #9a9282);
+    --ui-chrome-line: light-dark(#d8cfbd, #3d4136);
+    --ui-chrome-focus: light-dark(#4d6448, #a3b892);
+
+    /* Explicit soft roles so light matches the specimen panels. */
+    --ui-accent-soft: light-dark(var(--ui-accent-soft-light), #2a3328);
+    --ui-accent-bright: light-dark(
+      var(--ui-accent-bright-light),
+      var(--ui-accent-bright-dark)
+    );
+    --ui-on-accent-soft: light-dark(
+      var(--ui-on-accent-soft-light),
+      var(--ui-on-accent-soft-dark)
+    );
+    --ui-success-soft: light-dark(var(--ui-success-soft-light), #243028);
+    --ui-warning-soft: light-dark(var(--ui-warning-soft-light), #322a1c);
+    --ui-danger-soft: light-dark(var(--ui-danger-soft-light), #32201e);
+    --ui-info-soft: light-dark(var(--ui-info-soft-light), #1e2a30);
+
+    /* Contained / primary control border. */
+    --ui-accent-border: light-dark(#385239, #6f8765);
+
+    /* Interaction washes pinned to the specimen (not only mix weights). */
+    --ui-hover: light-dark(#f3ead8, #2a2e26);
+    --ui-active: light-dark(#ece0cb, #32362d);
+    --ui-selected: light-dark(#e2ead9, #2f382c);
+    --ui-accent-hover: light-dark(
+      var(--ui-accent-hover-light),
+      color-mix(in oklch, var(--ui-accent-solid), var(--ui-text) var(--ui-hover-weight))
+    );
+    --ui-accent-active: light-dark(#314632, #8fa87e);
+
+    --ui-focus-colour: light-dark(#4d6448, #a3b892);
+    --ui-focus-width: 2px;
+    --ui-focus-offset: 2px;
+
+    --ui-panel-background: light-dark(#fbf7ed, #23261f);
+    --ui-panel-border: light-dark(#d8ceba, #3d4136);
+    --ui-popup-background: light-dark(#fffaf1, #2c3028);
+    --ui-popup-border: light-dark(#cbbfaa, #4a4e44);
+
+    /*
+     * Shared parchment grain (Country editorial panels / table frames).
+     * Exact SVG from the PRD specimen.
+     */
+    --ui-paper-grain: url("data:image/svg+xml,%0A%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22180%22%20height%3D%22180%22%3E%0A%20%20%3Cfilter%20id%3D%22n%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.74%22%20numOctaves%3D%223%22%20seed%3D%227%22/%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22saturate%22%20values%3D%220%22/%3E%0A%20%20%20%20%3CfeComponentTransfer%3E%3CfeFuncA%20type%3D%22table%22%20tableValues%3D%220%20.055%22/%3E%3C/feComponentTransfer%3E%0A%20%20%3C/filter%3E%0A%20%20%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url%28%23n%29%22%20opacity%3D%22.46%22/%3E%0A%3C/svg%3E%0A");
+    --ui-paper-grain-size: 180px 180px;
+
+    /* Panel / card wash + inset highlight (PRD parchment panels, exact). */
+    --ui-panel-wash: light-dark(rgb(251 247 237 / 94%), rgb(35 38 31 / 94%));
+    --ui-panel-hover-wash: light-dark(rgb(255 251 242 / 96%), rgb(44 48 40 / 96%));
+    /* Exact PRD inset highlight + soft drop. Do not collapse to --ui-shadow-sm. */
+    --ui-panel-shadow:
+      inset 0 1px 0 light-dark(rgb(255 255 255 / 66%), rgb(255 255 255 / 6%)),
+      0 2px 8px light-dark(rgb(92 74 47 / 6%), rgb(0 0 0 / 28%));
+    --ui-panel-background-size: auto, var(--ui-paper-grain-size);
+    --ui-card-border: var(--ui-panel-border);
+    --ui-card-hover-border: light-dark(#c3b69f, #565a4e);
+    --ui-card-background: linear-gradient(var(--ui-panel-wash), var(--ui-panel-wash)), var(--ui-paper-grain);
+    --ui-card-hover-background: linear-gradient(var(--ui-panel-hover-wash), var(--ui-panel-hover-wash)),
+      var(--ui-paper-grain);
+    --ui-card-background-size: var(--ui-panel-background-size);
+    --ui-card-shadow: var(--ui-panel-shadow);
+    --ui-card-radius: 0.9rem;
+
+    /* Table frame wash is a touch lighter than ordinary panels (PRD table-wrap). */
+    --ui-table-frame-wash: light-dark(rgb(252 248 239 / 96%), rgb(35 38 31 / 96%));
+    --ui-table-frame-background: linear-gradient(var(--ui-table-frame-wash), var(--ui-table-frame-wash)),
+      var(--ui-paper-grain);
+    --ui-table-frame-shadow: var(--ui-panel-shadow);
+    --ui-table-frame-radius: 0.9rem;
+
+    --ui-shadow-sm: 0 1px 2px light-dark(rgb(87 73 49 / 8%), rgb(0 0 0 / 28%));
+    --ui-shadow-md: 0 8px 24px light-dark(rgb(87 73 49 / 12%), rgb(0 0 0 / 36%));
+    --ui-shadow-lg: 0 18px 50px light-dark(rgb(87 73 49 / 18%), rgb(0 0 0 / 48%));
+
+    /* Status line / surface washes match the specimen exactly in light. */
+    --ui-status-success-line: light-dark(
+      var(--ui-status-success-line-light),
+      color-mix(in oklch, var(--ui-success-solid) 30%, var(--ui-line))
+    );
+    --ui-status-warning-line: light-dark(
+      var(--ui-status-warning-line-light),
+      color-mix(in oklch, var(--ui-warning-solid) 30%, var(--ui-line))
+    );
+    --ui-status-danger-line: light-dark(
+      var(--ui-status-danger-line-light),
+      color-mix(in oklch, var(--ui-danger-solid) 30%, var(--ui-line))
+    );
+    --ui-status-info-line: light-dark(
+      var(--ui-status-info-line-light),
+      color-mix(in oklch, var(--ui-info-solid) 30%, var(--ui-line))
+    );
+    --ui-status-success-surface: light-dark(
+      var(--ui-status-success-surface-light),
+      color-mix(in oklch, var(--ui-success-solid) 14%, var(--ui-surface))
+    );
+    --ui-status-warning-surface: light-dark(
+      var(--ui-status-warning-surface-light),
+      color-mix(in oklch, var(--ui-warning-solid) 14%, var(--ui-surface))
+    );
+    --ui-status-danger-surface: light-dark(
+      var(--ui-status-danger-surface-light),
+      color-mix(in oklch, var(--ui-danger-solid) 14%, var(--ui-surface))
+    );
+    --ui-status-info-surface: light-dark(
+      var(--ui-status-info-surface-light),
+      color-mix(in oklch, var(--ui-info-solid) 14%, var(--ui-surface))
+    );
+
+    /* Data tables — compact parchment registers (Country editorial + surface correction). */
+    --ui-data-header-background: light-dark(#eee5d4, #1e211b);
+    --ui-data-header-text: light-dark(#696254, #9a9282);
+    --ui-data-header-font-family: var(--ui-control-font-family);
+    --ui-data-header-font-weight: 700;
+    --ui-data-header-size: 0.64rem;
+    --ui-data-header-tracking: 0.08em;
+    --ui-data-header-text-transform: uppercase;
+    --ui-data-cell-text: light-dark(#625d51, #c5bba8);
+    --ui-data-cell-background: transparent;
+    --ui-data-cell-font-size: 0.8125rem;
+    --ui-data-primary-text: light-dark(#2d312b, #f7f0e2);
+    --ui-data-primary-weight: 600;
+    --ui-data-primary-size: 0.85rem;
+    --ui-data-secondary-text: light-dark(#847d6e, #9a9282);
+    --ui-data-secondary-size: 0.75rem;
+    --ui-data-row-hover: light-dark(#f0eadf, #2a2e26);
+    --ui-data-row-selected: light-dark(#e2ead9, #2f382c);
+    --ui-data-rule: light-dark(#e1d7c5, #3d4136);
+
+    /* Charts — sage / sky / success / amber / clay / peach from the kit. */
+    --ui-chart-1: light-dark(#4d6448, #a3b892);
+    --ui-chart-2: light-dark(#54778a, #8fb0c0);
+    --ui-chart-3: light-dark(#58734f, #a3c496);
+    --ui-chart-4: light-dark(#aa7749, #d4b07a);
+    --ui-chart-5: light-dark(#a6564e, #d48b82);
+    --ui-chart-6: light-dark(#8a7a5c, #c5bba8);
+  }
+
+  /*
+   * Control chrome — Country editorial specimen (Controls and chips + sans pass).
+   * Maps design-system variants: solid=primary, outline=secondary, ghost=quiet.
+   * Danger solid uses the soft clay treatment from the specimen.
+   *
+   * Paint properties are set directly (not only --ui-button-* hooks) so they win
+   * over host @layer app element resets. Primary label stays cream in both schemes:
+   * the fill is a dark sage gradient either way (PRD specimen).
+   */
+  :root[data-app-theme="default"] :where(.ui-button) {
+    --ui-button-font-family: var(--ui-control-font-family);
+    --ui-button-font-size: 0.8rem;
+    --ui-button-font-weight: 600;
+    --ui-button-padding-inline: 0.85rem;
+    --ui-button-radius: 0.72rem;
+    --ui-button-hover-transform: translateY(-1px);
+    font-family: var(--ui-button-font-family);
+    font-size: var(--ui-button-font-size);
+    font-weight: var(--ui-button-font-weight);
+    letter-spacing: 0;
+    min-block-size: var(--ui-control-min-size);
+    padding-inline: var(--ui-button-padding-inline);
+    border-radius: var(--ui-button-radius);
+  }
+
+  /* Primary / solid accent — dark sage fill, cream label (exact PRD). */
+  :root[data-app-theme="default"]
+    :where(
+      .ui-button[data-variant="solid"][data-tone="accent"],
+      .ui-button[data-tone="accent"]:not([data-variant="outline"]):not([data-variant="ghost"]),
+      .ui-button:not([data-variant]):not([data-tone]),
+      .ui-button[data-variant="solid"]:not([data-tone]),
+      .ui-button[data-tone="accent"]:not([data-variant])
+    ) {
+    --ui-button-background: linear-gradient(
+      light-dark(#5c7454, #6f8765),
+      light-dark(#435d42, #4d654c)
+    );
+    --ui-button-hover-background: linear-gradient(
+      light-dark(#647d5b, #7a9270),
+      light-dark(#496447, #557053)
+    );
+    --ui-button-active-background: linear-gradient(
+      light-dark(#546a4c, #64805c),
+      light-dark(#3a5239, #455c44)
+    );
+    --ui-button-border: light-dark(#385239, #6f8765);
+    --ui-button-text: #fffaf1;
+    --ui-button-active-text: #fffaf1;
+    --ui-button-shadow:
+      inset 0 1px 0 light-dark(rgb(255 255 255 / 16%), rgb(255 255 255 / 10%)),
+      0 2px 5px light-dark(rgb(61 84 60 / 18%), rgb(0 0 0 / 32%));
+    --ui-button-hover-shadow:
+      inset 0 1px 0 light-dark(rgb(255 255 255 / 16%), rgb(255 255 255 / 10%)),
+      0 3px 7px light-dark(rgb(61 84 60 / 22%), rgb(0 0 0 / 38%));
+    background: var(--ui-button-background);
+    border-color: var(--ui-button-border);
+    color: var(--ui-button-text);
+    box-shadow: var(--ui-button-shadow);
+  }
+
+  :root[data-app-theme="default"]
+    :where(
+      .ui-button[data-variant="solid"][data-tone="accent"]:hover:not(:disabled),
+      .ui-button[data-tone="accent"]:not([data-variant="outline"]):not([data-variant="ghost"]):hover:not(:disabled),
+      .ui-button:not([data-variant]):not([data-tone]):hover:not(:disabled),
+      .ui-button[data-variant="solid"]:not([data-tone]):hover:not(:disabled),
+      .ui-button[data-tone="accent"]:not([data-variant]):hover:not(:disabled)
+    ) {
+    background: var(--ui-button-hover-background);
+    border-color: var(--ui-button-border);
+    color: var(--ui-button-text);
+    box-shadow: var(--ui-button-hover-shadow);
+    transform: var(--ui-button-hover-transform);
+  }
+
+  :root[data-app-theme="default"]
+    :where(
+      .ui-button[data-variant="solid"][data-tone="accent"]:active:not(:disabled),
+      .ui-button[data-tone="accent"]:not([data-variant="outline"]):not([data-variant="ghost"]):active:not(:disabled),
+      .ui-button:not([data-variant]):not([data-tone]):active:not(:disabled),
+      .ui-button[data-variant="solid"]:not([data-tone]):active:not(:disabled),
+      .ui-button[data-tone="accent"]:not([data-variant]):active:not(:disabled)
+    ) {
+    background: var(--ui-button-active-background);
+    color: var(--ui-button-active-text);
+    transform: none;
+  }
+
+  /* Secondary / outline — parchment fill, ink label. */
+  :root[data-app-theme="default"] :where(.ui-button[data-variant="outline"]) {
+    --ui-button-background: linear-gradient(
+      light-dark(#fffaf1, #2c3028),
+      light-dark(#f6eddd, #23261f)
+    );
+    --ui-button-hover-background: light-dark(#f8efdf, #32362d);
+    --ui-button-active-background: light-dark(#f3ead8, #2a2e26);
+    --ui-button-border: light-dark(#c8bca6, #565a4e);
+    --ui-button-text: light-dark(#2e332d, #f7f0e2);
+    --ui-button-active-text: light-dark(#2e332d, #f7f0e2);
+    --ui-button-shadow:
+      inset 0 1px 0 light-dark(rgb(255 255 255 / 70%), rgb(255 255 255 / 6%)),
+      0 1px 2px light-dark(rgb(91 73 48 / 8%), rgb(0 0 0 / 28%));
+    --ui-button-hover-shadow:
+      inset 0 1px 0 light-dark(rgb(255 255 255 / 75%), rgb(255 255 255 / 8%)),
+      0 3px 7px light-dark(rgb(91 73 48 / 10%), rgb(0 0 0 / 36%));
+    background: var(--ui-button-background);
+    border-color: var(--ui-button-border);
+    color: var(--ui-button-text);
+    box-shadow: var(--ui-button-shadow);
+  }
+
+  :root[data-app-theme="default"] :where(.ui-button[data-variant="outline"]:hover:not(:disabled)) {
+    --ui-button-border: light-dark(#a99d88, #6a6e62);
+    background: var(--ui-button-hover-background);
+    border-color: var(--ui-button-border);
+    color: var(--ui-button-text);
+    box-shadow: var(--ui-button-hover-shadow);
+    transform: var(--ui-button-hover-transform);
+  }
+
+  :root[data-app-theme="default"] :where(.ui-button[data-variant="outline"]:active:not(:disabled)) {
+    background: var(--ui-button-active-background);
+    color: var(--ui-button-active-text);
+    transform: none;
+  }
+
+  /* Quiet / ghost — no chrome, muted label. */
+  :root[data-app-theme="default"] :where(.ui-button[data-variant="ghost"]) {
+    --ui-button-background: transparent;
+    --ui-button-hover-background: light-dark(#eee6d7, #2a2e26);
+    --ui-button-active-background: light-dark(#e6dcc9, #32362d);
+    --ui-button-border: transparent;
+    --ui-button-text: light-dark(#615b4e, #c5bba8);
+    --ui-button-hover-text: light-dark(#2c312a, #f7f0e2);
+    --ui-button-active-text: light-dark(#2c312a, #f7f0e2);
+    --ui-button-shadow: none;
+    --ui-button-hover-shadow: none;
+    background: transparent;
+    border-color: transparent;
+    color: var(--ui-button-text);
+    box-shadow: none;
+  }
+
+  :root[data-app-theme="default"] :where(.ui-button[data-variant="ghost"]:hover:not(:disabled)) {
+    background: var(--ui-button-hover-background);
+    color: var(--ui-button-hover-text);
+    transform: var(--ui-button-hover-transform);
+  }
+
+  :root[data-app-theme="default"] :where(.ui-button[data-variant="ghost"]:active:not(:disabled)) {
+    background: var(--ui-button-active-background);
+    color: var(--ui-button-active-text);
+    transform: none;
+  }
+
+  /* Danger solid — soft clay wash (PRD button-danger), not a hard red fill. */
+  :root[data-app-theme="default"]
+    :where(
+      .ui-button[data-variant="solid"][data-tone="danger"],
+      .ui-button[data-tone="danger"]:not([data-variant="outline"]):not([data-variant="ghost"]),
+      .ui-button[data-tone="danger"]:not([data-variant])
+    ) {
+    --ui-button-background: light-dark(#f5e2dc, #3a2826);
+    --ui-button-hover-background: light-dark(#f0d5cd, #46302d);
+    --ui-button-active-background: light-dark(#ebd0c7, #523834);
+    --ui-button-border: light-dark(#d7aaa3, #8a5a54);
+    --ui-button-text: light-dark(#8a433f, #f0c4be);
+    --ui-button-active-text: light-dark(#8a433f, #f0c4be);
+    --ui-button-shadow: none;
+    --ui-button-hover-shadow: none;
+    background: var(--ui-button-background);
+    border-color: var(--ui-button-border);
+    color: var(--ui-button-text);
+    box-shadow: none;
+  }
+
+  :root[data-app-theme="default"]
+    :where(
+      .ui-button[data-variant="solid"][data-tone="danger"]:hover:not(:disabled),
+      .ui-button[data-tone="danger"]:not([data-variant="outline"]):not([data-variant="ghost"]):hover:not(:disabled),
+      .ui-button[data-tone="danger"]:not([data-variant]):hover:not(:disabled)
+    ) {
+    background: var(--ui-button-hover-background);
+    border-color: var(--ui-button-border);
+    color: var(--ui-button-text);
+  }
+
+  :root[data-app-theme="default"]
+    :where(
+      .ui-button[data-variant="solid"][data-tone="danger"]:active:not(:disabled),
+      .ui-button[data-tone="danger"]:not([data-variant="outline"]):not([data-variant="ghost"]):active:not(:disabled),
+      .ui-button[data-tone="danger"]:not([data-variant]):active:not(:disabled)
+    ) {
+    background: var(--ui-button-active-background);
+    color: var(--ui-button-active-text);
+    transform: none;
+  }
+
+  :root[data-app-theme="default"] :where(.ui-chip) {
+    --ui-chip-background: light-dark(rgb(255 251 242 / 72%), rgb(44 48 40 / 72%));
+    --ui-chip-text: light-dark(#625d51, #c5bba8);
+    --ui-chip-border: light-dark(#d5cbb8, #565a4e);
+    font-family: var(--ui-control-font-family);
+    font-size: 0.69rem;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+    padding-inline: 0.6rem;
+    color: var(--ui-chip-text);
+    background: var(--ui-chip-background);
+    border-color: var(--ui-chip-border);
+    box-shadow: inset 0 1px 0 light-dark(rgb(255 255 255 / 60%), rgb(255 255 255 / 6%));
+  }
+
+  :root[data-app-theme="default"] :where(.ui-chip[data-tone="info"]) {
+    --ui-chip-background: light-dark(#e3edf1, #1e2a30);
+    --ui-chip-text: light-dark(#466477, #8fb0c0);
+    --ui-chip-border: light-dark(#b7ccd5, #54778a);
+    color: var(--ui-chip-text);
+    background: var(--ui-chip-background);
+    border-color: var(--ui-chip-border);
+  }
+
+  /*
+   * Fields — Country editorial parchment inputs (PRD `.ui-input, .ui-select, .ui-textarea`).
+   * Painted directly so host @layer app element resets cannot drop them.
+   * Font stays editorial body (PRD inputs are not in the sans pass).
+   */
+  :root[data-app-theme="default"] :where(.ui-input:not([type="range"]), .ui-select, .ui-textarea) {
+    border: var(--ui-border-width) solid var(--ui-control-border);
+    border-radius: var(--ui-control-radius);
+    background-color: var(--ui-control-background);
+    color: var(--ui-control-text);
+    box-shadow: var(--ui-control-shadow);
+    font-family: var(--ui-body-font);
+    font-size: var(--ui-control-font-size);
+    font-weight: var(--ui-font-weight-regular);
+    min-block-size: var(--ui-control-min-size);
+    padding-block: var(--ui-control-padding-block);
+    padding-inline: var(--ui-control-padding-inline);
+  }
+
+  :root[data-app-theme="default"]
+    :where(
+      .ui-input:not([type="range"]):hover:not(:disabled):not(:focus-visible),
+      .ui-select:hover:not(:disabled):not(:focus-visible),
+      .ui-textarea:hover:not(:disabled):not(:focus-visible)
+    ) {
+    border-color: var(--ui-control-hover-border);
+    background-color: var(--ui-control-hover-background);
+  }
+
+  :root[data-app-theme="default"]
+    :where(.ui-input:not([type="range"]):focus-visible, .ui-select:focus-visible, .ui-textarea:focus-visible) {
+    border-color: var(--ui-control-focus-border);
+    outline: var(--ui-control-focus-outline-width) solid var(--ui-control-focus-outline);
+    outline-offset: var(--ui-control-focus-outline-offset);
+  }
+
+  /*
+   * Sans-serif controls (PRD pass).
+   * Keep editorial serif for content and headings. Interactive controls and
+   * badge-like status elements use the utilitarian sans stack.
+   */
+  :root[data-app-theme="default"]
+    :where(.ui-button, .ui-chip, .ui-badge, .ui-avatar, [role="menuitem"]) {
+    font-family: var(--ui-control-font-family);
+  }
+
+  /*
+   * Cards and parchment panels — Country editorial bounded surfaces.
+   * Source: PRD `.panel, .table-wrap, …` block (border-radius 0.9rem + inset
+   * highlight). Painted directly so host @layer app resets cannot drop them.
+   */
+  :root[data-app-theme="default"] :where(.ui-card, .ui-paper, .ui-stat-card) {
+    border: 1px solid var(--ui-card-border);
+    border-radius: var(--ui-card-radius);
+    background: var(--ui-card-background);
+    background-size: var(--ui-card-background-size);
+    box-shadow: var(--ui-card-shadow);
+    color: var(--ui-text);
+  }
+
+  :root[data-app-theme="default"] :where(.ui-card:hover, a.ui-stat-card:hover, a.ui-stat-card:focus-visible) {
+    border-color: var(--ui-card-hover-border);
+    background: var(--ui-card-hover-background);
+    background-size: var(--ui-card-background-size);
+    box-shadow: var(--ui-card-shadow);
+  }
+
+  :root[data-app-theme="default"] :where(.ui-stat-card) {
+    --ui-stat-card-link-border: var(--ui-data-rule);
+    --ui-stat-card-link-background: light-dark(rgb(241 231 212 / 72%), rgb(30 33 27 / 72%));
+  }
+
+  :root[data-app-theme="default"] :where(.ui-stat-card-link) {
+    border-block-start-color: var(--ui-stat-card-link-border);
+    background: var(--ui-stat-card-link-background);
+  }
+
+  :root[data-app-theme="default"] :where(a.ui-stat-card:hover .ui-stat-card-link, a.ui-stat-card:focus-visible .ui-stat-card-link) {
+    background: var(--ui-data-row-hover);
+  }
+
+  /*
+   * Tables — compact parchment registers (PRD `.table-wrap` + surface correction).
+   * Frame chrome (radius, grain, inset highlight) lives on `.ui-table-scroll` or on
+   * a bare `.ui-table`, matching the specimen wrapper.
+   */
+  :root[data-app-theme="default"] :where(.ui-table-scroll) {
+    overflow: hidden;
+    border: 1px solid var(--ui-panel-border);
+    border-radius: var(--ui-table-frame-radius);
+    background: var(--ui-table-frame-background);
+    background-size: var(--ui-panel-background-size);
+    box-shadow: var(--ui-table-frame-shadow);
+  }
+
+  :root[data-app-theme="default"] :where(.ui-table) {
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border: 1px solid var(--ui-panel-border);
+    border-radius: var(--ui-table-frame-radius);
+    background: var(--ui-table-frame-background);
+    background-size: var(--ui-panel-background-size);
+    box-shadow: var(--ui-table-frame-shadow);
+  }
+
+  /* Nested tables inside `.ui-table-scroll` drop the outer frame (wrapper owns it). */
+  :root[data-app-theme="default"] :where(.ui-table-scroll .ui-table) {
+    overflow: visible;
+    background: transparent;
+    background-image: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  :root[data-app-theme="default"] :where(.ui-table thead, .ui-table thead tr, .ui-table thead th) {
+    background: var(--ui-data-header-background);
+  }
+
+  :root[data-app-theme="default"] :where(.ui-table thead th) {
+    color: var(--ui-data-header-text);
+    font-family: var(--ui-data-header-font-family);
+    font-size: var(--ui-data-header-size);
+    font-weight: var(--ui-data-header-font-weight);
+    letter-spacing: var(--ui-data-header-tracking);
+    text-transform: var(--ui-data-header-text-transform);
+    border-block-end: var(--ui-border-width) solid var(--ui-data-rule);
+  }
+
+  :root[data-app-theme="default"] :where(.ui-table tbody, .ui-table tbody tr) {
+    background: transparent;
+  }
+
+  :root[data-app-theme="default"] :where(.ui-table th, .ui-table td) {
+    border-color: var(--ui-data-rule);
+  }
+
+  :root[data-app-theme="default"] :where(.ui-table td) {
+    color: var(--ui-data-cell-text);
+    background: transparent;
+    font-size: var(--ui-data-cell-font-size);
+    border-block-end: 0;
+    box-shadow: inset 0 -1px 0 var(--ui-data-rule);
+  }
+
+  :root[data-app-theme="default"] :where(.ui-table tbody tr:hover td) {
+    background: var(--ui-data-row-hover);
+  }
+
+  :root[data-app-theme="default"] :where(.ui-table .primary-cell strong) {
+    color: var(--ui-data-primary-text);
+    font-size: var(--ui-data-primary-size);
+    font-weight: var(--ui-data-primary-weight);
+  }
+
+  :root[data-app-theme="default"] :where(.ui-table .primary-cell span) {
+    color: var(--ui-data-secondary-text);
+    font-size: var(--ui-data-secondary-size);
+  }
+
+  :root[data-app-theme="default"] :where(.ui-table .ui-chip, .ui-table .ui-badge) {
+    box-shadow: inset 0 1px 0 light-dark(rgb(255 255 255 / 55%), rgb(255 255 255 / 6%));
+  }
+}

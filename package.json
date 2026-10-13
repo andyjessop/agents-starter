@@ -1,0 +1,22 @@
+{
+  "name": "agent-starter",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @agent-starter/client",
+    "build": "nx run-many -t build --all",
+    "check": "npm run format && npm run lint && nx run-many -t test,typecheck --all",
+    "format": "biome format --write biome.json nx.json tsconfig.base.json package.json vitest.workspace.ts scripts apps/client packages && npm run format -ws --if-present",
+    "lint": "biome check --error-on-warnings biome.json nx.json tsconfig.base.json package.json vitest.workspace.ts scripts && nx run-many -t lint --all"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.12",
+    "nx": "^23.3.0",
+    "typescript": "^5.9.3"
+  }
+}

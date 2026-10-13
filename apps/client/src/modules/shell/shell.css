@@ -1,0 +1,933 @@
+/*
+ * App shell chrome.
+ *
+ * Visual reference (source of truth for layout and style):
+ * packages/design-system/src/styles/theme.css (console editorial palette)
+ * (section "Side navigation shell", ~L5551).
+ *
+ * Measurements from the final HTML cascade (Side navigation shell, then the
+ * later "Tighter radius pass" that wins for nav/workspace/profile radii):
+ * - Expanded rail width: 20rem (product choice; specimen historically 17rem)
+ * - Compact rail width: 4rem (user collapse only; PRD has no mid-band compact)
+ * - Mobile drawer width: min(18rem, 86vw)
+ * - Topbar height: 3.4rem
+ * - Brand mark: 2.5rem
+ * - Brand wordmark: 1.65rem / 600; tagline 0.43rem, tracking 0.18em
+ * - Nav row min-height: 2.45rem; label 0.82rem / 600; icon 1rem
+ * - Nav / workspace / profile radius: 0.4rem (tighter pass; sidenav draft was 0.7/0.75)
+ * - Group label: 0.58rem / 700, tracking 0.12em, uppercase
+ * - Group stacking gap: 1rem
+ * - Content max width: 92rem
+ * - Content padding: 1.5rem 2rem 2.5rem (1.25rem inline below 900px)
+ * - Rail edge: 1px #d7ccb8 + inset hairline + 4px 0 18px drop
+ * - Brand/footer dividers: 1px #ddd3c0; workspace divider: 1px #e0d6c4
+ *
+ * Also owns the host document reset (see below). Design-system ui.reset is
+ * intentionally narrow and scoped under .ui-theme; the PRD keeps the document
+ * rules in @layer app.
+ *
+ * Page body (non-chrome) styling remains deferred.
+ */
+
+@layer app {
+  /*
+   * Host document reset — mirrors the PRD @layer app preamble, plus a few
+   * standard document hygiene rules. Do not zero heading/paragraph/list
+   * margins here: Typography and page modules own those.
+   */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    min-height: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-width: 20rem;
+    min-height: 100%;
+    background: var(--ui-canvas);
+    color: var(--ui-text);
+    font-family: var(--ui-body-font);
+    font-size: var(--ui-body-size);
+    line-height: var(--ui-body-leading);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  #root {
+    min-height: 100%;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+  }
+
+  button {
+    color: inherit;
+  }
+
+  img,
+  picture,
+  video,
+  canvas {
+    display: block;
+    max-inline-size: 100%;
+  }
+
+  img,
+  video {
+    height: auto;
+  }
+
+  /* Beat layered author display rules so native hidden stays out of layout. */
+  [hidden] {
+    /* biome-ignore lint/complexity/noImportantStyles: host reset must override layered display */
+    display: none !important;
+  }
+
+  .app-shell {
+    /* Layout (PRD --country-sidebar-width / topbar / page) */
+    --shell-rail-width: 20rem;
+    --shell-rail-compact-width: 4rem;
+    --shell-rail-mobile-width: min(18rem, 86vw);
+    --shell-topbar-height: 3.4rem;
+    --shell-content-max: 92rem;
+    --shell-content-pad-block: 1.5rem 2.5rem;
+    --shell-content-pad-inline: 2rem;
+    --shell-content-pad-inline-narrow: 1.25rem;
+    --shell-brand-mark-size: 3.25rem;
+    --shell-nav-row-height: 2.45rem;
+    --shell-nav-icon-size: 1rem;
+    --shell-nav-group-gap: 1rem;
+    --shell-nav-item-gap: var(--ui-navigation-gap);
+    --shell-profile-avatar-size: 2rem;
+    --shell-z-rail: 50;
+    --shell-z-topbar: 40;
+
+    /* Shell typography (PRD sidenav) */
+    --shell-font-brand: "Iowan Old Style", "Palatino Linotype", Palatino,
+      "Book Antiqua", Georgia, serif;
+    --shell-font-ui: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      "Segoe UI", sans-serif;
+    --shell-brand-size: 1.65rem;
+    --shell-brand-tag-size: var(--ui-font-size-xs);
+    --shell-brand-tag-tracking: 0.18em;
+    --shell-nav-label-size: var(--ui-font-size-xs);
+    --shell-nav-label-tracking: 0.12em;
+    --shell-nav-link-size: 0.82rem;
+    --shell-nav-link-weight: 600;
+    --shell-topbar-title-size: 0.82rem;
+    --shell-workspace-detail-size: var(--ui-font-size-xs);
+    --shell-account-name-size: var(--ui-font-size-sm);
+    --shell-account-detail-size: var(--ui-font-size-xs);
+    --shell-account-panel-size: var(--ui-font-size-sm);
+    --shell-compact-workspace-size: var(--ui-font-size-xs);
+    --shell-compact-tip-size: var(--ui-font-size-xs);
+    --shell-switcher-badge-font-size: var(--ui-font-size-xs);
+
+    /* Shell colour (PRD sidenav hexes; light-dark for appearance modes) */
+    --shell-rail-wash: light-dark(rgb(248 242 231 / 96%), rgb(28 31 26 / 96%));
+    --shell-topbar-wash: light-dark(rgb(248 242 231 / 94%), rgb(28 31 26 / 94%));
+    --shell-rail-line: light-dark(#d7ccb8, #3a3f36);
+    --shell-rail-line-soft: light-dark(#e0d6c4, #2f342c);
+    --shell-rail-line-divider: light-dark(#ddd3c0, #34392f);
+    --shell-rail-text: light-dark(#2f332d, #e8e4d8);
+    --shell-brand-text: light-dark(#1f251d, #e8e4d8);
+    --shell-rail-muted: light-dark(#817969, #9a9486);
+    --shell-nav-label-color: light-dark(#8a8273, #9a9486);
+    --shell-nav-text: light-dark(#5b574d, #c4bfb2);
+    --shell-nav-icon: light-dark(#72806b, #9aab8f);
+    --shell-nav-hover-bg: light-dark(rgb(225 233 217 / 62%), rgb(70 82 60 / 45%));
+    --shell-nav-hover-line: light-dark(rgb(180 196 168 / 38%), rgb(120 140 100 / 35%));
+    --shell-nav-hover-text: light-dark(#29352b, #eef3e6);
+    --shell-nav-active-bg: light-dark(#dfe7d5, #2f3a2c);
+    --shell-nav-active-line: light-dark(#c4d0b6, #4a5a42);
+    --shell-nav-active-text: light-dark(#2f4d32, #d7e4cb);
+    --shell-nav-active-bar: light-dark(#4d6448, #8fad7e);
+    --shell-nav-active-icon: light-dark(#4d6448, #8fad7e);
+    --shell-workspace-bg: light-dark(rgb(255 251 242 / 70%), rgb(40 44 36 / 70%));
+    --shell-workspace-bg-hover: light-dark(#fffaf1, #32382e);
+    --shell-workspace-border: light-dark(#d1c5b0, #4a5044);
+    --shell-workspace-border-hover: light-dark(#b9ac96, #5a6452);
+    --shell-workspace-inset: light-dark(rgb(255 255 255 / 66%), transparent);
+    --shell-workspace-drop: light-dark(rgb(91 73 48 / 5%), transparent);
+    --shell-profile-hover-bg: light-dark(rgb(237 230 217 / 72%), rgb(70 82 60 / 45%));
+    --shell-profile-name: light-dark(#30352d, #e8e4d8);
+    --shell-profile-detail: light-dark(#817a6b, #9a9486);
+    --shell-rail-edge-inset: light-dark(rgb(255 255 255 / 45%), transparent);
+    --shell-rail-drop: light-dark(rgb(91 73 48 / 4%), rgb(0 0 0 / 20%));
+    --shell-rail-edge-shadow: 4px 0 18px var(--shell-rail-drop);
+    --shell-nav-active-inset: light-dark(rgb(255 255 255 / 58%), transparent);
+    --shell-topbar-drop: light-dark(rgb(91 73 48 / 4%), rgb(0 0 0 / 25%));
+    --shell-topbar-shadow: 0 2px 10px var(--shell-topbar-drop);
+    --shell-drawer-drop: light-dark(rgb(63 50 31 / 18%), rgb(0 0 0 / 40%));
+    --shell-drawer-shadow: 12px 0 40px var(--shell-drawer-drop);
+    --shell-brand-mark-highlight: light-dark(rgb(255 255 255 / 70%), transparent);
+    --shell-topbar-title-color: light-dark(#514c43, #9a9486);
+    --shell-tip-bg: light-dark(#2f332d, #f3eee2);
+    --shell-tip-text: light-dark(#f8f2e7, #1c1f1a);
+    /* PRD "Tighter radius pass" final values (sidenav draft used 0.7 / 0.75). */
+    --shell-radius-nav: 0.4rem;
+    --shell-radius-workspace: 0.4rem;
+    --shell-radius-control: 0.4rem;
+    --shell-motion: var(--ui-duration-normal) var(--ui-ease-standard);
+    /* PRD paper grain (same SVG as sidenav shell) */
+    --shell-paper-noise: url("data:image/svg+xml,%0A%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%22180%22%20height%3D%22180%22%3E%0A%20%20%3Cfilter%20id%3D%22n%22%3E%0A%20%20%20%20%3CfeTurbulence%20type%3D%22fractalNoise%22%20baseFrequency%3D%22.74%22%20numOctaves%3D%223%22%20seed%3D%227%22/%3E%0A%20%20%20%20%3CfeColorMatrix%20type%3D%22saturate%22%20values%3D%220%22/%3E%0A%20%20%20%20%3CfeComponentTransfer%3E%3CfeFuncA%20type%3D%22table%22%20tableValues%3D%220%20.055%22/%3E%3C/feComponentTransfer%3E%0A%20%20%3C/filter%3E%0A%20%20%3Crect%20width%3D%22100%25%22%20height%3D%22100%25%22%20filter%3D%22url%28%23n%29%22%20opacity%3D%22.46%22/%3E%0A%3C/svg%3E%0A");
+    --shell-paper-grain-size: 180px 180px;
+    --shell-page-heading-block: 7rem;
+    --app-dialog-standard: 36rem;
+    --app-dialog-assignment: 48rem;
+    --app-dialog-pairing: 52rem;
+
+    height: 100dvh;
+    min-height: 100dvh;
+    background: var(--ui-canvas);
+    color: var(--ui-text);
+    font-family: var(--shell-font-ui);
+  }
+
+  .app-shell-skip {
+    position: absolute;
+    inset-inline-start: var(--ui-space-3);
+    inset-block-start: var(--ui-space-3);
+    z-index: calc(var(--shell-z-rail) + 20);
+    padding: var(--ui-space-2) var(--ui-space-3);
+    border-radius: var(--shell-radius-control);
+    background: var(--ui-surface);
+    color: var(--ui-text);
+    text-decoration: none;
+    transform: translateY(-200%);
+  }
+
+  .app-shell-skip:focus {
+    transform: translateY(0);
+  }
+
+  .app-shell-frame {
+    display: grid;
+    /* PRD uses a fixed sidebar track, not auto-sized content. */
+    grid-template-columns: var(--shell-rail-width) minmax(0, 1fr);
+    min-height: 100dvh;
+  }
+
+  .app-shell[data-shell-compact="true"] .app-shell-frame {
+    grid-template-columns: var(--shell-rail-compact-width) minmax(0, 1fr);
+  }
+
+  .app-shell[data-shell-band="mobile"] .app-shell-frame {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Permanent rail                                                     */
+  /* ------------------------------------------------------------------ */
+
+  .app-shell-rail.ui-permanent-drawer {
+    /* Beat DS default --ui-drawer-inline-size: 14.5rem and max-inline-size: 100%. */
+    --ui-drawer-inline-size: var(--shell-rail-width);
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--shell-z-rail);
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    inline-size: var(--shell-rail-width);
+    width: var(--shell-rail-width);
+    max-inline-size: none;
+    height: 100dvh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    color: var(--shell-rail-text);
+    background:
+      linear-gradient(to bottom, var(--shell-rail-wash), var(--shell-rail-wash)),
+      var(--shell-paper-noise);
+    background-size: auto, var(--shell-paper-grain-size);
+    border: 0;
+    border-inline-end: 1px solid var(--shell-rail-line);
+    border-radius: 0;
+    box-shadow:
+      inset -1px 0 var(--shell-rail-edge-inset),
+      var(--shell-rail-edge-shadow);
+    transition:
+      width var(--shell-motion),
+      inline-size var(--shell-motion);
+  }
+
+  .app-shell[data-shell-compact="true"] .app-shell-rail.ui-permanent-drawer {
+    --ui-drawer-inline-size: var(--shell-rail-compact-width);
+    inline-size: var(--shell-rail-compact-width);
+    width: var(--shell-rail-compact-width);
+  }
+
+  .app-shell-brand {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.7rem;
+    min-height: auto;
+    padding: 1.15rem 1rem 1rem;
+    border: 0;
+    border-block-end: 1px solid var(--shell-rail-line-divider);
+    color: var(--shell-brand-text);
+    text-decoration: none;
+  }
+
+  .app-shell-brand:hover {
+    color: var(--shell-nav-hover-text);
+  }
+
+  .app-shell-brand-mark {
+    width: var(--shell-brand-mark-size);
+    height: var(--shell-brand-mark-size);
+    flex: 0 0 auto;
+    object-fit: contain;
+    filter: drop-shadow(0 1px 0 var(--shell-brand-mark-highlight));
+  }
+
+  .app-shell-brand-lockup {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+  }
+
+  .app-shell-brand-lockup strong {
+    font-family: var(--shell-font-brand);
+    font-size: var(--shell-brand-size);
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .app-shell-brand-lockup small {
+    margin-top: 0.28rem;
+    color: var(--shell-rail-muted);
+    font-family: var(--shell-font-ui);
+    font-size: var(--shell-brand-tag-size);
+    font-weight: 500;
+    letter-spacing: var(--shell-brand-tag-tracking);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .app-shell-workspace {
+    flex-shrink: 0;
+    padding: 0.9rem 0.75rem 0.8rem;
+    border: 0;
+    border-block-end: 1px solid var(--shell-rail-line-soft);
+  }
+
+  .app-shell-nav-label {
+    margin: 0 0.55rem 0.35rem;
+    color: var(--shell-nav-label-color);
+    font-family: var(--shell-font-ui);
+    font-size: var(--shell-nav-label-size);
+    font-weight: 700;
+    letter-spacing: var(--shell-nav-label-tracking);
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+
+  .app-shell-workspace .app-shell-nav-label {
+    margin: 0 0.45rem 0.35rem;
+    color: var(--shell-rail-muted);
+  }
+
+  .app-shell-workspace-panel {
+    min-width: 0;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid var(--shell-workspace-border);
+    border-radius: var(--shell-radius-workspace);
+    background: var(--shell-workspace-bg);
+    box-shadow:
+      inset 0 1px var(--shell-workspace-inset),
+      0 1px 2px var(--shell-workspace-drop);
+  }
+
+  .app-shell-workspace-panel:hover {
+    background: var(--shell-workspace-bg-hover);
+    border-color: var(--shell-workspace-border-hover);
+  }
+
+  .app-shell-workspace-title,
+  .app-shell-workspace-detail {
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .app-shell-workspace-title {
+    color: var(--shell-rail-text);
+    font-size: var(--shell-nav-link-size);
+    font-weight: 600;
+  }
+
+  .app-shell-workspace-detail {
+    margin-top: 0.15rem;
+    color: var(--shell-rail-muted);
+    font-size: var(--shell-workspace-detail-size);
+  }
+
+  .app-shell-rail-scroll {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0.75rem 0.65rem 1rem;
+  }
+
+  .app-shell-nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--shell-nav-group-gap);
+  }
+
+  .app-shell-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--shell-nav-item-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .app-shell-nav-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.58rem;
+    min-height: var(--shell-nav-row-height);
+    padding: 0 0.7rem;
+    border: 1px solid transparent;
+    border-radius: var(--shell-radius-nav);
+    color: var(--shell-nav-text);
+    font-family: var(--shell-font-ui);
+    font-size: var(--shell-nav-link-size);
+    font-weight: var(--shell-nav-link-weight);
+    text-decoration: none;
+  }
+
+  .app-shell-nav-icon.ui-icon {
+    width: var(--shell-nav-icon-size);
+    height: var(--shell-nav-icon-size);
+    flex: 0 0 auto;
+    color: var(--shell-nav-icon);
+  }
+
+  .app-shell-nav-link:hover {
+    color: var(--shell-nav-hover-text);
+    background: var(--shell-nav-hover-bg);
+    border-color: var(--shell-nav-hover-line);
+  }
+
+  .app-shell-nav-link[aria-current="page"] {
+    color: var(--shell-nav-active-text);
+    background: var(--shell-nav-active-bg);
+    border-color: var(--shell-nav-active-line);
+    box-shadow: inset 0 1px var(--shell-nav-active-inset);
+  }
+
+  .app-shell-nav-link[aria-current="page"]::before {
+    content: "";
+    position: absolute;
+    inset-block: 0.55rem;
+    inset-inline-start: -0.66rem;
+    width: 2px;
+    border-radius: 999px;
+    background: var(--shell-nav-active-bar);
+  }
+
+  .app-shell-nav-link[aria-current="page"] .app-shell-nav-icon {
+    color: var(--shell-nav-active-icon);
+  }
+
+  .app-shell-nav-link:focus-visible,
+  .app-shell-collapse:focus-visible,
+  .app-shell-menu-button:focus-visible,
+  .app-shell-account:focus-visible {
+    outline: var(--ui-focus-width) solid var(--ui-focus-colour);
+    outline-offset: 2px;
+  }
+
+  .app-shell-rail-footer {
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    gap: 0.55rem;
+    margin-block-start: auto;
+    padding: 0.75rem;
+    border: 0;
+    border-block-start: 1px solid var(--shell-rail-line-divider);
+  }
+
+  .app-shell-collapse {
+    justify-content: flex-end;
+    width: 100%;
+    gap: 0.5rem;
+    min-height: 2.2rem;
+    color: var(--shell-nav-text);
+  }
+
+  .app-shell-collapse-icon {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 auto;
+    /* Expanded rail: point left to collapse. Compact: face right to expand. */
+    transform: rotate(180deg);
+    transition: transform var(--shell-motion);
+  }
+
+  .app-shell[data-shell-compact="true"] .app-shell-collapse-icon {
+    transform: none;
+  }
+
+  .app-shell[data-shell-compact="true"] .app-shell-collapse {
+    justify-content: center;
+  }
+
+  .app-shell-account-menu {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .app-shell-account-menu > [data-ui-part="trigger"] {
+    width: 100%;
+  }
+
+  .app-shell-account.ui-button {
+    display: grid;
+    grid-template-columns: var(--shell-profile-avatar-size) minmax(0, 1fr);
+    justify-content: stretch;
+    align-items: center;
+    gap: 0.55rem;
+    width: 100%;
+    min-width: 0;
+    min-height: 0;
+    padding: 0.35rem 0.4rem;
+    border-radius: var(--shell-radius-control);
+    font: inherit;
+    text-align: start;
+    color: inherit;
+  }
+
+  .app-shell-account.ui-button:hover:not(:disabled) {
+    background: var(--shell-profile-hover-bg);
+  }
+
+  .app-shell-account-avatar.ui-avatar {
+    --ui-avatar-size: var(--shell-profile-avatar-size);
+  }
+
+  .app-shell-account-copy {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+  }
+
+  .app-shell-account-name,
+  .app-shell-account-detail {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .app-shell-account-name {
+    color: var(--shell-profile-name);
+    font-size: var(--shell-account-name-size);
+    font-weight: 600;
+  }
+
+  .app-shell-account-detail {
+    color: var(--shell-profile-detail);
+    font-size: var(--shell-account-detail-size);
+  }
+
+  /*
+   * Account menu panel — menu-like raised surface hosting preference controls.
+   * Gate display on :popover-open. An unconditional display here overrides the
+   * UA closed popover display:none, leaving an opacity:0 fixed panel that still
+   * steals clicks over the rail (visual nav vs hit-target mismatch).
+   */
+  .app-shell-account-panel {
+    --ui-popover-padding: var(--ui-popup-padding);
+    gap: 0.35rem;
+    min-inline-size: 14rem;
+    max-inline-size: min(18rem, calc(100vw - 1rem));
+  }
+
+  .app-shell-account-panel:popover-open {
+    display: grid;
+  }
+
+  .app-shell-account-panel-body {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .app-shell-account-panel-actions {
+    display: grid;
+    gap: 0.1rem;
+    padding-block-start: 0.2rem;
+    border-block-start: 1px solid var(--ui-line);
+  }
+
+  .app-shell-account-action.ui-button {
+    justify-content: flex-start;
+    width: 100%;
+    min-height: var(--ui-menu-item-min-size, 2rem);
+    padding: 0 var(--ui-menu-item-padding-inline, 0.55rem);
+    border-radius: var(--ui-item-radius);
+    font-size: var(--ui-menu-item-font-size, var(--ui-font-size-sm));
+    font-weight: var(--ui-font-weight-regular);
+  }
+
+  .app-shell-account-action-danger.ui-button {
+    color: var(--ui-danger-solid);
+  }
+
+  .theme-appearance,
+  .theme-app-theme {
+    margin: 0;
+    padding: var(--ui-space-3);
+    border: var(--ui-border-width) var(--ui-border-style) var(--ui-line);
+    border-radius: var(--ui-radius-md);
+    background: var(--ui-surface);
+  }
+
+  .theme-appearance-options,
+  .theme-app-theme-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-3);
+  }
+
+  .theme-appearance label,
+  .theme-app-theme label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--ui-space-2);
+    color: var(--ui-text-secondary);
+  }
+
+  .app-shell-account-panel .theme-appearance,
+  .app-shell-account-panel .theme-app-theme,
+  .app-shell-account-panel .local-users {
+    margin: 0;
+    padding: 0.45rem;
+    border: 1px solid var(--shell-workspace-border);
+    border-radius: var(--shell-radius-control);
+    background: var(--shell-workspace-bg);
+  }
+
+  .app-shell-account-panel .local-users {
+    border-bottom: 1px solid var(--shell-workspace-border);
+    color: var(--shell-rail-text);
+    font-size: var(--shell-account-panel-size);
+  }
+
+  .app-shell-account-panel .local-users-controls {
+    flex-direction: column;
+    align-items: stretch;
+    flex-wrap: nowrap;
+  }
+
+  .app-shell-account-panel .local-users-field {
+    min-inline-size: 0;
+  }
+
+  /* Compact rail: icon column, tooltips on hover/focus */
+  .app-shell[data-shell-compact="true"] .app-shell-brand {
+    justify-content: center;
+    padding-inline: 0.5rem;
+  }
+
+  .app-shell[data-shell-compact="true"] .app-shell-workspace {
+    padding-inline: 0.45rem;
+  }
+
+  .app-shell[data-shell-compact="true"] .app-shell-workspace-panel {
+    display: flex;
+    justify-content: center;
+    padding: 0.4rem;
+  }
+
+  .app-shell[data-shell-compact="true"] .app-shell-workspace-title {
+    max-width: 2.2rem;
+    font-size: var(--shell-compact-workspace-size);
+  }
+
+  .app-shell[data-shell-compact="true"] .app-shell-rail-scroll {
+    padding-inline: 0.45rem;
+  }
+
+  .app-shell[data-shell-compact="true"] .app-shell-nav-link {
+    justify-content: center;
+    padding-inline: 0;
+  }
+
+  .app-shell[data-shell-compact="true"] .app-shell-nav-link[aria-current="page"]::before {
+    inset-inline-start: -0.35rem;
+  }
+
+  .app-shell[data-shell-compact="true"] .app-shell-account.ui-button {
+    grid-template-columns: var(--shell-profile-avatar-size);
+    justify-content: center;
+  }
+
+  [data-compact-tip] {
+    position: relative;
+  }
+
+  [data-compact-tip]::after {
+    content: attr(data-compact-tip);
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: calc(100% + 0.45rem);
+    z-index: calc(var(--shell-z-rail) + 5);
+    padding: 0.25rem 0.45rem;
+    border-radius: 0.3rem;
+    background: var(--shell-tip-bg);
+    color: var(--shell-tip-text);
+    font-family: var(--shell-font-ui);
+    font-size: var(--shell-compact-tip-size);
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50%);
+    transition: opacity var(--ui-duration-fast) var(--ui-ease-standard);
+  }
+
+  [data-compact-tip]:hover::after,
+  [data-compact-tip]:focus-visible::after {
+    opacity: 1;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Stage + main content                                               */
+  /* ------------------------------------------------------------------ */
+
+  .app-shell-stage {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    min-height: 100dvh;
+  }
+
+  .app-shell-topbar {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: var(--shell-z-topbar);
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: var(--shell-topbar-height);
+    padding: 0 1.25rem;
+    background:
+      linear-gradient(to bottom, var(--shell-topbar-wash), var(--shell-topbar-wash)),
+      var(--shell-paper-noise);
+    background-size: auto, var(--shell-paper-grain-size);
+    border-block-end: 1px solid var(--shell-rail-line);
+    box-shadow: var(--shell-topbar-shadow);
+  }
+
+  .app-shell-menu-button {
+    min-inline-size: var(--ui-control-min-size);
+    min-block-size: var(--ui-control-min-size);
+  }
+
+  .app-shell-main {
+    min-width: 0;
+    min-height: 0;
+    flex: 1 1 auto;
+    outline: none;
+    overflow: auto;
+    scrollbar-gutter: stable;
+  }
+
+  .app-page-heading {
+    min-height: var(--shell-page-heading-block);
+  }
+
+  .app-dialog-standard {
+    max-inline-size: var(--app-dialog-standard);
+  }
+
+  .app-dialog-assignment {
+    max-inline-size: var(--app-dialog-assignment);
+  }
+
+  .app-dialog-pairing {
+    max-inline-size: var(--app-dialog-pairing);
+  }
+
+  .app-dialog-status {
+    min-height: 1.5rem;
+  }
+
+  .app-route-gate {
+    display: grid;
+    min-height: 100dvh;
+    place-items: center;
+    background: var(--ui-canvas);
+    color: var(--ui-text);
+  }
+
+  .app-shell-switcher {
+    display: grid;
+    gap: 0.15rem;
+    min-height: 2.4rem;
+    margin-block-end: calc(0.35rem + var(--shell-nav-item-gap));
+  }
+
+  .app-shell-switcher .ui-select {
+    max-inline-size: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .app-shell-switcher[data-compact="true"] {
+    position: relative;
+    display: grid;
+    place-items: center;
+    inline-size: var(--shell-switcher-badge-size, 2.25rem);
+    min-height: 0;
+    block-size: var(--shell-switcher-badge-size, 2.25rem);
+    margin-inline: auto;
+    border: 1px solid var(--shell-workspace-border);
+    border-radius: var(--shell-radius-workspace);
+    background: var(--shell-workspace-bg);
+    color: var(--shell-rail-text);
+    cursor: pointer;
+  }
+
+  .app-shell-switcher[data-compact="true"]:hover {
+    background: var(--shell-workspace-bg-hover);
+    border-color: var(--shell-workspace-border-hover);
+  }
+
+  .app-shell-switcher[data-compact="true"]:has(.ui-select:focus-visible) {
+    outline: var(--ui-focus-width) solid var(--ui-focus-colour);
+    outline-offset: 2px;
+  }
+
+  .app-shell-switcher-badge {
+    font-family: var(--shell-font-ui);
+    font-size: var(--shell-switcher-badge-font-size);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .app-shell-switcher[data-compact="true"] .ui-select {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background-image: none;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .app-shell-page {
+    width: min(100%, var(--shell-content-max));
+    margin-inline: auto;
+    padding: 2rem;
+  }
+
+  .app-section {
+    --ui-stack-gap: var(--ui-space-4);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ui-stack-gap);
+  }
+
+  .app-inline-actions {
+    --ui-stack-gap: var(--ui-space-2);
+    align-items: center;
+  }
+
+  .app-table {
+    width: 100%;
+  }
+
+  .app-table-actions {
+    text-align: right;
+  }
+
+  .app-table-actions .app-inline-actions {
+    justify-content: flex-end;
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Mobile drawer (design-system Drawer / native dialog)               */
+  /* ------------------------------------------------------------------ */
+
+  .app-shell-mobile-drawer.ui-drawer {
+    margin: 0;
+    margin-inline-end: auto;
+    margin-inline-start: 0;
+    --ui-drawer-inline-size: var(--shell-rail-mobile-width);
+    inline-size: var(--shell-rail-mobile-width);
+    max-inline-size: var(--shell-rail-mobile-width);
+    padding: 0;
+    border: 0;
+    border-inline-end: 1px solid var(--shell-rail-line);
+    border-radius: 0;
+    background:
+      linear-gradient(to bottom, var(--shell-rail-wash), var(--shell-rail-wash)),
+      var(--shell-paper-noise);
+    background-size: auto, var(--shell-paper-grain-size);
+    color: var(--shell-rail-text);
+    box-shadow: var(--shell-drawer-shadow);
+  }
+
+  .app-shell-mobile-drawer .ui-dialog-heading {
+    padding: 0.75rem 0.85rem;
+    border-block-end: 1px solid var(--shell-rail-line-soft);
+  }
+
+  .app-shell-mobile-drawer .ui-dialog-heading h2 {
+    font-family: var(--shell-font-ui);
+    font-size: 0.9rem;
+  }
+
+  .app-shell-mobile-drawer .ui-dialog-content {
+    display: flex;
+    flex-direction: column;
+    height: calc(100dvh - 3.5rem);
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .app-shell-mobile-rail {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .app-shell-rail.ui-permanent-drawer,
+    .app-shell-collapse-icon,
+    [data-compact-tip]::after {
+      transition: none;
+    }
+  }
+}

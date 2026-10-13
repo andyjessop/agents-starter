@@ -1,0 +1,23 @@
+{
+    "themeSHA256": "6487a0666805aab0b2fa04c2dc34b89e943d25ace95d83b934e540fa1794dc58",
+    "sizes": {
+        "native": {
+            "raw": 19889,
+            "minified": 11359,
+            "gzip": 3773,
+            "brotli": 3409
+        },
+        "advanced": {
+            "raw": 1034571,
+            "minified": 345865,
+            "gzip": 114733,
+            "brotli": 96446
+        },
+        "extra": {
+            "raw": 10629,
+            "minified": 5415,
+            "gzip": 2200,
+            "brotli": 1966
+        }
+    }
+}

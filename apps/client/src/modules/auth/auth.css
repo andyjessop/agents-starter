@@ -1,0 +1,18 @@
+@layer app {
+  .app-auth {
+    --ui-stack-gap: var(--ui-space-4);
+    max-width: 28rem;
+  }
+
+  .app-auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ui-space-4);
+  }
+
+  .app-auth-turnstile {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ui-space-2);
+  }
+}

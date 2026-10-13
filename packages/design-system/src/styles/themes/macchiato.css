@@ -1,0 +1,234 @@
+/*
+ * Catppuccin Macchiato pack — Latte / Macchiato primitives.
+ *
+ * Shared by the console (initial pack) and the website. Palette:
+ * https://github.com/catppuccin/catppuccin (Latte + Macchiato).
+ * Hosts load Geist Mono Variable and set data-app-theme="macchiato".
+ * Light / Dark / System still pick via light-dark() through data-ui-theme.
+ * Console shell overrides stay in the console pack.
+ */
+@layer themes {
+  :root[data-app-theme="macchiato"] {
+    /* ------------------------------------------------------------------ */
+    /* 1. Primitive inputs                                                 */
+    /* ------------------------------------------------------------------ */
+    --ui-font-sans: "Geist Mono Variable", "Geist Mono", ui-monospace, SFMono-Regular,
+      Menlo, Monaco, Consolas, monospace;
+    --ui-font-mono: var(--ui-font-sans);
+    --ui-font-weight-strong: 650;
+    --ui-tracking-tight: -0.02em;
+    --ui-tracking-label: 0.08em;
+
+    --ui-canvas-light: #eff1f5;
+    --ui-canvas-dark: #181926;
+    --ui-surface-light: #e6e9ef;
+    --ui-surface-dark: #24273a;
+    --ui-surface-raised-light: #dce0e8;
+    --ui-surface-raised-dark: #363a4f;
+    --ui-surface-sunken-light: #dce0e8;
+    --ui-surface-sunken-dark: #1e2030;
+
+    --ui-text-light: #4c4f69;
+    --ui-text-dark: #cad3f5;
+    --ui-text-secondary-light: #5c5f77;
+    --ui-text-secondary-dark: #b8c0e0;
+    --ui-text-muted-light: #6c6f85;
+    --ui-text-muted-dark: #8087a2;
+
+    --ui-line-light: #bcc0cc;
+    --ui-line-dark: #494d64;
+    --ui-line-strong-light: #acb0be;
+    --ui-line-strong-dark: #5b6078;
+
+    --ui-accent-light: #1e66f5;
+    --ui-accent-dark: #8aadf4;
+    --ui-on-accent-light: #eff1f5;
+    --ui-on-accent-dark: #24273a;
+    --ui-accent-hover-light: #1e5fd4;
+    --ui-accent-soft-light: #ccd0da;
+    --ui-accent-bright-light: #1e66f5;
+    --ui-accent-bright-dark: #b7bdf8;
+    --ui-on-accent-soft-light: #303446;
+    --ui-on-accent-soft-dark: #cad3f5;
+
+    --ui-success-light: #40a02b;
+    --ui-success-dark: #a6da95;
+    --ui-on-success-light: #eff1f5;
+    --ui-on-success-dark: #181926;
+    --ui-success-soft-light: #dce7d2;
+
+    --ui-warning-light: #df8e1d;
+    --ui-warning-dark: #eed49f;
+    --ui-on-warning-light: #eff1f5;
+    --ui-on-warning-dark: #181926;
+    --ui-warning-soft-light: #f9e2af;
+
+    --ui-danger-light: #d20f39;
+    --ui-danger-dark: #ed8796;
+    --ui-on-danger-light: #eff1f5;
+    --ui-on-danger-dark: #181926;
+    --ui-danger-soft-light: #f2cdcd;
+
+    --ui-info-light: #179299;
+    --ui-info-dark: #8bd5ca;
+    --ui-on-info-light: #eff1f5;
+    --ui-on-info-dark: #181926;
+    --ui-info-soft-light: #cce8e5;
+
+    --ui-status-success-line-light: #a9d6b4;
+    --ui-status-warning-line-light: #e2c896;
+    --ui-status-danger-line-light: #e6aaaa;
+    --ui-status-info-line-light: #a3d8d9;
+    --ui-status-success-surface-light: #eef8f0;
+    --ui-status-warning-surface-light: #fbf4e6;
+    --ui-status-danger-surface-light: #fcefef;
+    --ui-status-info-surface-light: #ecf8f8;
+
+    --ui-hover-weight: 6%;
+    --ui-selected-weight: 14%;
+    --ui-disabled-opacity: 0.45;
+
+    --ui-backdrop-light: rgb(76 79 105 / 38%);
+    --ui-backdrop-dark: rgb(24 25 38 / 73%);
+    --ui-shadow-ink-light: rgb(76 79 105 / 14%);
+    --ui-shadow-ink-dark: rgb(0 0 0 / 45%);
+
+    /* ------------------------------------------------------------------ */
+    /* 2. Derived roles                                                    */
+    /* ------------------------------------------------------------------ */
+    --ui-font-size-xs: 0.75rem;
+    --ui-font-size-sm: 0.8125rem;
+    --ui-font-size-md: 0.875rem;
+    --ui-radius-sm: 0.25rem;
+    --ui-radius-md: 0.375rem;
+    --ui-radius-lg: 0.45rem;
+    --ui-body-font: var(--ui-font-sans);
+    --ui-body-size: 0.875rem;
+    --ui-body-leading: 1.5;
+    --ui-heading-weight: 700;
+    --ui-heading-leading: 1.15;
+    --ui-heading-tracking: -0.035em;
+    --ui-label-size: 0.75rem;
+    --ui-label-weight: 600;
+    --ui-caption-size: 0.75rem;
+
+    --ui-control-min-size: 2rem;
+    --ui-control-padding-inline: 0.6rem;
+    --ui-control-padding-block: 0.3rem;
+    --ui-control-gap: 0.35rem;
+    --ui-control-font-family: var(--ui-font-sans);
+    --ui-control-font-size: 0.8125rem;
+    --ui-control-font-weight: 500;
+    --ui-control-radius: 0.3rem;
+    --ui-control-background: light-dark(#eff1f5, #363a4f);
+    --ui-control-text: light-dark(#4c4f69, #cad3f5);
+    --ui-control-placeholder: light-dark(#9ca0b0, #6e738d);
+    --ui-control-border: light-dark(#acb0be, #494d64);
+    --ui-control-selected: light-dark(#1e66f5, #8aadf4);
+    --ui-control-shadow: none;
+    --ui-control-hover-border: light-dark(#1e66f5, #8aadf4);
+    --ui-control-hover-background: light-dark(#dce0e8, #494d64);
+    --ui-control-focus-border: light-dark(#1e66f5, #8aadf4);
+    --ui-control-focus-outline: light-dark(rgb(30 102 245 / 20%), rgb(138 173 244 / 22%));
+    --ui-control-focus-outline-width: 2px;
+    --ui-control-focus-outline-offset: 1px;
+
+    --ui-item-radius: 0.3rem;
+    --ui-panel-radius: 0.45rem;
+    --ui-card-radius: 0.45rem;
+    --ui-table-frame-radius: 0.45rem;
+    --ui-popup-radius: 0.45rem;
+    --ui-alert-radius: 0.4rem;
+    --ui-dialog-radius: 0.55rem;
+    --ui-chip-radius: var(--ui-radius-pill);
+    --ui-panel-shadow: none;
+
+    --ui-chrome-background: light-dark(rgb(239 241 245 / 96%), rgb(24 25 38 / 96%));
+    --ui-chrome-text: light-dark(#6c6f85, #8087a2);
+    --ui-chrome-line: light-dark(#dce0e8, #1e2030);
+    --ui-chrome-focus: light-dark(#1e66f5, #8aadf4);
+
+    --ui-accent-soft: light-dark(var(--ui-accent-soft-light), #363a4f);
+    --ui-success-soft: light-dark(var(--ui-success-soft-light), #1e2e1a);
+    --ui-warning-soft: light-dark(var(--ui-warning-soft-light), #2a2418);
+    --ui-danger-soft: light-dark(var(--ui-danger-soft-light), #2a1a1e);
+    --ui-info-soft: light-dark(var(--ui-info-soft-light), #152826);
+    --ui-hover: light-dark(rgb(30 102 245 / 6%), rgb(138 173 244 / 8%));
+    --ui-selected: light-dark(#ccd0da, #494d64);
+
+    /* Pack-scoped names for the console shell overrides below. */
+    --ctp-bg: light-dark(#eff1f5, #181926);
+    --ctp-bg2: light-dark(#e6e9ef, #1e2030);
+    --ctp-panel: light-dark(#eff1f5, #24273a);
+    --ctp-panel2: light-dark(#e6e9ef, #363a4f);
+    --ctp-panel3: light-dark(#dce0e8, #494d64);
+    --ctp-sel: light-dark(#ccd0da, #494d64);
+    --ctp-text: light-dark(#4c4f69, #cad3f5);
+    --ctp-strong: light-dark(#303446, #edecf4);
+    --ctp-muted: light-dark(#6c6f85, #8087a2);
+    --ctp-faint: light-dark(#9ca0b0, #6e738d);
+    --ctp-line: light-dark(#bcc0cc, #494d64);
+    --ctp-line-soft: light-dark(#dce0e8, #1e2030);
+    --ctp-sel-line: light-dark(#acb0be, #5b6078);
+    --ctp-accent: light-dark(#1e66f5, #8aadf4);
+    --ctp-wash: light-dark(rgb(30 102 245 / 6%), rgb(138 173 244 / 8%));
+    --ctp-sel-edge: light-dark(rgb(30 102 245 / 14%), rgb(138 173 244 / 12%));
+  }
+
+  /* Buttons: prototype .btn (outline), .btn.primary (solid) and .btn.danger */
+  :root[data-app-theme="macchiato"]
+    :where(
+      .ui-button[data-variant="solid"]:not([data-tone="danger"]),
+      .ui-button:not([data-variant]):not([data-tone="danger"])
+    ) {
+    --ui-button-text: var(--ui-accent-on-solid);
+    background: var(--ctp-accent);
+    border-color: var(--ctp-accent);
+    color: var(--ui-button-text);
+  }
+
+  :root[data-app-theme="macchiato"]
+    :where(
+      .ui-button[data-variant="solid"]:not([data-tone="danger"]):hover:not(:disabled),
+      .ui-button:not([data-variant]):not([data-tone="danger"]):hover:not(:disabled)
+    ) {
+    background: var(--ui-accent-hover);
+    border-color: var(--ui-accent-hover);
+    color: var(--ui-button-text);
+  }
+
+  :root[data-app-theme="macchiato"] :where(.ui-button[data-variant="outline"]) {
+    --ui-button-text: var(--ctp-text);
+    background: var(--ctp-panel2);
+    border-color: var(--ctp-line);
+    color: var(--ui-button-text);
+  }
+
+  :root[data-app-theme="macchiato"] :where(.ui-button[data-variant="outline"]:hover:not(:disabled)) {
+    border-color: var(--ctp-accent);
+    color: var(--ctp-strong);
+  }
+
+  :root[data-app-theme="macchiato"] :where(.ui-button[data-variant="ghost"]) {
+    --ui-button-text: var(--ctp-muted);
+    background: transparent;
+    border-color: transparent;
+    color: var(--ui-button-text);
+  }
+
+  :root[data-app-theme="macchiato"] :where(.ui-button[data-variant="ghost"]:hover:not(:disabled)) {
+    background: var(--ctp-panel3);
+    color: var(--ctp-strong);
+  }
+
+  :root[data-app-theme="macchiato"] :where(.ui-button[data-tone="danger"]) {
+    --ui-button-text: var(--ui-danger-solid);
+    background: var(--ctp-panel2);
+    border-color: var(--ctp-line);
+    color: var(--ui-button-text);
+  }
+
+  :root[data-app-theme="macchiato"] :where(.ui-button[data-tone="danger"]:hover:not(:disabled)) {
+    border-color: var(--ui-danger-solid);
+  }
+}

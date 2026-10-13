@@ -1,0 +1,875 @@
+[
+    {
+        "export": "cx",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { cx } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "ThemeStyle",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { ThemeStyle } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Tone",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Tone } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "ButtonProps",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { ButtonProps } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Button",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Button } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "ButtonGroup",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { ButtonGroup } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Fab",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Fab } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "ToggleButton",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { ToggleButton } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Input",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Input } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Textarea",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Textarea } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "TextareaAutosize",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { TextareaAutosize } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Select",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Select } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "NumberField",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { NumberField } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Slider",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Slider } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Checkbox",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Checkbox } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Radio",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Radio } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Switch",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Switch } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "RadioGroup",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { RadioGroup } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Field",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Field } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "TextField",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { TextField } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Rating",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Rating } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Avatar",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Avatar } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Badge",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Badge } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Chip",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Chip } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Alert",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Alert } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Backdrop",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Backdrop } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Skeleton",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Skeleton } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Progress",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Progress } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "CircularProgress",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { CircularProgress } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Icon",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Icon } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Box",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Box } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Container",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Container } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Stack",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Stack } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Grid",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Grid } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Paper",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Paper } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Card",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Card } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "AppBar",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { AppBar } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Divider",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Divider } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "ImageList",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { ImageList } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Timeline",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Timeline } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "List",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { List } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "ListItem",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { ListItem } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Table",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Table } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Typography",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Typography } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Theme",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Theme } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "VisuallyHidden",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { VisuallyHidden } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Link",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Link } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Breadcrumbs",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Breadcrumbs } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "BottomNavigation",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { BottomNavigation } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Pagination",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Pagination } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Stepper",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Stepper } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Accordion",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Accordion } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "DialogProps",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "changed contract",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { DialogProps } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Dialog",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "changed contract",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "Controlled visibility replaced by defaultOpen + show/hide; selection uses typed requests",
+        "example": "import { Dialog } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Drawer",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "changed contract",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "Controlled visibility replaced by defaultOpen + show/hide; selection uses typed requests",
+        "example": "import { Drawer } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "PermanentDrawer",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { PermanentDrawer } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Popover",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "changed contract",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "Controlled visibility replaced by defaultOpen + show/hide; selection uses typed requests",
+        "example": "import { Popover } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "SpeedDial",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { SpeedDial } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "TabItem",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "retained",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { TabItem } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "TabsProps",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "changed contract",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { TabsProps } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Tabs",
+        "currentImport": "@agent-starter/design-system",
+        "replacementImport": "@agent-starter/design-system",
+        "disposition": "changed contract",
+        "retainedBehaviour": "Semantic native HTML",
+        "removedBehaviour": "Controlled visibility replaced by defaultOpen + show/hide; selection uses typed requests",
+        "example": "import { Tabs } from '@agent-starter/design-system';"
+    },
+    {
+        "export": "Combobox",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": "@agent-starter/design-system/react/combobox",
+        "disposition": "changed contract",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "Controlled visibility replaced by defaultOpen + show/hide; selection uses typed requests",
+        "example": "import { Combobox } from '@agent-starter/design-system/react/combobox';"
+    },
+    {
+        "export": "Autocomplete",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "MenuAction",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": "@agent-starter/design-system/react/menuaction",
+        "disposition": "changed contract",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { MenuAction } from '@agent-starter/design-system/react/menuaction';"
+    },
+    {
+        "export": "Menu",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": "@agent-starter/design-system/react/menu",
+        "disposition": "changed contract",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Menu } from '@agent-starter/design-system/react/menu';"
+    },
+    {
+        "export": "Tabs",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": "@agent-starter/design-system/react/tabs",
+        "disposition": "changed contract",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "Controlled visibility replaced by defaultOpen + show/hide; selection uses typed requests",
+        "example": "import { Tabs } from '@agent-starter/design-system/react/tabs';"
+    },
+    {
+        "export": "Tooltip",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": "@agent-starter/design-system/react/tooltip",
+        "disposition": "changed contract",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Tooltip } from '@agent-starter/design-system/react/tooltip';"
+    },
+    {
+        "export": "CustomSelect",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "RangeSlider",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "FormattedNumberField",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "ComboboxParts",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "AutocompleteParts",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "MenuParts",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "Menubar",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "TabsParts",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "TooltipParts",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "SelectParts",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "SliderParts",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "NumberFieldParts",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "Toast",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "ToggleGroup",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "Toggle",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "DialogParts",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "PopoverParts",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "DirectionProvider",
+        "currentImport": "@agent-starter/design-system/advanced",
+        "replacementImport": null,
+        "disposition": "removed",
+        "retainedBehaviour": "None under the old API",
+        "removedBehaviour": "Base UI parts/composition; see migration.md for native alternatives",
+        "example": "Use Select, NumberField, Slider, ToggleButton, dir, or application-level extension; no drop-in replacement."
+    },
+    {
+        "export": "TransferItem",
+        "currentImport": "@agent-starter/design-system/extra",
+        "replacementImport": "@agent-starter/design-system/extra",
+        "disposition": "retained",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { TransferItem } from '@agent-starter/design-system/extra';"
+    },
+    {
+        "export": "TransferList",
+        "currentImport": "@agent-starter/design-system/extra",
+        "replacementImport": "@agent-starter/design-system/extra",
+        "disposition": "retained",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { TransferList } from '@agent-starter/design-system/extra';"
+    },
+    {
+        "export": "Snackbar",
+        "currentImport": "@agent-starter/design-system/extra",
+        "replacementImport": "@agent-starter/design-system/react/toast",
+        "disposition": "removed",
+        "retainedBehaviour": "Explicit notification store and viewport replace component-owned timers",
+        "removedBehaviour": "open/message/duration props no longer available",
+        "example": "const store = createToastStore(); store.push({message:'Saved'}); // render <ToastViewport store={store}/> "
+    },
+    {
+        "export": "Column",
+        "currentImport": "@agent-starter/design-system/extra",
+        "replacementImport": "@agent-starter/design-system/extra",
+        "disposition": "retained",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Column } from '@agent-starter/design-system/extra';"
+    },
+    {
+        "export": "DataTable",
+        "currentImport": "@agent-starter/design-system/extra",
+        "replacementImport": "@agent-starter/design-system/extra",
+        "disposition": "retained",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { DataTable } from '@agent-starter/design-system/extra';"
+    },
+    {
+        "export": "TreeNode",
+        "currentImport": "@agent-starter/design-system/extra",
+        "replacementImport": "@agent-starter/design-system/extra",
+        "disposition": "retained",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { TreeNode } from '@agent-starter/design-system/extra';"
+    },
+    {
+        "export": "TreeView",
+        "currentImport": "@agent-starter/design-system/extra",
+        "replacementImport": "@agent-starter/design-system/extra",
+        "disposition": "retained",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { TreeView } from '@agent-starter/design-system/extra';"
+    },
+    {
+        "export": "DatePicker",
+        "currentImport": "@agent-starter/design-system/extra",
+        "replacementImport": "@agent-starter/design-system/extra",
+        "disposition": "retained",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { DatePicker } from '@agent-starter/design-system/extra';"
+    },
+    {
+        "export": "TimePicker",
+        "currentImport": "@agent-starter/design-system/extra",
+        "replacementImport": "@agent-starter/design-system/extra",
+        "disposition": "retained",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { TimePicker } from '@agent-starter/design-system/extra';"
+    },
+    {
+        "export": "DateTimePicker",
+        "currentImport": "@agent-starter/design-system/extra",
+        "replacementImport": "@agent-starter/design-system/extra",
+        "disposition": "retained",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { DateTimePicker } from '@agent-starter/design-system/extra';"
+    },
+    {
+        "export": "BarChart",
+        "currentImport": "@agent-starter/design-system/extra",
+        "replacementImport": "@agent-starter/design-system/extra",
+        "disposition": "retained",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { BarChart } from '@agent-starter/design-system/extra';"
+    },
+    {
+        "export": "Masonry",
+        "currentImport": "@agent-starter/design-system/extra",
+        "replacementImport": "@agent-starter/design-system/extra",
+        "disposition": "retained",
+        "retainedBehaviour": "Documented flat/narrow interaction; application owns data",
+        "removedBehaviour": "No additional interaction parity",
+        "example": "import { Masonry } from '@agent-starter/design-system/extra';"
+    }
+]

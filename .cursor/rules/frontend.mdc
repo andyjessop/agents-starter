@@ -1,0 +1,8 @@
+---
+description: Frontend architecture and state management
+globs: apps/client/**
+alwaysApply: false
+---
+
+When working on matching files, read and apply `.agents/rules/frontend.md`
+and `apps/client/.agents/rules/` as needed via `apps/client/AGENTS.md`.

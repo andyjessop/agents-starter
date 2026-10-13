@@ -1,0 +1,33 @@
+{
+  "name": "typed-redux-router",
+  "version": "0.1.0",
+  "description": "A tiny Redux-first browser router with inherited route guards and exhaustive TypeScript inference.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist", "README.md", "LICENSE"],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "@workspace/source": "./src/index.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "clean": "rm -rf dist coverage test-results playwright-report",
+    "format": "biome format --write --no-errors-on-unmatched .",
+    "lint": "biome check --error-on-warnings --no-errors-on-unmatched .",
+    "test:unit": "node --test test/unit/*.test.mjs",
+    "test:coverage": "node --test --experimental-test-coverage --test-coverage-include='dist/**/*.js' --test-coverage-lines=100 --test-coverage-branches=100 --test-coverage-functions=100 test/unit/*.test.mjs",
+    "test:e2e": "playwright test",
+    "test": "npm run typecheck && npm run build && npm run test:coverage",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "peerDependencies": {
+    "redux": ">=5.0.0"
+  }
+}

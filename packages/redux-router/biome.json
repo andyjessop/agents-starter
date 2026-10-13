@@ -1,0 +1,45 @@
+{
+  "root": false,
+  "$schema": "https://biomejs.dev/schemas/2.5.12/schema.json",
+  "extends": ["../../biome.json"],
+  "assist": { "actions": { "source": { "organizeImports": "off" } } },
+  "formatter": {
+    "enabled": false
+  },
+  "linter": {
+    "rules": {
+      "complexity": {
+        "noBannedTypes": "off",
+        "noExcessiveCognitiveComplexity": "off",
+        "useLiteralKeys": "off"
+      },
+      "correctness": {
+        "noUnusedFunctionParameters": "off",
+        "noUnusedVariables": "off"
+      },
+      "nursery": {
+        "useExplicitType": "off"
+      },
+      "style": {
+        "noDefaultExport": "off",
+        "noNonNullAssertion": "off",
+        "noProcessEnv": "off",
+        "useBlockStatements": "off",
+        "useConst": "off",
+        "useDefaultParameterLast": "off",
+        "useFilenamingConvention": "off",
+        "useNamingConvention": "off",
+        "useNumberNamespace": "off",
+        "useShorthandFunctionType": "off",
+        "useSingleVarDeclarator": "off"
+      },
+      "suspicious": {
+        "noConfusingVoidType": "off",
+        "noExplicitAny": "off",
+        "noEvolvingTypes": "off",
+        "noImplicitAnyLet": "off",
+        "noPrototypeBuiltins": "off"
+      }
+    }
+  }
+}

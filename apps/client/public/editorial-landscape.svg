@@ -1,0 +1,58 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 300">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e8eef0"/>
+      <stop offset=".6" stop-color="#f3ead8"/>
+      <stop offset="1" stop-color="#eadabd"/>
+    </linearGradient>
+    <linearGradient id="hill1" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#9ca283"/>
+      <stop offset=".55" stop-color="#aeb091"/>
+      <stop offset="1" stop-color="#879276"/>
+    </linearGradient>
+    <linearGradient id="hill2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#6f7b5e"/>
+      <stop offset=".5" stop-color="#8d936d"/>
+      <stop offset="1" stop-color="#657052"/>
+    </linearGradient>
+    <filter id="soft">
+      <feGaussianBlur stdDeviation=".35"/>
+    </filter>
+  </defs>
+  <rect width="1440" height="300" fill="url(#sky)"/>
+  <path d="M0 122 C150 75 260 112 390 94 C545 72 655 107 810 82 C970 55 1090 104 1220 79 C1325 60 1388 72 1440 63 L1440 194 L0 194Z" fill="#bcc2ab" opacity=".55"/>
+  <path d="M0 151 C165 98 307 139 462 112 C632 83 755 132 900 102 C1082 64 1248 116 1440 88 L1440 224 L0 224Z" fill="url(#hill1)"/>
+  <path d="M0 197 C170 142 318 194 472 160 C615 128 784 191 931 147 C1107 95 1285 165 1440 129 L1440 300 L0 300Z" fill="url(#hill2)"/>
+  <path d="M0 231 C134 202 261 226 387 202 C527 176 647 224 777 198 C924 169 1044 214 1191 186 C1292 167 1371 175 1440 166 L1440 300 L0 300Z" fill="#c1ad83"/>
+  <path d="M0 252 C152 231 286 255 431 232 C594 207 722 252 872 226 C1020 200 1167 243 1306 213 C1369 199 1410 196 1440 195 L1440 300 L0 300Z" fill="#d1bb93"/>
+
+  <!-- village -->
+  <g opacity=".9">
+    <rect x="1000" y="169" width="48" height="34" fill="#e9dfcb" stroke="#6b624e" stroke-width="2"/>
+    <path d="M994 169 1024 147 1055 169Z" fill="#8d604b"/>
+    <rect x="1063" y="175" width="38" height="28" fill="#efe5d3" stroke="#6b624e" stroke-width="2"/>
+    <path d="M1057 175 1082 157 1108 175Z" fill="#7c5a43"/>
+    <rect x="1114" y="164" width="46" height="39" fill="#eadfc9" stroke="#6b624e" stroke-width="2"/>
+    <path d="M1108 164 1137 143 1166 164Z" fill="#925f43"/>
+    <rect x="1174" y="173" width="34" height="30" fill="#f2e6d3" stroke="#6b624e" stroke-width="2"/>
+    <path d="M1169 173 1191 157 1213 173Z" fill="#80634a"/>
+    <rect x="1087" y="117" width="20" height="64" fill="#e5dcc8" stroke="#665f4b" stroke-width="2"/>
+    <path d="M1082 117 1097 78 1112 117Z" fill="#545e4e"/>
+    <rect x="1092" y="137" width="10" height="12" fill="#687a83"/>
+  </g>
+
+  <!-- river / road -->
+  <path d="M720 252 C842 229 920 231 1018 244 C1127 258 1237 247 1440 219" fill="none" stroke="#cfddd9" stroke-width="24" opacity=".72"/>
+  <path d="M745 252 C858 235 943 236 1028 246 C1132 258 1247 246 1440 222" fill="none" stroke="#edf3ef" stroke-width="5" opacity=".7"/>
+
+  <!-- foreground shrubs -->
+  <g fill="#44563f" opacity=".95">
+    <circle cx="45" cy="229" r="25"/><circle cx="72" cy="220" r="20"/><circle cx="91" cy="235" r="27"/>
+    <circle cx="1370" cy="208" r="32"/><circle cx="1402" cy="220" r="28"/><circle cx="1337" cy="227" r="25"/>
+  </g>
+  <g stroke="#46513d" stroke-width="3" fill="none" opacity=".85">
+    <path d="M36 273 Q55 222 73 186"/><path d="M60 246 41 228M57 238 80 216M66 220 49 206"/>
+    <path d="M1380 273 Q1365 226 1350 190"/><path d="M1368 240 1393 219M1360 224 1338 205M1354 210 1376 191"/>
+  </g>
+</svg>

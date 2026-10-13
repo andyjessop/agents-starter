@@ -1,0 +1,434 @@
+@layer ui.components {
+    :where(.ui-positioner) {
+        z-index: var(--ui-z-floating);
+        font-family: var(--ui-font-sans);
+    }
+    :where(.ui-popup, .ui-tooltip) {
+        box-sizing: border-box;
+        padding: var(--ui-popup-padding);
+        border: var(--ui-border-width) solid var(--ui-popup-border);
+        border-radius: var(--ui-popup-radius);
+        background: var(--ui-popup-background);
+        color: var(--ui-text);
+        box-shadow: var(--ui-popup-shadow);
+        max-block-size: min(var(--available-height, 70dvh), var(--ui-popup-max-block-size));
+        overflow: auto;
+        min-inline-size: var(--anchor-width, auto);
+    }
+    /* Menu surfaces: PRD .menu-pop — raised panel with a minimum action width. */
+    :where([data-ui-root='menu'] .ui-popup) {
+        min-inline-size: var(--ui-menu-min-inline-size, 12rem);
+    }
+    :where(.ui-tooltip) {
+        padding: var(--ui-tooltip-padding);
+        font-size: var(--ui-caption-size);
+        max-inline-size: var(--ui-tooltip-max-inline-size);
+        min-inline-size: 0;
+    }
+    :where(.ui-option) {
+        padding: var(--ui-item-padding-block) var(--ui-item-padding-inline);
+        min-block-size: var(--ui-item-min-size);
+        border-radius: var(--ui-item-radius);
+        cursor: default;
+    }
+    :where(.ui-option[data-highlighted]) {
+        background: var(--ui-item-hover);
+        outline: var(--ui-focus-width) solid var(--ui-focus-colour);
+        outline-offset: calc(-1 * var(--ui-focus-width));
+    }
+    :where(.ui-option[data-selected]) {
+        background: var(--ui-item-selected);
+    }
+    :where(.ui-option[data-disabled]) {
+        opacity: var(--ui-disabled-opacity);
+    }
+    :where(.ui-tabs-list) {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--ui-tabs-gap, var(--ui-space-2));
+    }
+    :where(.ui-tab) {
+        /* Column flex + zero-height ::after reserves the selected weight width. */
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        font: inherit;
+        padding: calc(var(--ui-space-unit) * 2.5 * var(--ui-density)) var(--ui-control-padding-inline);
+        font-size: var(--ui-control-font-size);
+        font-weight: var(--ui-control-font-weight);
+        justify-content: center;
+        min-block-size: var(--ui-control-min-size);
+        background: var(--ui-tab-background, var(--ui-surface));
+        color: var(--ui-tab-text, var(--ui-text-secondary));
+        border: var(--ui-border-width) solid var(--ui-tab-border, transparent);
+        border-radius: var(--ui-tab-radius, var(--ui-control-radius));
+        text-decoration: none;
+        transition:
+            background var(--ui-duration-fast) var(--ui-ease-standard),
+            border-color var(--ui-duration-fast) var(--ui-ease-standard);
+        cursor: pointer;
+    }
+    :where(.ui-tab::after) {
+        content: attr(data-label);
+        font-weight: var(--ui-font-weight-strong);
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        pointer-events: none;
+        user-select: none;
+        white-space: nowrap;
+    }
+    :where(.ui-tab:hover:not(:disabled)) {
+        background: var(--ui-tab-hover-background, var(--ui-surface-sunken));
+        border-color: var(--ui-tab-hover-border, var(--ui-line));
+        text-decoration: none;
+    }
+    :where(.ui-tab[data-active], .ui-tab[aria-current='page']) {
+        background: var(--ui-tab-selected-background, var(--ui-info-soft));
+        border-color: var(--ui-tab-selected-border, var(--ui-line));
+        color: var(--ui-tab-selected-text, var(--ui-info-solid));
+        font-weight: var(--ui-font-weight-strong);
+    }
+    :where(.ui-tab:focus-visible) {
+        outline: var(--ui-focus-width) solid var(--ui-focus-colour);
+        outline-offset: var(--ui-focus-offset);
+    }
+    @media (pointer: coarse) {
+        :where(.ui-tab) {
+            min-block-size: max(var(--ui-control-min-size), var(--ui-target-min));
+        }
+    }
+    :where(.ui-tab:disabled) {
+        opacity: var(--ui-disabled-opacity);
+        cursor: not-allowed;
+    }
+    :where(.ui-tab-panel) {
+        padding-block: var(--ui-panel-padding);
+    }
+    :where(.ui-tree-root, .ui-tree-group) {
+        display: flex;
+        flex-direction: column;
+        gap: var(--ui-tree-node-gap, 0);
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    :where(.ui-tree-group) {
+        padding-inline-start: var(--ui-tree-indent, var(--ui-space-4));
+    }
+    :where(.ui-tree-item) {
+        display: flex;
+        align-items: center;
+        gap: var(--ui-tree-item-gap, var(--ui-space-2));
+        inline-size: 100%;
+        min-block-size: var(--ui-tree-item-min-size, var(--ui-control-min-size));
+        padding: var(--ui-tree-item-padding-block, 0) var(--ui-tree-item-padding-inline, var(--ui-space-2));
+        border: var(--ui-border-width) solid transparent;
+        border-radius: var(--ui-tree-item-radius, var(--ui-item-radius));
+        background: transparent;
+        color: var(--ui-tree-item-text, var(--ui-text-secondary));
+        font: inherit;
+        text-align: start;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    :where(.ui-tree-item:hover:not(:disabled)) {
+        border-color: var(--ui-tree-item-hover-border, transparent);
+        background: var(--ui-tree-item-hover-background, var(--ui-item-hover));
+        color: var(--ui-tree-item-hover-text, var(--ui-text));
+    }
+    :where(.ui-tree-item[aria-selected='true']) {
+        border-color: var(--ui-tree-item-selected-border, var(--ui-line));
+        background: var(--ui-tree-item-selected-background, var(--ui-item-selected));
+        color: var(--ui-tree-item-selected-text, var(--ui-text));
+    }
+    :where(.ui-tree-item:focus-visible) {
+        outline: var(--ui-focus-width) solid var(--ui-focus-colour);
+        outline-offset: var(--ui-focus-offset);
+    }
+    :where(.ui-tree-item:disabled) {
+        opacity: var(--ui-disabled-opacity);
+        cursor: not-allowed;
+    }
+    :where(.ui-tree-disclosure) {
+        display: grid;
+        place-items: center;
+        inline-size: var(--ui-tree-disclosure-size, 1em);
+        flex: 0 0 auto;
+        color: var(--ui-tree-disclosure-colour, var(--ui-text-muted));
+        transition: rotate var(--ui-duration-fast) var(--ui-ease-standard);
+    }
+    :where(.ui-tree-item[aria-expanded='true'] .ui-tree-disclosure) {
+        rotate: 90deg;
+    }
+    :where(.ui-tree-leading) {
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        color: var(--ui-tree-leading-colour, var(--ui-text-muted));
+    }
+    :where(.ui-tree-label) {
+        min-inline-size: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-decoration: none;
+    }
+    :where(
+        .ui-tree-item:not([data-ui-selectable='false']) .ui-tree-label:hover,
+        .ui-tree-item[aria-selected='true'] .ui-tree-label
+    ) {
+        color: var(--ui-tree-label-hover-text, currentColor);
+        text-decoration: underline;
+        text-underline-offset: var(--ui-tree-label-underline-offset, 0.15em);
+    }
+    :where(.ui-range-control) {
+        display: flex;
+        align-items: center;
+        block-size: var(--ui-control-min-size);
+        touch-action: none;
+    }
+    :where(.ui-range-track) {
+        position: relative;
+        inline-size: 100%;
+        block-size: var(--ui-slider-track-size);
+        background: var(--ui-line);
+        border-radius: var(--ui-radius-pill);
+    }
+    :where(.ui-range-indicator) {
+        position: absolute;
+        background: var(--ui-accent-solid);
+        block-size: 100%;
+        border-radius: inherit;
+    }
+    :where(.ui-range-thumb) {
+        inline-size: var(--ui-slider-thumb-size);
+        block-size: var(--ui-slider-thumb-size);
+        background: var(--ui-accent-solid);
+        border: var(--ui-border-width) solid var(--ui-accent-on-solid);
+        border-radius: var(--ui-radius-pill);
+    }
+}
+@layer ui.preferences {
+    @media (forced-colors: active) {
+        :where(.ui-option[data-selected], .ui-option[data-highlighted]) {
+            background: Highlight;
+            color: HighlightText;
+        }
+    }
+}
+@layer ui.components {
+    :where(.ui-number-group) {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        gap: var(--ui-control-gap);
+    }
+    :where(.ui-tabs[data-orientation='vertical']) {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: var(--ui-panel-gap);
+    }
+    :where(.ui-tabs[data-orientation='vertical'] > .ui-tabs-list) {
+        flex-direction: column;
+    }
+}
+
+@layer ui.components {
+    /*
+     * Optional scope for dialog footers that need a filled destructive primary
+     * without relying on tone props alone (host themes may override buttons).
+     */
+    :where(.ui-destructive-confirm) {
+        --ui-button-background: var(--ui-danger-solid);
+        --ui-button-text: var(--ui-danger-on-solid);
+    }
+
+    /*
+     * Menu actions match the PRD .menu-pop rows: full-width flex rows, compact
+     * type, hover wash, and an optional danger tone for destructive actions.
+     */
+    :where([data-ui-root='menu'] [role='menuitem']) {
+        display: flex;
+        inline-size: 100%;
+        align-items: center;
+        gap: var(--ui-menu-item-gap, 0.45rem);
+        min-block-size: var(--ui-menu-item-min-size, 2rem);
+        padding: 0 var(--ui-menu-item-padding-inline, 0.55rem);
+        border: 0;
+        border-radius: var(--ui-item-radius);
+        background: transparent;
+        color: var(--ui-menu-item-text, var(--ui-text));
+        font-family: inherit;
+        font-size: var(--ui-menu-item-font-size, 0.78rem);
+        font-weight: inherit;
+        line-height: inherit;
+        text-align: start;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    :where([data-ui-root='menu'] [role='menuitem'][data-tone='danger']) {
+        color: var(--ui-danger-solid);
+    }
+    @media (hover: hover) {
+        :where([data-ui-root='menu'] [role='menuitem']:hover:not(:disabled)) {
+            background: var(--ui-item-hover);
+        }
+    }
+    :where([role='option'][aria-selected='true']) {
+        background: var(--ui-item-selected);
+    }
+    :where([role='menuitem']:focus-visible, [role='option'][data-highlighted]) {
+        background: var(--ui-item-hover);
+        outline: var(--ui-focus-width) solid var(--ui-focus-colour);
+        outline-offset: calc(-1 * var(--ui-focus-width));
+    }
+    :where([data-ui-root] [aria-disabled='true']) {
+        opacity: var(--ui-disabled-opacity);
+    }
+    :where(.ui-toast-viewport) {
+        position: fixed;
+        inset-block-start: var(--ui-space-4);
+        inset-inline-start: 50%;
+        translate: -50% 0;
+        max-inline-size: min(90vw, var(--ui-snackbar-max-inline-size));
+        display: grid;
+        gap: var(--ui-space-2);
+        z-index: var(--ui-z-notification);
+        pointer-events: none;
+    }
+    /*
+     * Toast: elevated paper panel. Status lives in the icon, not a tinted wash —
+     * matching status feedback. data-tone still paints the icon via --_ui-soft/--_ui-tone.
+     */
+    :where(.ui-toast) {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        align-items: start;
+        gap: var(--ui-toast-gap, 0.6875rem);
+        inline-size: min(100%, var(--ui-snackbar-max-inline-size));
+        padding: var(--ui-toast-padding, 0.8125rem 0.875rem);
+        background: var(--ui-toast-background, var(--ui-panel-background));
+        color: var(--ui-toast-text, var(--ui-text));
+        border: var(--ui-border-width) solid var(--ui-toast-border, var(--ui-panel-border));
+        border-radius: var(--ui-toast-radius, var(--ui-panel-radius));
+        box-shadow: var(--ui-toast-shadow, var(--ui-shadow-md));
+        pointer-events: auto;
+    }
+    /* Title-only: centre icon, copy and actions on the cross axis. */
+    :where(.ui-toast:not(:has(.ui-toast-message))) {
+        align-items: center;
+    }
+    :where(.ui-toast-icon) {
+        display: grid;
+        place-items: center;
+        inline-size: var(--ui-toast-icon-size, 1.5rem);
+        block-size: var(--ui-toast-icon-size, 1.5rem);
+        border-radius: var(--ui-radius-pill);
+        background: var(--ui-toast-icon-background, var(--_ui-soft, var(--ui-success-soft)));
+        color: var(--ui-toast-icon-text, var(--_ui-tone, var(--ui-success-solid)));
+        font-size: var(--ui-toast-icon-font-size, 0.6875rem);
+        font-weight: 850;
+        line-height: 1;
+    }
+    :where(.ui-toast-body) {
+        min-inline-size: 0;
+    }
+    /* Optical nudge only when title sits above a description. */
+    :where(.ui-toast:has(.ui-toast-message) .ui-toast-body) {
+        padding-block-start: 0.0625rem;
+    }
+    :where(.ui-toast-title) {
+        display: block;
+        margin: 0;
+        font-size: var(--ui-toast-title-size, 0.75rem);
+        font-weight: var(--ui-toast-title-weight, var(--ui-font-weight-strong));
+        line-height: var(--ui-leading-body);
+        color: var(--ui-toast-title-text, var(--ui-text));
+    }
+    :where(.ui-toast-title + .ui-toast-message) {
+        margin-block-start: 0.125rem;
+    }
+    :where(.ui-toast-message) {
+        margin: 0;
+        font-size: var(--ui-toast-message-size, 0.6875rem);
+        line-height: var(--ui-leading-body);
+        color: var(--ui-toast-message-text, var(--ui-text-muted));
+    }
+    :where(.ui-toast-actions) {
+        display: flex;
+        align-items: center;
+        gap: var(--ui-space-1);
+        flex-shrink: 0;
+    }
+    :where(.ui-toast-actions .ui-icon-button) {
+        --ui-button-min-size: 1.75rem;
+    }
+    :where(.ui-toast-actions .ui-button:not(.ui-icon-button)) {
+        min-block-size: 1.75rem;
+        padding-inline: 0.5rem;
+        font-size: var(--ui-font-size-xs);
+    }
+    :where(ui-menu, ui-tabs, ui-tree, ui-combobox, ui-popover, ui-dialog, ui-toast) {
+        display: block;
+    }
+}
+
+@layer ui.components {
+    :where(.ui-section-nav) {
+        display: flex;
+        align-items: center;
+        gap: var(--ui-section-nav-gap, var(--ui-space-1));
+        padding: var(--ui-section-nav-padding, var(--ui-space-1));
+        border-radius: var(--ui-section-nav-radius, 0);
+        background: var(--ui-section-nav-background, var(--ui-surface));
+        overflow-x: auto;
+    }
+    :where(.ui-section-nav-link) {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        gap: var(--ui-space-2);
+        min-block-size: var(--ui-control-min-size);
+        padding: var(--ui-space-1) var(--ui-space-2);
+        border: var(--ui-border-width) solid transparent;
+        border-radius: var(--ui-radius-md);
+        color: var(--ui-section-nav-text, var(--ui-text-secondary));
+        font-size: var(--ui-control-font-size);
+        font-weight: var(--ui-font-weight-medium);
+        text-decoration: none;
+        white-space: nowrap;
+        transition:
+            background var(--ui-duration-fast) var(--ui-ease-standard),
+            color var(--ui-duration-fast) var(--ui-ease-standard);
+    }
+    :where(.ui-section-nav-link .ui-icon) {
+        color: var(--ui-text-muted);
+    }
+    :where(.ui-section-nav-link[data-utility='true']) {
+        margin-inline-start: auto;
+    }
+    :where(.ui-section-nav-link:hover) {
+        background: var(--ui-section-nav-hover-background, var(--ui-hover));
+        color: var(--ui-text);
+        text-decoration: none;
+    }
+    :where(.ui-section-nav-link[aria-current='page']) {
+        background: var(--ui-section-nav-selected-background, var(--ui-selected));
+        border-color: var(--ui-section-nav-selected-border, transparent);
+        color: var(--ui-section-nav-selected-text, var(--ui-text));
+        box-shadow: none;
+    }
+    :where(.ui-section-nav-link[aria-current='page'] .ui-icon) {
+        color: var(--ui-info-solid);
+    }
+    :where(.ui-section-nav-link:focus-visible) {
+        outline: var(--ui-focus-width) solid var(--ui-focus-colour);
+        outline-offset: calc(-1 * var(--ui-focus-width));
+    }
+    @media (pointer: coarse) {
+        :where(.ui-section-nav-link) {
+            min-block-size: max(var(--ui-control-min-size), var(--ui-target-min));
+        }
+    }
+}

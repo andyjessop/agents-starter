@@ -1,0 +1,22 @@
+/*
+ * Application theme packs.
+ *
+ * These sit in @layer themes — a top-level layer after app (see design-system
+ * theme.css). Nested app.themes loses to direct @layer app rules; a sibling
+ * themes layer is what actually lets packs override product module CSS.
+ * ui.preferences still wins for reduced motion / contrast / forced colours.
+ *
+ * Each pack sets both *-light and *-dark primitives on :root[data-app-theme].
+ * Light / Dark / System (data-ui-theme) continues to pick via light-dark().
+ * The Default pack is the shared interface standard at
+ * @agent-starter/design-system/themes/default.css (re-exported from ./default.css).
+ * Catppuccin Macchiato (./macchiato.css, palette from
+ * @agent-starter/design-system/themes/macchiato.css) is the initial pack. TFM hybrid
+ * stays host-only.
+ *
+ * Add a pack: create <id>.css, import it below, and register the id in app-theme.tsx.
+ */
+
+@import "./default.css";
+@import "./macchiato.css";
+@import "./tfm.css";

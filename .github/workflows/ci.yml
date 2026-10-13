@@ -1,0 +1,33 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          cache: npm
+
+      - run: npm ci
+
+      - name: Root Biome
+        run: npx biome check --error-on-warnings biome.json nx.json tsconfig.base.json package.json vitest.workspace.ts scripts
+
+      - uses: nrwl/nx-set-shas@v4
+
+      - name: Nx affected (pull request)
+        if: github.event_name == 'pull_request'
+        run: npx nx affected -t lint,test,typecheck,build
+
+      - name: Nx full suite (main)
+        if: github.event_name == 'push'
+        run: npx nx run-many -t lint,test,typecheck,build --all

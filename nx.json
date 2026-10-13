@@ -1,0 +1,20 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "defaultBase": "main",
+  "useDaemonProcess": false,
+  "targetDefaults": {
+    "test": {
+      "dependsOn": []
+    },
+    "typecheck": {
+      "dependsOn": []
+    },
+    "format": {
+      "dependsOn": []
+    },
+    "lint": {
+      "dependsOn": []
+    }
+  },
+  "analytics": false
+}

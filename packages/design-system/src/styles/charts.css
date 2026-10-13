@@ -1,0 +1,107 @@
+@import './theme.css';
+@import 'uplot/dist/uPlot.min.css' layer(ui.base);
+
+@layer ui.components {
+    :where(.ui-line-chart) {
+        display: grid;
+        gap: var(--ui-line-chart-gap, var(--ui-space-2));
+        margin: 0;
+        min-inline-size: 0;
+        color: var(--ui-line-chart-text, var(--ui-text));
+    }
+
+    :where(.ui-line-chart-plot) {
+        inline-size: 100%;
+        block-size: var(--ui-line-chart-height, var(--ui-chart-height));
+        min-block-size: var(--ui-line-chart-height, var(--ui-chart-height));
+        margin-block-end: var(--ui-chart-legend-space);
+    }
+
+    :where(.ui-line-chart) .uplot {
+        inline-size: 100%;
+        font-family: var(--ui-line-chart-font-family, var(--ui-body-font));
+        font-size: var(--ui-line-chart-font-size, var(--ui-caption-size));
+        color: var(--ui-line-chart-text, var(--ui-text));
+        line-height: var(--ui-leading-tight);
+    }
+
+    :where(.ui-line-chart) .u-legend {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        gap: var(--ui-space-4);
+        padding-block: var(--ui-space-3);
+        text-align: start;
+        font-size: var(--ui-line-chart-font-size, var(--ui-caption-size));
+        color: var(--ui-line-chart-axis, var(--ui-chart-axis));
+    }
+
+    :where(.ui-line-chart) .u-marker {
+        border-radius: var(--ui-radius-pill);
+    }
+
+    :where(.ui-line-chart) .u-value {
+        font-family: var(--ui-font-mono);
+        font-variant-numeric: tabular-nums;
+    }
+
+    :where(.ui-line-chart) .u-cursor-x,
+    :where(.ui-line-chart) .u-cursor-y {
+        border-color: var(--ui-line-chart-cursor, var(--ui-chart-axis));
+    }
+
+    :where(.ui-line-chart) .u-select {
+        background: color-mix(in oklch, var(--ui-text) var(--ui-active-weight), transparent);
+    }
+
+    :where(.ui-chart-data) {
+        border: 0;
+        border-block-start: var(--ui-border-width) solid var(--ui-line);
+        border-radius: 0;
+        background: transparent;
+        overflow-x: auto;
+    }
+    :where(.ui-chart-data > summary) {
+        padding: var(--ui-space-2) 0;
+        color: var(--ui-text-secondary);
+        font-size: var(--ui-caption-size);
+    }
+    :where(.ui-chart-data > .ui-accordion-content) {
+        padding: 0;
+    }
+    :where(.ui-line-chart-empty) {
+        margin: 0;
+        color: var(--ui-line-chart-axis, var(--ui-chart-axis));
+        font-size: var(--ui-line-chart-font-size, var(--ui-caption-size));
+    }
+
+    :where(.ui-sparkline) {
+        display: grid;
+        margin: 0;
+        min-inline-size: 0;
+        block-size: var(--ui-sparkline-height, 2.5rem);
+        color: var(--ui-line-chart-text, var(--ui-text));
+    }
+
+    :where(.ui-sparkline-plot) {
+        inline-size: 100%;
+        block-size: 100%;
+        min-block-size: 0;
+        margin: 0;
+    }
+
+    :where(.ui-sparkline) .uplot {
+        inline-size: 100%;
+        block-size: 100%;
+    }
+
+    :where(.ui-sparkline) .u-legend {
+        display: none;
+    }
+
+    :where(.ui-sparkline-empty) {
+        block-size: 100%;
+        border-radius: var(--ui-radius-sm);
+        background: color-mix(in srgb, var(--ui-line) 40%, transparent);
+    }
+}

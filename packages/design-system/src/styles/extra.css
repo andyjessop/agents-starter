@@ -1,0 +1,81 @@
+@layer ui.components {
+    :where(.ui-transfer) {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--ui-grid-item-min)), 1fr));
+        gap: var(--ui-layout-gap);
+    }
+    :where(.ui-transfer-item) {
+        display: flex;
+        align-items: center;
+        gap: var(--ui-control-gap);
+        padding-block: var(--ui-control-padding-block);
+    }
+    :where(.ui-snackbar-host:has(.ui-snackbar-actions)) {
+        position: fixed;
+        inset-block-end: var(--ui-overlay-margin);
+        inset-inline-end: var(--ui-overlay-margin);
+        z-index: var(--ui-z-notification);
+        display: flex;
+        align-items: center;
+        gap: var(--ui-control-gap);
+        max-inline-size: var(--ui-snackbar-max-inline-size);
+        padding: var(--ui-panel-padding);
+        background: var(--ui-popup-background);
+        color: var(--ui-text);
+        border: var(--ui-border-width) solid var(--ui-popup-border);
+        border-radius: var(--ui-popup-radius);
+        box-shadow: var(--ui-popup-shadow);
+    }
+    :where(.ui-snackbar-actions) {
+        display: flex;
+        gap: var(--ui-control-gap);
+    }
+    :where(.ui-table-scroll) {
+        inline-size: 100%;
+        overflow: auto;
+        border: var(--ui-border-width) var(--ui-border-style) var(--ui-panel-border);
+        border-radius: var(--ui-table-frame-radius, var(--ui-panel-radius));
+        background: var(--ui-table-frame-background, var(--ui-panel-background));
+        box-shadow: var(--ui-table-frame-shadow, var(--ui-card-shadow, var(--ui-shadow-sm)));
+        color: var(--ui-text);
+    }
+    :where(.ui-tree ul) {
+        list-style: none;
+        padding-inline-start: var(--ui-tree-indent);
+    }
+    :where(.ui-tree > ul) {
+        padding-inline-start: 0;
+    }
+    :where(.ui-chart) {
+        margin: 0;
+    }
+    :where(.ui-chart table) {
+        inline-size: 100%;
+        border-collapse: collapse;
+    }
+    :where(.ui-chart th) {
+        text-align: start;
+        font-weight: var(--ui-label-weight);
+        padding-inline-end: var(--ui-space-4);
+    }
+    :where(.ui-chart td) {
+        inline-size: 70%;
+        font-variant-numeric: tabular-nums;
+    }
+    :where(.ui-chart svg) {
+        inline-size: 80%;
+        block-size: var(--ui-space-4);
+        margin-inline-end: var(--ui-space-2);
+    }
+    :where(.ui-chart rect) {
+        fill: var(--ui-chart-1);
+    }
+    :where(.ui-masonry) {
+        column-width: var(--ui-grid-item-min);
+        column-gap: var(--ui-layout-gap);
+    }
+    :where(.ui-masonry > *) {
+        break-inside: avoid;
+        margin-block-end: var(--ui-layout-gap);
+    }
+}

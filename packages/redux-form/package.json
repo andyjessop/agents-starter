@@ -1,0 +1,29 @@
+{
+  "name": "redux-form",
+  "version": "0.1.0",
+  "description": "A small, Redux-first form runtime",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "@workspace/source": "./src/index.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "format": "biome format --write --no-errors-on-unmatched .",
+    "lint": "biome check --error-on-warnings --no-errors-on-unmatched .",
+    "test:unit": "node --experimental-strip-types --test test/*.test.mjs",
+    "test:coverage": "node --experimental-strip-types --test --experimental-test-coverage --test-coverage-include=src/index.ts test/*.test.mjs",
+    "test": "npm run typecheck && npm run test:unit && npm run build",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "peerDependencies": {
+    "redux": ">=4.2.0"
+  }
+}

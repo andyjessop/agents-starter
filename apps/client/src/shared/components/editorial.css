@@ -1,0 +1,263 @@
+@layer app {
+  .app-shell {
+    --app-masthead-height: 10.5rem;
+    --app-title-size: clamp(2rem, 3.4vw, 3rem);
+    --app-copy-width: 64ch;
+    --app-masthead-image: url("/editorial-landscape.svg");
+    --app-masthead-wash: light-dark(
+      rgb(251 247 237 / 78%),
+      rgb(26 28 23 / 88%)
+    );
+    --app-grid-min: 13rem;
+    --app-stat-size: 2rem;
+  }
+  .app-masthead {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--ui-space-5);
+    min-block-size: var(--app-masthead-height);
+    padding: var(--ui-space-6);
+    border: var(--ui-border-width) solid var(--ui-line-strong);
+    border-radius: var(--ui-panel-radius);
+    background:
+      linear-gradient(
+        var(--app-masthead-wash),
+        var(--app-masthead-wash)
+      ),
+      var(--app-masthead-image) center / cover;
+  }
+  .app-masthead-copy {
+    max-inline-size: var(--app-copy-width);
+    min-inline-size: 0;
+  }
+  .app-masthead-title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--ui-space-3);
+  }
+  .app-masthead h1 {
+    font-size: var(--app-title-size);
+    overflow-wrap: anywhere;
+  }
+  .app-masthead p {
+    margin-block: var(--ui-space-2);
+  }
+  .app-eyebrow {
+    font-family: var(--ui-control-font-family);
+    font-size: var(--ui-font-size-xs);
+    font-weight: var(--ui-font-weight-strong);
+    letter-spacing: var(--ui-tracking-label);
+    text-transform: uppercase;
+    color: var(--ui-text-secondary);
+  }
+  .app-masthead-actions,
+  .app-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-3);
+  }
+  .app-masthead-actions {
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .app-toolbar {
+    align-items: end;
+  }
+  .app-toolbar > .ui-field {
+    flex: 1 1 var(--app-grid-min);
+  }
+  .app-panel {
+    min-inline-size: 0;
+    padding: var(--ui-space-5);
+    border: var(--ui-border-width) solid var(--ui-line);
+    border-radius: var(--ui-panel-radius);
+    background: var(--ui-panel-background);
+    display: flex;
+    flex-direction: column;
+    gap: var(--ui-space-4);
+  }
+  .app-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(min(100%, var(--app-grid-min)), 1fr)
+      );
+    gap: var(--ui-space-4);
+  }
+  .app-stat {
+    margin: 0;
+    font-size: var(--app-stat-size);
+    font-variant-numeric: tabular-nums;
+  }
+  .app-panel h2,
+  .app-panel p {
+    margin: 0;
+  }
+  .app-section > h2 {
+    padding-block-start: var(--ui-space-5);
+    border-block-start: var(--ui-border-width) solid var(--ui-line);
+  }
+  .app-section > .ui-button {
+    align-self: flex-start;
+  }
+  .app-inline-actions {
+    flex-wrap: wrap;
+  }
+  .app-table {
+    font-variant-numeric: tabular-nums;
+  }
+  .app-table td {
+    vertical-align: middle;
+  }
+  .app-resource-id {
+    display: block;
+    color: var(--ui-text-muted);
+    font-family: var(--ui-font-mono);
+    font-size: var(--ui-font-size-xs);
+  }
+  .app-status {
+    display: inline-flex;
+    padding: var(--ui-space-1) var(--ui-space-2);
+    border: var(--ui-border-width) solid var(--ui-line);
+    border-radius: var(--ui-radius-pill);
+    background: var(--ui-surface-sunken);
+    font-family: var(--ui-control-font-family);
+    font-size: var(--ui-font-size-xs);
+    white-space: nowrap;
+  }
+  .app-status[data-status="active"],
+  .app-status[data-status="reachable"] {
+    background: var(--ui-success-soft);
+    color: var(--ui-success-solid);
+  }
+  .app-status[data-status="paused"],
+  .app-status[data-status="unreachable"],
+  .app-status[data-status="awaiting_pairing"] {
+    background: var(--ui-warning-soft);
+    color: var(--ui-warning-solid);
+  }
+  .app-entity-summary {
+    padding-inline: var(--ui-space-1);
+  }
+  .app-checklist {
+    margin: 0;
+    padding-inline-start: var(--ui-space-5);
+  }
+  .app-checklist li {
+    padding-block: var(--ui-space-2);
+  }
+  @media (max-width: 44rem) {
+    .app-masthead {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .app-masthead-actions {
+      justify-content: flex-start;
+    }
+  }
+  .app-empty {
+    padding: var(--ui-space-6);
+    border: var(--ui-border-width) dashed var(--ui-line-strong);
+    border-radius: var(--ui-panel-radius);
+    background: var(--ui-surface);
+    text-align: center;
+  }
+  .app-shell input,
+  .app-shell select,
+  .app-shell textarea {
+    font-family: var(--ui-control-font-family);
+  }
+}
+@layer app {
+  .app-shell {
+    --app-font-editorial:
+      "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia,
+      serif;
+    --app-font-utility:
+      ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      sans-serif;
+    --ui-control-radius: 0.4rem;
+    --ui-item-radius: 0.4rem;
+    --ui-panel-radius: 0.5rem;
+    --ui-card-radius: 0.5rem;
+    --ui-table-frame-radius: 0.5rem;
+    --ui-control-font-family: var(--app-font-utility);
+  }
+  .app-shell :is(h1, h2, h3) {
+    font-family: var(--app-font-editorial);
+  }
+  .app-shell
+    :is(
+      .ui-button,
+      .ui-badge,
+      .ui-chip,
+      .app-eyebrow,
+      .app-status,
+      input,
+      select,
+      textarea
+    ) {
+    font-family: var(--app-font-utility);
+  }
+  .app-shell-main a {
+    color: var(--ui-accent-solid);
+    text-underline-offset: var(--ui-space-1);
+  }
+  .app-panel > .ui-button {
+    align-self: flex-start;
+  }
+}
+@layer app {
+  .app-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--ui-space-5);
+    margin: 0;
+  }
+  .app-facts dt {
+    font-family: var(--app-font-utility);
+    font-size: var(--ui-font-size-xs);
+    color: var(--ui-text-muted);
+    margin-block-end: var(--ui-space-2);
+  }
+  .app-facts dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+  .app-panel,
+  .app-section {
+    overflow-wrap: anywhere;
+  }
+}
+@layer app {
+  .app-shell .ui-table-scroll {
+    max-inline-size: 100%;
+    min-inline-size: 0;
+    overflow-x: auto;
+  }
+  .app-shell .ui-table-scroll:focus-visible {
+    outline: var(--ui-focus-width) solid var(--ui-focus-colour);
+    outline-offset: var(--ui-focus-offset);
+  }
+}
+@layer app {
+  .app-table :is(th, td) {
+    white-space: nowrap;
+  }
+}
+@layer app {
+  .app-event-drawer {
+    --ui-drawer-inline-size: min(38rem, 100vw);
+  }
+}
+@layer app {
+  .app-panel > form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--ui-space-4);
+  }
+  .app-panel > form > .ui-button {
+    align-self: flex-start;
+  }
+}

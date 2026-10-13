@@ -1,0 +1,58 @@
+@layer ui.reset {
+    :where(.ui-theme, .ui-theme *, .ui-theme *::before, .ui-theme *::after) {
+        box-sizing: border-box;
+    }
+    :where(fieldset) {
+        border: 0;
+        margin: 0;
+        min-inline-size: 0;
+        padding: 0;
+    }
+    :where(legend) {
+        padding: 0;
+    }
+}
+@layer ui.base {
+    :where(:root, [data-ui-scope], [data-ui-theme], [data-ui-density]) {
+        /* Shared defaults re-resolve at the same boundaries as the palette. */
+        --ui-link-decoration: none;
+        --ui-link-offset: 0.18em;
+        --ui-skeleton-min-size: 1rem;
+        --ui-skeleton-min-inline-size: 6rem;
+        --ui-tooltip-padding: var(--ui-space-2);
+        --ui-overlay-margin: var(--ui-space-4);
+        --ui-status-background: var(--ui-surface-sunken);
+        --ui-status-text: var(--ui-text);
+    }
+    :where(.ui-theme) {
+        color: var(--ui-text);
+        background: var(--ui-canvas);
+        font-family: var(--ui-body-font);
+        font-size: var(--ui-body-size);
+        line-height: var(--ui-body-leading);
+        -webkit-font-smoothing: antialiased;
+    }
+    :where(.ui-theme button, .ui-theme input, .ui-theme textarea, .ui-theme select) {
+        font: inherit;
+    }
+    :where(.ui-theme :focus-visible) {
+        outline: var(--ui-focus-width) var(--ui-focus-style) var(--ui-focus-colour);
+        outline-offset: var(--ui-focus-offset);
+    }
+    :where(.ui-theme [hidden]) {
+        display: none;
+    }
+}
+@layer ui.utilities {
+    .ui-visually-hidden {
+        position: absolute;
+        inline-size: 1px;
+        block-size: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+        border: 0;
+    }
+}

@@ -1,0 +1,26 @@
+/*
+ * App re-export of the shared Agent Starter interface-standard pack.
+ * Source of truth: @agent-starter/design-system/themes/default.css
+ */
+@import "../../../../../../packages/design-system/src/styles/themes/default.css";
+
+/* The brief explicitly chooses tighter geometry than the live HTML cascade. */
+@layer themes {
+  :root[data-app-theme="default"] {
+    --ui-control-radius: 0.4rem;
+    --ui-item-radius: 0.4rem;
+    --ui-panel-radius: 0.5rem;
+    --ui-card-radius: 0.5rem;
+    --ui-table-frame-radius: 0.5rem;
+    --ui-popup-radius: 0.5rem;
+    --ui-panel-shadow: var(--ui-shadow-sm);
+  }
+}
+@layer themes {
+  :root[data-app-theme="default"] .app-shell .ui-button {
+    --ui-button-radius: var(--ui-control-radius);
+  }
+  :root[data-app-theme="default"] .app-shell :is(input, select, textarea) {
+    font-family: var(--ui-control-font-family);
+  }
+}

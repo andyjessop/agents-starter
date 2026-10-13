@@ -1,0 +1,441 @@
+/*
+ * TFM hybrid pack — dark IDE shell set in JetBrains Mono.
+ *
+ * Visual reference: host-only TFM hybrid pack (optional).
+ * The prototype palette maps onto design-system primitives (dark pairs) with
+ * a matching light register, then onto the shell and browse properties the
+ * console modules declare. Light / Dark / System still pick via light-dark().
+ */
+@import "@fontsource-variable/jetbrains-mono";
+
+@layer themes {
+  :root[data-app-theme="tfm"] {
+    /* ------------------------------------------------------------------ */
+    /* 1. Primitive inputs                                                 */
+    /* ------------------------------------------------------------------ */
+    --ui-font-sans: "JetBrains Mono Variable", "JetBrains Mono", ui-monospace,
+      SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --ui-font-mono: var(--ui-font-sans);
+    --ui-font-weight-strong: 650;
+    --ui-tracking-tight: -0.035em;
+    --ui-tracking-label: 0.1em;
+
+    --ui-canvas-light: #f4f6f9;
+    --ui-canvas-dark: #0b0f14;
+    --ui-surface-light: #ffffff;
+    --ui-surface-dark: #101720;
+    --ui-surface-raised-light: #ffffff;
+    --ui-surface-raised-dark: #151e29;
+    --ui-surface-sunken-light: #eaeef3;
+    --ui-surface-sunken-dark: #0f141b;
+
+    --ui-text-light: #2a3540;
+    --ui-text-dark: #c8d2de;
+    --ui-text-secondary-light: #3b4856;
+    --ui-text-secondary-dark: #b4c0cc;
+    --ui-text-muted-light: #5f6b78;
+    --ui-text-muted-dark: #7e8b98;
+
+    --ui-line-light: #d3dae2;
+    --ui-line-dark: #263340;
+    --ui-line-strong-light: #b5c0cc;
+    --ui-line-strong-dark: #31465a;
+
+    --ui-accent-light: #2f5fb8;
+    --ui-accent-dark: #8ab4ff;
+    --ui-on-accent-light: #ffffff;
+    --ui-on-accent-dark: #10151d;
+    --ui-accent-hover-light: #244c97;
+    --ui-accent-soft-light: #dde8fb;
+    --ui-accent-bright-light: #2f5fb8;
+    --ui-accent-bright-dark: #a9c8ff;
+    --ui-on-accent-soft-light: #13294f;
+    --ui-on-accent-soft-dark: #dbe7ff;
+
+    --ui-success-light: #2f7a43;
+    --ui-success-dark: #9fe3ad;
+    --ui-on-success-light: #ffffff;
+    --ui-on-success-dark: #0b140e;
+    --ui-success-soft-light: #dcf1e1;
+
+    --ui-warning-light: #94661c;
+    --ui-warning-dark: #e4bc77;
+    --ui-on-warning-light: #ffffff;
+    --ui-on-warning-dark: #1a1309;
+    --ui-warning-soft-light: #f6ead3;
+
+    --ui-danger-light: #b23b3b;
+    --ui-danger-dark: #f28a8a;
+    --ui-on-danger-light: #ffffff;
+    --ui-on-danger-dark: #1d0b0b;
+    --ui-danger-soft-light: #f8dede;
+
+    --ui-info-light: #1f7a7b;
+    --ui-info-dark: #88dfe0;
+    --ui-on-info-light: #ffffff;
+    --ui-on-info-dark: #071515;
+    --ui-info-soft-light: #d7f1f1;
+
+    --ui-status-success-line-light: #a9d6b4;
+    --ui-status-warning-line-light: #e2c896;
+    --ui-status-danger-line-light: #e6aaaa;
+    --ui-status-info-line-light: #a3d8d9;
+    --ui-status-success-surface-light: #eef8f0;
+    --ui-status-warning-surface-light: #fbf4e6;
+    --ui-status-danger-surface-light: #fcefef;
+    --ui-status-info-surface-light: #ecf8f8;
+
+    --ui-hover-weight: 6%;
+    --ui-selected-weight: 14%;
+    --ui-disabled-opacity: 0.45;
+
+    --ui-backdrop-light: rgb(29 39 51 / 38%);
+    --ui-backdrop-dark: rgb(4 6 9 / 73%);
+    --ui-shadow-ink-light: rgb(29 39 51 / 14%);
+    --ui-shadow-ink-dark: rgb(0 0 0 / 45%);
+
+    /* ------------------------------------------------------------------ */
+    /* 2. Derived roles                                                    */
+    /* ------------------------------------------------------------------ */
+    --ui-font-size-xs: 0.75rem;
+    --ui-font-size-sm: 0.8125rem;
+    --ui-font-size-md: 0.875rem;
+    --ui-radius-sm: 0.25rem;
+    --ui-radius-md: 0.375rem;
+    --ui-radius-lg: 0.45rem;
+    --ui-body-font: var(--ui-font-sans);
+    --ui-body-size: 0.875rem;
+    --ui-body-leading: 1.5;
+    --ui-heading-weight: 700;
+    --ui-heading-leading: 1.15;
+    --ui-heading-tracking: -0.035em;
+    --ui-label-size: 0.75rem;
+    --ui-label-weight: 600;
+    --ui-caption-size: 0.75rem;
+
+    --ui-control-min-size: 2rem;
+    --ui-control-padding-inline: 0.6rem;
+    --ui-control-padding-block: 0.3rem;
+    --ui-control-gap: 0.35rem;
+    --ui-control-font-family: var(--ui-font-sans);
+    --ui-control-font-size: 0.8125rem;
+    --ui-control-font-weight: 500;
+    --ui-control-radius: 0.3rem;
+    --ui-control-background: light-dark(#ffffff, #151e29);
+    --ui-control-text: light-dark(#2a3540, #c8d2de);
+    --ui-control-placeholder: light-dark(#7a8794, #53606d);
+    --ui-control-border: light-dark(#c5ced8, #263340);
+    --ui-control-selected: light-dark(#2f5fb8, #8ab4ff);
+    --ui-control-shadow: none;
+    --ui-control-hover-border: light-dark(#2f5fb8, #8ab4ff);
+    --ui-control-hover-background: light-dark(#f7f9fc, #1a2431);
+    --ui-control-focus-border: light-dark(#2f5fb8, #45617f);
+    --ui-control-focus-outline: light-dark(rgb(47 95 184 / 20%), rgb(138 180 255 / 22%));
+    --ui-control-focus-outline-width: 2px;
+    --ui-control-focus-outline-offset: 1px;
+
+    --ui-item-radius: 0.3rem;
+    --ui-panel-radius: 0.45rem;
+    --ui-card-radius: 0.45rem;
+    --ui-table-frame-radius: 0.45rem;
+    --ui-popup-radius: 0.45rem;
+    --ui-alert-radius: 0.4rem;
+    --ui-dialog-radius: 0.55rem;
+    --ui-chip-radius: var(--ui-radius-pill);
+    --ui-panel-shadow: none;
+
+    --ui-chrome-background: light-dark(rgb(244 246 249 / 96%), rgb(11 15 20 / 96%));
+    --ui-chrome-text: light-dark(#5f6b78, #7e8b98);
+    --ui-chrome-line: light-dark(#dde3ea, #1b2631);
+    --ui-chrome-focus: light-dark(#2f5fb8, #8ab4ff);
+
+    --ui-accent-soft: light-dark(var(--ui-accent-soft-light), #1b2a3a);
+    --ui-success-soft: light-dark(var(--ui-success-soft-light), #15261b);
+    --ui-warning-soft: light-dark(var(--ui-warning-soft-light), #2a2214);
+    --ui-danger-soft: light-dark(var(--ui-danger-soft-light), #2c1617);
+    --ui-info-soft: light-dark(var(--ui-info-soft-light), #112627);
+    --ui-hover: light-dark(rgb(47 95 184 / 6%), rgb(138 180 255 / 6%));
+    --ui-selected: light-dark(#e3ecfb, #1b2a3a);
+
+    /* Prototype palette as pack-scoped names for the console overrides below. */
+    --tfm-bg: light-dark(#f4f6f9, #0b0f14);
+    --tfm-bg2: light-dark(#eef1f5, #0f141b);
+    --tfm-panel: light-dark(#ffffff, #101720);
+    --tfm-panel2: light-dark(#f7f9fc, #151e29);
+    --tfm-panel3: light-dark(#e8edf3, #1a2431);
+    --tfm-sel: light-dark(#e3ecfb, #1b2a3a);
+    --tfm-text: light-dark(#2a3540, #c8d2de);
+    --tfm-strong: light-dark(#1a232c, #e4eaf0);
+    --tfm-muted: light-dark(#5f6b78, #7e8b98);
+    --tfm-faint: light-dark(#7a8794, #53606d);
+    --tfm-line: light-dark(#d3dae2, #263340);
+    --tfm-line-soft: light-dark(#e1e6ec, #1b2631);
+    --tfm-sel-line: light-dark(#b8cbef, #31465a);
+    --tfm-accent: light-dark(#2f5fb8, #8ab4ff);
+    --tfm-wash: light-dark(rgb(47 95 184 / 5%), rgb(138 180 255 / 5%));
+    --tfm-sel-edge: light-dark(rgb(47 95 184 / 14%), rgb(138 180 255 / 7%));
+  }
+
+  /* -------------------------------------------------------------------- */
+  /* 3. App module properties                                          */
+  /* -------------------------------------------------------------------- */
+  :root[data-app-theme="tfm"] .app-shell {
+    letter-spacing: -0.012em;
+
+    --app-font-editorial: var(--ui-font-sans);
+    --app-font-utility: var(--ui-font-sans);
+    --ui-control-font-family: var(--ui-font-sans);
+    --ui-control-radius: 0.3rem;
+    --ui-item-radius: 0.3rem;
+    --ui-panel-radius: 0.45rem;
+    --ui-card-radius: 0.45rem;
+    --ui-table-frame-radius: 0.45rem;
+
+    --app-masthead-height: auto;
+    --app-masthead-image: none;
+    --app-masthead-wash: transparent;
+    --app-title-size: 1.375rem;
+    --app-stat-size: 1.625rem;
+    --shell-page-heading-block: auto;
+
+    /* Rail */
+    --shell-rail-width: 17rem;
+    --shell-rail-compact-width: 3.25rem;
+    --shell-rail-mobile-width: min(15rem, 86vw);
+    --shell-topbar-height: 2.625rem;
+    --shell-content-max: none;
+    --shell-content-pad-block: 0.7rem 1rem;
+    --shell-content-pad-inline: 0.7rem;
+    --shell-content-pad-inline-narrow: 0.6rem;
+    --shell-brand-mark-size: 2.1rem;
+    --shell-nav-row-height: 1.875rem;
+    --shell-nav-group-gap: 0.4rem;
+    --shell-profile-avatar-size: 1.6rem;
+    --shell-font-brand: var(--ui-font-sans);
+    --shell-font-ui: var(--ui-font-sans);
+    --shell-brand-size: 1rem;
+    --shell-brand-tag-size: 0.75rem;
+    --shell-brand-tag-tracking: 0.035em;
+    --shell-nav-label-size: 0.75rem;
+    --shell-nav-label-tracking: 0.1em;
+    --shell-nav-link-size: 0.8125rem;
+    --shell-nav-link-weight: 500;
+    --shell-topbar-title-size: 0.8125rem;
+
+    --shell-rail-wash: var(--tfm-bg2);
+    --shell-topbar-wash: light-dark(rgb(244 246 249 / 96%), rgb(11 15 20 / 96%));
+    --shell-rail-line: var(--tfm-line-soft);
+    --shell-rail-line-soft: var(--tfm-line-soft);
+    --shell-rail-line-divider: var(--tfm-line);
+    --shell-rail-text: var(--tfm-text);
+    --shell-brand-text: var(--tfm-strong);
+    --shell-rail-muted: var(--tfm-muted);
+    --shell-nav-label-color: var(--tfm-faint);
+    --shell-nav-text: var(--tfm-text);
+    --shell-nav-icon: var(--tfm-muted);
+    --shell-nav-hover-bg: var(--tfm-wash);
+    --shell-nav-hover-line: transparent;
+    --shell-nav-hover-text: var(--tfm-strong);
+    --shell-nav-active-bg: var(--tfm-sel);
+    --shell-nav-active-line: var(--tfm-sel-edge);
+    --shell-nav-active-text: var(--tfm-strong);
+    --shell-nav-active-bar: var(--tfm-accent);
+    --shell-nav-active-icon: var(--tfm-accent);
+    --shell-nav-active-inset: transparent;
+    --shell-workspace-bg: var(--tfm-panel);
+    --shell-workspace-bg-hover: var(--tfm-panel2);
+    --shell-workspace-border: var(--tfm-line);
+    --shell-workspace-border-hover: var(--tfm-sel-line);
+    --shell-workspace-inset: transparent;
+    --shell-workspace-drop: transparent;
+    --shell-profile-hover-bg: var(--tfm-panel3);
+    --shell-profile-name: var(--tfm-text);
+    --shell-profile-detail: var(--tfm-muted);
+    --shell-rail-edge-inset: transparent;
+    --shell-rail-edge-shadow: none;
+    --shell-topbar-shadow: none;
+    --shell-brand-mark-highlight: transparent;
+    --shell-topbar-title-color: var(--tfm-muted);
+    --shell-tip-bg: var(--tfm-panel3);
+    --shell-tip-text: var(--tfm-strong);
+    --shell-radius-nav: 0.375rem;
+    --shell-radius-workspace: 0.375rem;
+    --shell-radius-control: 0.3rem;
+    --shell-paper-noise: none;
+
+    /* Workspace chrome */
+    --shell-explorer-width: 32rem;
+    --shell-status-height: 1.5rem;
+    --shell-status-size: 0.75rem;
+    --shell-status-bg: var(--tfm-bg);
+    --shell-status-text: var(--tfm-muted);
+    --shell-topbar-gap: 0.25rem;
+    --shell-topbar-pad-inline: 0.55rem;
+    --shell-crumb-size: 0.8125rem;
+    --shell-crumb-text: var(--tfm-muted);
+    --shell-crumb-current: var(--tfm-strong);
+    --shell-crumb-separator: "/";
+    --shell-crumb-separator-colour: var(--tfm-faint);
+    --shell-search-width: 13rem;
+    --shell-search-bg: var(--tfm-panel);
+    --shell-search-line: var(--tfm-line);
+    --shell-explorer-bg: var(--tfm-bg2);
+    --shell-explorer-line: var(--tfm-line-soft);
+    --shell-explorer-title-size: 0.75rem;
+    --shell-explorer-title-tracking: 0.1em;
+    --shell-explorer-row-height: 1.75rem;
+    --shell-explorer-row-size: 0.8125rem;
+    --shell-explorer-glyph: var(--tfm-muted);
+    --shell-explorer-selected-bg: var(--tfm-sel);
+    --shell-explorer-selected-text: var(--tfm-strong);
+
+    /* Browse tiles */
+    --app-tile-min: 7.875rem;
+    --app-tile-gap: 0.5625rem;
+    --app-tile-min-block: 6.5rem;
+    --app-tile-padding: 0.625rem 0.5rem 0.5rem;
+    --app-tile-radius: 0.45rem;
+    --app-tile-glyph-size: 2.625rem;
+    --app-tile-glyph-colour: var(--tfm-accent);
+    --app-tile-name-size: 0.8125rem;
+    --app-tile-meta-size: 0.75rem;
+    --app-tile-hover: light-dark(rgb(47 95 184 / 4.5%), rgb(138 180 255 / 4.5%));
+    --app-tile-hover-line: var(--tfm-line-soft);
+    --app-tile-dot-size: 0.4375rem;
+    --app-tile-dot-ring: var(--tfm-bg);
+    --app-table-label-size: 0.75rem;
+  }
+
+  :root[data-app-theme="tfm"] .app-shell .ui-button {
+    --ui-button-radius: var(--ui-control-radius);
+  }
+
+  /* Buttons: prototype .btn (outline), .btn.primary (solid) and .btn.danger */
+  :root[data-app-theme="tfm"]
+    :where(
+      .ui-button[data-variant="solid"]:not([data-tone="danger"]),
+      .ui-button:not([data-variant]):not([data-tone="danger"])
+    ) {
+    --ui-button-text: var(--ui-accent-on-solid);
+    background: var(--tfm-accent);
+    border-color: var(--tfm-accent);
+    color: var(--ui-button-text);
+  }
+
+  :root[data-app-theme="tfm"]
+    :where(
+      .ui-button[data-variant="solid"]:not([data-tone="danger"]):hover:not(:disabled),
+      .ui-button:not([data-variant]):not([data-tone="danger"]):hover:not(:disabled)
+    ) {
+    background: var(--ui-accent-hover);
+    border-color: var(--ui-accent-hover);
+    color: var(--ui-button-text);
+  }
+
+  :root[data-app-theme="tfm"] :where(.ui-button[data-variant="outline"]) {
+    --ui-button-text: var(--tfm-text);
+    background: var(--tfm-panel2);
+    border-color: var(--tfm-line);
+    color: var(--ui-button-text);
+  }
+
+  :root[data-app-theme="tfm"] :where(.ui-button[data-variant="outline"]:hover:not(:disabled)) {
+    border-color: var(--tfm-accent);
+    color: var(--tfm-strong);
+  }
+
+  :root[data-app-theme="tfm"] :where(.ui-button[data-variant="ghost"]) {
+    --ui-button-text: var(--tfm-muted);
+    background: transparent;
+    border-color: transparent;
+    color: var(--ui-button-text);
+  }
+
+  :root[data-app-theme="tfm"] :where(.ui-button[data-variant="ghost"]:hover:not(:disabled)) {
+    background: var(--tfm-panel3);
+    color: var(--tfm-strong);
+  }
+
+  :root[data-app-theme="tfm"] :where(.ui-button[data-tone="danger"]) {
+    --ui-button-text: var(--ui-danger-solid);
+    background: var(--tfm-panel2);
+    border-color: var(--tfm-line);
+    color: var(--ui-button-text);
+  }
+
+  :root[data-app-theme="tfm"] :where(.ui-button[data-tone="danger"]:hover:not(:disabled)) {
+    border-color: var(--ui-danger-solid);
+  }
+
+  /* Rail: prototype sidebar lockup, section titles and side items */
+  :root[data-app-theme="tfm"] .app-shell-brand {
+    gap: 0.5rem;
+    padding: 0.75rem 0.7rem 0.7rem;
+    letter-spacing: -0.035em;
+  }
+
+  :root[data-app-theme="tfm"] .app-shell-brand-lockup strong {
+    font-weight: 700;
+  }
+
+  :root[data-app-theme="tfm"] .app-shell-brand-lockup small {
+    font-weight: 500;
+    line-height: 1.35;
+  }
+
+  :root[data-app-theme="tfm"] .app-shell-workspace {
+    padding: 0.55rem 0.4rem;
+  }
+
+  :root[data-app-theme="tfm"] .app-shell-rail-scroll {
+    padding: 0.35rem 0.4rem 0.6rem;
+  }
+
+  :root[data-app-theme="tfm"] .app-shell-nav-label {
+    margin: 0.4rem 0.4rem 0.3rem;
+  }
+
+  :root[data-app-theme="tfm"] .app-shell-nav-link {
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+  }
+
+  :root[data-app-theme="tfm"] .app-shell-nav-link[aria-current="page"]::before {
+    content: none;
+  }
+
+  :root[data-app-theme="tfm"] .app-shell-rail-footer {
+    border-block-start-style: dotted;
+  }
+
+  :root[data-app-theme="tfm"] .app-shell .app-masthead {
+    align-items: center;
+    justify-items: start;
+    padding: 0 0 var(--ui-space-2);
+    border: 0;
+    border-block-end: var(--ui-border-width) solid var(--tfm-line-soft);
+    border-radius: 0;
+    background: none;
+    text-align: start;
+  }
+
+  :root[data-app-theme="tfm"] .app-shell .app-masthead-actions {
+    justify-content: flex-end;
+  }
+
+  :root[data-app-theme="tfm"] .app-shell .ui-table :is(th, td) {
+    font-size: var(--ui-font-size-xs);
+  }
+
+  :root[data-app-theme="tfm"] .app-shell .ui-table th {
+    color: var(--tfm-muted);
+    font-size: var(--app-table-label-size);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  :root[data-app-theme="tfm"] .app-shell .ui-empty {
+    --ui-empty-min-block-size: 18rem;
+    color: var(--tfm-muted);
+  }
+}
