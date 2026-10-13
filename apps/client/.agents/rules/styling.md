@@ -45,6 +45,6 @@ Do not set CSS custom properties (or any product styling) through React `style={
 <Stack style={{ "--ui-stack-gap": "var(--ui-space-4)" }} />
 ```
 
-`pnpm lint` in this package runs `scripts/check-no-inline-theme-style.mjs`, which fails when TSX under `src/` assigns custom properties via `style`. See root `AGENTS.md` **Agent mistake enforcement** for the full lint script list.
+`npm run lint` in this package runs `scripts/check-no-inline-theme-style.mjs`, which fails when TSX under `src/` assigns custom properties via `style`. See root `AGENTS.md` **Agent mistake enforcement** for the full lint script list.
 
 Structural mechanics may stay literal: `display: flex`, `position: fixed`, `auto`, zero resets, full-size percentages and offscreen transforms. State, SVG path geometry, measured coordinates and breakpoint conditions are not theme tokens; keep them in their owning behaviour or structure. This exception does not cover visually chosen sizes, spacing or stacking levels.

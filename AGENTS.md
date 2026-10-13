@@ -1,6 +1,6 @@
 # Agent Starter engineering instructions
 
-Agent Starter is an npm workspaces monorepo: [`apps/client`](apps/client) (Redux-first SPA) and shared packages under [`packages/`](packages/). Biome formats and lints the repo. Use **npm** (no pnpm or proto required).
+Agent Starter is an npm workspaces monorepo: [`apps/client`](apps/client) (Redux-first SPA) and shared packages under [`packages/`](packages/). Biome formats and lints the repo. Use **npm**.
 
 ## Git safety: NEVER force push to `main`
 

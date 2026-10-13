@@ -514,7 +514,7 @@ There are no coverage-ignore comments.
 ### Compile-time guarantees
 
 ```sh
-pnpm typecheck
+npm run typecheck
 ```
 
 `@ts-expect-error` assertions verify unknown route names, missing inherited params, extra params, required query values, invalid enum values, wrong query types, invalid query patches, clearing required values, query shadowing, malformed child definitions, and invalid fallback shorthand.
@@ -524,8 +524,8 @@ Strict compiler options include `strict`, `exactOptionalPropertyTypes`, and `noU
 ### Playwright
 
 ```sh
-pnpm exec playwright install
-pnpm test:e2e
+npx playwright install
+npm run test:e2e
 ```
 
 The browser suite runs the built package against a real Redux store and local HTTP origin. It covers deep links, anchor interception, inherited guards, query defaults, atomic query patches, patch-vs-navigation supersession, preserved Back/Forward stacks after denied history attempts, rapid async history traversal, fallbacks, titles, and native `_blank` behaviour.
@@ -535,8 +535,8 @@ GitHub Actions runs Playwright independently on Chromium, Firefox, and WebKit.
 ## Full local check
 
 ```sh
-pnpm install
-pnpm test
+npm install
+npm test
 ```
 
 ## Teardown
